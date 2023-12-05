@@ -13,9 +13,7 @@ L’obiettivo del progetto è dunque quello di creare una piattaforma che permet
 
 
 ### Ingegneria del software
-Il progetto deve essere sviluppato in Java e successivamente portato su Spring Boot. Lo strato di presentazione può essere sviluppato con strumenti a scelta dello studente ed eventualmente può limitarsi alla linea di comando e/o API REST. 
-
-Si raccomanda di includere nel codice almeno un design pattern che non sia il Singleton.
+Il progetto deve essere sviluppato in Java e successivamente portato su Spring Boot. Lo strato di presentazione può essere sviluppato con strumenti a scelta dello studente ed eventualmente può limitarsi alla linea di comando e/o API REST.  Si raccomanda di includere nel codice almeno un design pattern che non sia il Singleton.
 
 ### Web e mobile
-Per quanto riguarda il modulo di applicazioni web e mobile è stato realizzato un frontend per l'applicazione utilizzando il framework AngularJS.
+Per quanto riguarda il modulo di applicazioni web e mobile è stato scelto di realizzare un frontend web(fruibile sia da desktop sia da mobile) utilizzando il framework AngularJS.
