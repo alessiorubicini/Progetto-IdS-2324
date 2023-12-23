@@ -1,5 +1,8 @@
 package it.unicam.cs.opencity.entity;
 
+import jakarta.persistence.Table;
+
+@Table(name = "ContentStatus")
 public enum ContentStatus {
 
     PENDING("Pending"),
@@ -7,9 +10,9 @@ public enum ContentStatus {
     REJECTED("Rejected"),
     DRAFT("Draft");
 
-    private final String text;
+    private final String status;
 
-    ContentStatus(String text) {
-        this.text = text;
+    ContentStatus(String status) {
+        this.status = status;
     }
 }

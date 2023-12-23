@@ -1,15 +1,14 @@
 package it.unicam.cs.opencity.entity;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "Role")
 public class Role {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
-
+    @Column(unique = true)
     private String title;
     private String description;
 
@@ -18,6 +17,8 @@ public class Role {
         this.title = title;
         this.description = description;
     }
+
+    public Role() { }
 
     public Integer getId() {
         return id;

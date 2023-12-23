@@ -1,18 +1,21 @@
 package it.unicam.cs.opencity.entity.report;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import it.unicam.cs.opencity.entity.User;
+import jakarta.persistence.*;
 
 import java.sql.Date;
 
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Report {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     private String description;
     private Date date;
-    private String userId;
+    @ManyToOne @JoinColumn(name = "userId")
+    private User author;
+
+    // TODO: da finire
 
 }

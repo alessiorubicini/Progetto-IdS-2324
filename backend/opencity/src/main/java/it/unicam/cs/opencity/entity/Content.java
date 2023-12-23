@@ -4,36 +4,40 @@ import it.unicam.cs.opencity.entity.point.Point;
 import jakarta.persistence.*;
 
 import java.sql.Date;
-import java.util.List;
 
+@Entity
+@Table(name = "Content")
 public class Content {
 
-    // TODO: Ricontrollare attributi e relazioni con DB
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     private String title;
     private String description;
-    @OneToOne(mappedBy = "Content")
-    private User author;
     private Date publicationDate;
-    @OneToOne(mappedBy = "Content")
-    private Point point;
+    @Enumerated(EnumType.STRING)
     private ContentStatus status;
-    @OneToMany(mappedBy = "Content")
-    private List<Attachment> attachments;
+    @ManyToOne @JoinColumn(name = "authorId")
+    private User author;
+    @ManyToOne @JoinColumn(name = "pointId")
+    private Point point;
+    @OneToOne @JoinColumn(name = "mediaId")
+    private Media media;
+    @ManyToOne @JoinColumn(name = "contestId")
+    private Contest contest;
 
-    public Content(Integer id, String title, String description, User author, Date publicationDate, Point point, ContentStatus status, List<Attachment> attachments) {
+    public Content(Integer id, String title, String description, Date publicationDate, ContentStatus status, User author, Point point, Media media, Contest contest) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.author = author;
         this.publicationDate = publicationDate;
-        this.point = point;
         this.status = status;
-        this.attachments = attachments;
+        this.author = author;
+        this.point = point;
+        this.media = media;
+        this.contest = contest;
     }
+
+    public Content() { }
 
     public Integer getId() {
         return id;
@@ -55,28 +59,12 @@ public class Content {
         this.description = description;
     }
 
-    public User getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
     public Date getPublicationDate() {
         return publicationDate;
     }
 
     public void setPublicationDate(Date publicationDate) {
         this.publicationDate = publicationDate;
-    }
-
-    public Point getPoint() {
-        return point;
-    }
-
-    public void setPoint(Point point) {
-        this.point = point;
     }
 
     public ContentStatus getStatus() {
@@ -87,11 +75,35 @@ public class Content {
         this.status = status;
     }
 
-    public List<Attachment> getAttachments() {
-        return attachments;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setAttachments(List<Attachment> attachments) {
-        this.attachments = attachments;
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public Point getPoint() {
+        return point;
+    }
+
+    public void setPoint(Point point) {
+        this.point = point;
+    }
+
+    public Media getMedia() {
+        return media;
+    }
+
+    public void setMedia(Media media) {
+        this.media = media;
+    }
+
+    public Contest getContest() {
+        return contest;
+    }
+
+    public void setContest(Contest contest) {
+        this.contest = contest;
     }
 }

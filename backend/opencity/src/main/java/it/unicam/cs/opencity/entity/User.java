@@ -1,27 +1,29 @@
 package it.unicam.cs.opencity.entity;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 
 import java.util.Map;
 
+@Entity
+@Table(name = "User")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
-    private String fiscalCode;
     private String name;
     private String surname;
+    @Column(unique = true)
+    private String fiscalCode;
+    @Column(unique = true)
     private String email;
     private String password;
 
+    // TODO: sistemare relazione ternaria ruoli
     @ManyToMany(mappedBy = "User")
-    private Map<Role, City> roles;
+    private Map<City, Role> roles;
 
-    public User(Integer id, String fiscalCode, String name, String surname, String email, String password, Map<Role, City> roles) {
+    public User(Integer id, String fiscalCode, String name, String surname, String email, String password, Map<City, Role> roles) {
         this.id = id;
         this.fiscalCode = fiscalCode;
         this.name = name;
@@ -30,6 +32,8 @@ public class User {
         this.password = password;
         this.roles = roles;
     }
+
+    public User() { }
 
     public Integer getId() {
         return id;
@@ -75,11 +79,11 @@ public class User {
         this.password = password;
     }
 
-    public Map<Role, City> getRoles() {
+    public Map<City, Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Map<Role, City> roles) {
+    public void setRoles(Map<City, Role> roles) {
         this.roles = roles;
     }
 }

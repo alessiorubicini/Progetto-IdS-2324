@@ -1,23 +1,23 @@
 package it.unicam.cs.opencity.entity;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
-public class Attachment {
+@Entity
+@Table(name = "Media")
+public class Media {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
-
     private String name;
     private String path;
 
-    public Attachment(Integer id, String name, String path) {
+    public Media(Integer id, String name, String path) {
         this.id = id;
         this.name = name;
         this.path = path;
     }
+
+    public Media() { }
 
     public Integer getId() {
         return id;

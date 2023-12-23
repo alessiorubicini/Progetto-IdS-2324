@@ -1,3 +1,7 @@
+DROP DATABASE ProgettoIDS;
+CREATE DATABASE ProgettoIDS;
+USE ProgettoIDS;
+
 CREATE TABLE User(
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
 	name VARCHAR(30) NOT NULL,
@@ -49,8 +53,9 @@ CREATE TABLE Content(
 	title VARCHAR(30) NOT NULL,
 	description VARCHAR(30) NOT NULL,
 	date DATETIME NOT NULL,
+    status ENUM('Pending', 'Published', 'Rejected', 'Draft') NOT NULL,
+    authorId INTEGER NOT NULL REFERENCES User.id,
 	pointId INTEGER NOT NULL REFERENCES Point.id,
-	statusId INTEGER NOT NULL REFERENCES ContentStatus.id,
 	mediaId INTEGER REFERENCES Media.id,
 	contestId INTEGER REFERENCES Contest.id
 );
@@ -67,11 +72,6 @@ CREATE TABLE Role(
 	description VARCHAR(30) NOT NULL
 );
 
-CREATE TABLE ContentStatus(
-	id INTEGER PRIMARY KEY AUTO_INCREMENT,
-	name VARCHAR(30) NOT NULL UNIQUE
-);
-
 CREATE TABLE SystemProblemReport(
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
 	title VARCHAR(30) NOT NULL,
@@ -82,7 +82,7 @@ CREATE TABLE SystemProblemReport(
 	userId INTEGER NOT NULL REFERENCES User.id
 );
 
-CREATE TABLE ContenReport(
+CREATE TABLE ContentReport(
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
 	description VARCHAR(30) NOT NULL,
 	date DATETIME NOT NULL,
@@ -97,10 +97,5 @@ CREATE TABLE RoleChangeRequest(
 	userId INTEGER NOT NULL REFERENCES User.id,
 	requiredRoleId INTEGER NOT NULL REFERENCES Role.id,
 	cityId INTEGER NOT NULL REFERENCES City.id ,
-	statusId INTEGER NOT NULL REFERENCES RequestStatus.id
-);
-
-CREATE TABLE RequestStatus(
-	id INTEGER PRIMARY KEY AUTO_INCREMENT,
-	type VARCHAR(30) NOT NULL
+	status ENUM('Pending', 'Accepted', 'Rejected') NOT NULL
 );
