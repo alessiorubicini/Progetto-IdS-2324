@@ -8,6 +8,8 @@ import java.util.List;
 
 public class Content {
 
+    // TODO: Ricontrollare attributi e relazioni con DB
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
