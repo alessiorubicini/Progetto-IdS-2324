@@ -13,6 +13,7 @@ public class User {
     private Integer id;
     private String name;
     private String surname;
+    private String username;
     @Column(unique = true)
     private String fiscalCode;
     @Column(unique = true)
@@ -20,17 +21,16 @@ public class User {
     private String password;
 
     // TODO: sistemare relazione ternaria ruoli
-    @ManyToMany(mappedBy = "User")
-    private Map<City, Role> roles;
+    //@ManyToMany(mappedBy = "User") private Map<City, Role> roles;
 
-    public User(Integer id, String fiscalCode, String name, String surname, String email, String password, Map<City, Role> roles) {
+    public User(Integer id, String fiscalCode, String name, String surname, String email, String password) {
         this.id = id;
         this.fiscalCode = fiscalCode;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
-        this.roles = roles;
+        //this.roles = roles;
     }
 
     public User() { }
@@ -63,6 +63,14 @@ public class User {
         this.surname = surname;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -79,11 +87,11 @@ public class User {
         this.password = password;
     }
 
-    public Map<City, Role> getRoles() {
+    /*public Map<City, Role> getRoles() {
         return roles;
     }
 
     public void setRoles(Map<City, Role> roles) {
         this.roles = roles;
-    }
+    }*/
 }

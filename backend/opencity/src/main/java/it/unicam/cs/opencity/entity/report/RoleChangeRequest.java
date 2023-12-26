@@ -9,7 +9,6 @@ public class RoleChangeRequest extends Report {
 
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
-    private String requiredRoleId;
     @ManyToOne @JoinColumn(name = "userId")
     private User author;
     @ManyToOne @JoinColumn(name = "requiredRoleId")
@@ -19,9 +18,8 @@ public class RoleChangeRequest extends Report {
     @Enumerated(EnumType.STRING)
     private RequestStatus status;
 
-    public RoleChangeRequest(Integer id, String requiredRoleId, User author, Role requiredRole, City city, RequestStatus status) {
+    public RoleChangeRequest(Integer id, User author, Role requiredRole, City city, RequestStatus status) {
         this.id = id;
-        this.requiredRoleId = requiredRoleId;
         this.author = author;
         this.requiredRole = requiredRole;
         this.city = city;
@@ -32,14 +30,6 @@ public class RoleChangeRequest extends Report {
 
     public Integer getId() {
         return id;
-    }
-
-    public String getRequiredRoleId() {
-        return requiredRoleId;
-    }
-
-    public void setRequiredRoleId(String requiredRoleId) {
-        this.requiredRoleId = requiredRoleId;
     }
 
     public User getAuthor() {
