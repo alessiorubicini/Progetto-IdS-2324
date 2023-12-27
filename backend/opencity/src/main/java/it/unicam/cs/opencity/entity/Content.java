@@ -9,7 +9,7 @@ import java.sql.Date;
 @Table(name = "Content")
 public class Content {
 
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String title;
     private String description;

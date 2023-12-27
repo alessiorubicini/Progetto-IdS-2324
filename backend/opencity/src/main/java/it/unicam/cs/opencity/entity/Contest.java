@@ -9,7 +9,7 @@ import java.util.List;
 @Table(name = "Contest")
 public class Contest {
 
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String title;
     private String description;

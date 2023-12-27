@@ -1,14 +1,19 @@
 package it.unicam.cs.opencity.controller;
 
+import it.unicam.cs.opencity.entity.User;
+import it.unicam.cs.opencity.service.UserService;
 import it.unicam.cs.opencity.util.JwtTokenProvider;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import it.unicam.cs.opencity.util.UserCredentials;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,17 +21,36 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticationController {
 
     private AuthenticationManager authenticationManager;
+    private PasswordEncoder passwordEncoder;
+    private JwtTokenProvider jwtTokenProvider;
+    private UserService userService;
+
+    @Autowired
+    public AuthenticationController(AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder, JwtTokenProvider jwtTokenProvider, UserService userService) {
+        this.authenticationManager = authenticationManager;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtTokenProvider = jwtTokenProvider;
+        this.userService = userService;
+    }
 
     @PostMapping("/login")
-    public ResponseEntity<Object> login(@RequestBody String username, @RequestBody String password) {
-        System.out.println("HELLLO");
+    public ResponseEntity<Object> login(@RequestBody UserCredentials credentials) {
         try {
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-            String token = JwtTokenProvider.generate(authentication.getName());
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword()));
+            String token = jwtTokenProvider.generate(authentication.getName());
             return ResponseEntity.ok(token);
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials: " + e.getLocalizedMessage());
         }
+    }
+
+    // TODO: scritto solo per test, da sistemare
+    @PostMapping("/signup")
+    public ResponseEntity<Object> signup(@RequestBody User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userService.addUser(user);
+        return ResponseEntity.ok("User added");
     }
 
 }

@@ -5,9 +5,9 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "RoleChangeRequest")
-public class RoleChangeRequest extends Report {
+public class RoleChangeRequest {
 
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @ManyToOne @JoinColumn(name = "userId")
     private User author;

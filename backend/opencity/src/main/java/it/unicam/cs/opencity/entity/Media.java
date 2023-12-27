@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Table(name = "Media")
 public class Media {
 
-    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private String path;

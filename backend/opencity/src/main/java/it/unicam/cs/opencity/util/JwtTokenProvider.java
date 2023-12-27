@@ -1,6 +1,8 @@
 package it.unicam.cs.opencity.util;
 
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,52 +10,53 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import java.security.Key;
 import java.util.Date;
 
 // An utility class to handle JSON Web Token authentication
+@Component
 public class JwtTokenProvider {
 
     @Value("${jwt.secret}")
-    private static String SECRET;
+    private String SECRET;
     @Value("${jwt.expiration-time}")
-    private static long EXPIRATION_TIME;
-    private static final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
+    private long EXPIRATION_TIME;
 
-    public static String generate(String username) {
+    private final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
+
+    public Key key() {
+        System.out.println(SECRET);
+        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET));
+    }
+
+    public String generate(String username) {
         return Jwts.builder()
-                .setSubject(username)
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.HS512, SECRET)
+                .subject(username)
+                .expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .signWith(key())
                 .compact();
     }
 
-    public static boolean validate(String token) {
+    public boolean validate(String token) {
         try {
-            Jws<Claims> claimsJws = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token);
-            return !claimsJws.getBody().getExpiration().before(new Date());
-        } catch (SignatureException e) {
-            logger.error("Invalid JWT signature: {}", e.getMessage());
+            Jwts.parser().setSigningKey(key()).build().parse(token);
+            return true;
         } catch (MalformedJwtException e) {
-            logger.error("Invalid JWT format: {}", e.getMessage());
+            logger.error("Invalid JWT token: {}", e.getMessage());
         } catch (ExpiredJwtException e) {
-            logger.error("JWT token has expired: {}", e.getMessage());
+            logger.error("JWT token is expired: {}", e.getMessage());
         } catch (UnsupportedJwtException e) {
-            logger.error("Unsupported JWT token: {}", e.getMessage());
+            logger.error("JWT token is unsupported: {}", e.getMessage());
         } catch (IllegalArgumentException e) {
             logger.error("JWT claims string is empty: {}", e.getMessage());
         }
         return false;
     }
 
-    public static UsernamePasswordAuthenticationToken getAuthenticationFromToken(String token) {
-        Claims claims = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody();
-        String username = claims.getSubject();
-        return new UsernamePasswordAuthenticationToken(username, "", null);
-    }
-
-    public static String extractTokenFromRequest(HttpServletRequest request) {
+    public String extractTokenFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader(HttpHeaders.AUTHORIZATION);
         if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7); // Remove "Bearer " prefix
@@ -62,12 +65,8 @@ public class JwtTokenProvider {
     }
 
     // Extracts user's username from the JWT payload
-    public static String extractUsername(String token) {
-        return Jwts.parser()
-                .setSigningKey(SECRET)
-                .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
+    public String extractUsername(String token) {
+        return Jwts.parser().setSigningKey(key()).build().parseClaimsJws(token).getPayload().getSubject();
     }
 
 }

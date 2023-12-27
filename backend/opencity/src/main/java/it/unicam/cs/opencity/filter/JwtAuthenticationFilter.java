@@ -1,6 +1,6 @@
 package it.unicam.cs.opencity.filter;
 
-import it.unicam.cs.opencity.service.UserInfoService;
+import it.unicam.cs.opencity.service.UserService;
 import it.unicam.cs.opencity.util.JwtTokenProvider;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,14 +20,16 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Autowired
-    private UserInfoService userDetailService;
+    private UserService userDetailService;
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String token = JwtTokenProvider.extractTokenFromRequest(request);
+        String token = jwtTokenProvider.extractTokenFromRequest(request);
 
-        if (token != null && JwtTokenProvider.validate(token)) {
-            String username = JwtTokenProvider.extractUsername(token);
+        if (token != null && jwtTokenProvider.validate(token)) {
+            String username = jwtTokenProvider.extractUsername(token);
             UserDetails userDetails = userDetailService.loadUserByUsername(username);
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -36,7 +38,5 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
-
-
 
 }

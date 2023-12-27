@@ -8,10 +8,10 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "ContentReport")
-public class ContentReport extends Report {
+public class ContentReport{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String description;
     private Date date;

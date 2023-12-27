@@ -7,10 +7,10 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "SystemProblemReport")
-public class SystemProblemReport extends Report {
+public class SystemProblemReport {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String description;
     private Date date;
