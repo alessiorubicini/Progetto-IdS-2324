@@ -5,14 +5,13 @@ import it.unicam.cs.opencity.service.UserService;
 import it.unicam.cs.opencity.util.JwtTokenProvider;
 import it.unicam.cs.opencity.util.UserCredentials;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,15 +34,11 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestBody UserCredentials credentials) {
-        System.out.println("Called login");
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword()));
             String token = jwtTokenProvider.generate(authentication.getName());
-
-            // TODO: spostare token negli header, non va bene nel body della risposta
-
-            return ResponseEntity.ok(token);
+            return ResponseEntity.ok().headers(authorizationHeaders(token)).build();
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials: " + e.getLocalizedMessage());
         }
@@ -55,6 +50,13 @@ public class AuthenticationController {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.addUser(user);
         return ResponseEntity.ok("User added");
+    }
+
+
+    private HttpHeaders authorizationHeaders(String token) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + token);
+        return headers;
     }
 
 }
