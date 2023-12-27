@@ -1,10 +1,9 @@
 package it.unicam.cs.opencity.util;
 
 public class UserCredentials {
+    
     private String username;
     private String password;
-
-    // Getters and setters
 
     public String getUsername() {
         return username;

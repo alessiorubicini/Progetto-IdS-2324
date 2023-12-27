@@ -28,7 +28,6 @@ public class JwtTokenProvider {
     private final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
 
     public Key key() {
-        System.out.println(SECRET);
         return Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET));
     }
 
