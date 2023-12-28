@@ -8,15 +8,14 @@ import java.util.Map;
 @Table(name = "User")
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private String surname;
     private String username;
     @Column(name = "fiscalCode")
     private String fiscalCode;
-    //@Column(unique = true)
+    @Column(unique = true)
     private String email;
     private String password;
 

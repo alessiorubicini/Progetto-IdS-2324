@@ -1,6 +1,7 @@
 package it.unicam.cs.opencity.entity.report;
 
 import it.unicam.cs.opencity.entity.Content;
+import it.unicam.cs.opencity.entity.Media;
 import it.unicam.cs.opencity.entity.User;
 import jakarta.persistence.*;
 
@@ -8,7 +9,7 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "ContentReport")
-public class ContentReport{
+public class ContentReport {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
