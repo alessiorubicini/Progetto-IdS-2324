@@ -2,6 +2,7 @@
 Progetto realizzato dagli studenti [Alessio Rubicini](https://github.com/alessiorubicini), [Maria Vittoria Forlani](https://github.com/Vittoria61) e [Simone Morello](https://github.com/DiamondBest) per gli esami di
 - Ingegneria del Software (prof. Polini e prof. Morichetta)
 - Applicazioni web, mobile e cloud (modulo web e mobile, prof. Bonura) 
+
 dell'anno accademico 2023/24 presso l'Università di Camerino.
 
 ## Descrizione del progetto
