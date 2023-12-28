@@ -33,7 +33,7 @@ public class JwtTokenProvider {
 
     public String generate(String username) {
         return Jwts.builder()
-                .subject(username)
+                .claim("sub", username)
                 .expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(key())
                 .compact();
@@ -65,7 +65,8 @@ public class JwtTokenProvider {
 
     // Extracts user's username from the JWT payload
     public String extractUsername(String token) {
-        return Jwts.parser().setSigningKey(key()).build().parseClaimsJws(token).getPayload().getSubject();
+        return Jwts.parser().setSigningKey(key()).build().parseClaimsJws(token)
+                .getPayload().get("username").toString();
     }
 
 }

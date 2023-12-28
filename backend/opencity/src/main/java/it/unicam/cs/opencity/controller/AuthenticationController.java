@@ -44,7 +44,7 @@ public class AuthenticationController {
         }
     }
 
-    // TODO: scritto solo per test, da sistemare
+    // TODO: scritto solo per test, da rivedere
     @PostMapping("/signup")
     public ResponseEntity<Object> signup(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -52,7 +52,7 @@ public class AuthenticationController {
         return ResponseEntity.ok("User added");
     }
 
-
+    // Utility method to build the necessary http headers for bearer authorization
     private HttpHeaders authorizationHeaders(String token) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + token);

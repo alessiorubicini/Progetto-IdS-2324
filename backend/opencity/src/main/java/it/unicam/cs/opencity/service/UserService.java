@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Optional;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -28,6 +30,37 @@ public class UserService implements UserDetailsService {
     // TODO: da rivedere, scritto solo per test
     public void addUser(User user) {
         this.userRepository.save(user);
+    }
+
+    /**
+     * Returns the complete list of users
+     * @return the list of users
+     */
+    public Iterable<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    /**
+     * Returns the details of the given user
+     * @param id the id of the user
+     * @return the complete details of the user
+     */
+    public Optional<User> getUserDetails(Integer id) {
+        return userRepository.findById(id);
+    }
+
+    /**
+     * Removes a user from the repository
+     * @param id the id of the user to remove
+     * @return true if the users has been removed, false if the user does not exist
+     */
+    public boolean removeUser(Integer id) {
+        if(userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
