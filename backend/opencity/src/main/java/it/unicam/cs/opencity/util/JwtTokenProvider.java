@@ -33,7 +33,7 @@ public class JwtTokenProvider {
 
     public String generate(String username) {
         return Jwts.builder()
-                .claim("sub", username)
+                .claim("username", username)
                 .expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(key())
                 .compact();
