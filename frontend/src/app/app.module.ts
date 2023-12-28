@@ -13,6 +13,8 @@ import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './signup/signup.component';
 import { HomeComponent } from './home/home.component';
+import { OsmMapComponent } from './osm-map/osm-map.component';
+import { CityDetailComponent } from './city-detail/city-detail.component';
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import { HomeComponent } from './home/home.component';
     AppComponent,
     LoginComponent,
     SignupComponent,
-    HomeComponent
+    HomeComponent,
+    OsmMapComponent,
+    CityDetailComponent
   ],
   imports: [
     BrowserModule,

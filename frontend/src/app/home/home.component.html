@@ -1,1 +1,17 @@
-<p>home works!</p>
+<div class="container">
+	<div class="text-center py-5">
+		<h2 >OpenCity</h2>
+		<p class="lead">You too can contribute to enhancing your territory!</p>
+		
+		<div class="input-group mb-3">
+			<input type="text" class="form-control" placeholder="Search city" (input)="onSearch($event)">
+		</div>
+		
+		<app-osm-map
+			[centerCoordinates]="[43.221068, 12.474085]"
+			[zoomLevel]="8"
+			[cities]="[{ name: 'Porto San Giorgio', coordinates: [43.180196, 13.793047]}]"
+		></app-osm-map>
+		
+	</div>
+</div>

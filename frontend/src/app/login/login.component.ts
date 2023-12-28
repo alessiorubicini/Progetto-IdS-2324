@@ -42,7 +42,7 @@ export class LoginComponent {
 			complete: () => {
 				console.error('Login completed');
 			}
-		  });
+		});
 
 	  }
 	}

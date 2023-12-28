@@ -27,15 +27,27 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+			  {
+				"glob": "node_modules/leaflet/dist/images",
+				"input": ".", 
+				"output": "."
+			  }
+			  
             ],
             "styles": [
               "src/styles.scss",
 			  "node_modules/bootstrap/scss/bootstrap.scss",
-			  "node_modules/bootstrap-icons/font/bootstrap-icons.css"
+			  "node_modules/bootstrap-icons/font/bootstrap-icons.css",
+			  "node_modules/leaflet/dist/leaflet.css"
             ],
             "scripts": [
-				"node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+				"node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+				"node_modules/leaflet/dist/leaflet.js",
+				"node_modules/leaflet/dist/leaflet-src.js"
+			],
+			"allowedCommonJsDependencies": [
+				"leaflet"
 			]
           },
           "configurations": {

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'frontend';
+	title = 'OpenCity';
+  	token: string | null;
+
+	constructor(private router: Router) {
+		this.token = this.getToken();
+	}
+
+	getToken(): string | null {
+		return localStorage.getItem("access_token");
+	}
+
+	public logout() {
+		localStorage.removeItem("access_token");
+		this.router.navigate(['/home']);
+	}
+
 }
