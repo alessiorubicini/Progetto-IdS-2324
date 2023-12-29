@@ -31,8 +31,9 @@ public class JwtTokenProvider {
         return Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET));
     }
 
-    public String generate(String username) {
+    public String generate(Integer id, String username) {
         return Jwts.builder()
+                .claim("id", id)
                 .claim("username", username)
                 .expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(key())
@@ -61,6 +62,11 @@ public class JwtTokenProvider {
             return bearerToken.substring(7); // Remove "Bearer " prefix
         }
         return null;
+    }
+
+    public String extractId(String token) {
+        return Jwts.parser().setSigningKey(key()).build().parseClaimsJws(token)
+                .getPayload().get("id").toString();
     }
 
     // Extracts user's username from the JWT payload

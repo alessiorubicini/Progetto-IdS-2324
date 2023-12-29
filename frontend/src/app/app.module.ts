@@ -42,6 +42,7 @@ import { CityDetailComponent } from './city-detail/city-detail.component';
 	  })
   ],
   providers: [provideHttpClient(), provideRouter(routes)],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports : [RouterModule]
 })
 export class AppModule { }

@@ -18,8 +18,7 @@ VALUES
   ('Authorized Contributor', ''),
   ('Curator', ''),
   ('Animator', ''),
-  ('City Manager', ''),
-  ('Administrator', '');
+  ('City Manager', '');
 
 INSERT INTO Point (name, description, longitude, latitude, altitude, imageUrl, cityId)
 VALUES

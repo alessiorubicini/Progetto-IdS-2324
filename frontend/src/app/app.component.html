@@ -25,6 +25,7 @@
 
 			<div *ngIf="token == null else loggedInBlock">
 				<button class="btn btn-outline-primary" [routerLink]="['/login']">Login</button>
+				<button class="btn btn-outline-primary" [routerLink]="['/signup']">Signup</button>
 			</div>
 
 			<ng-template #loggedInBlock>

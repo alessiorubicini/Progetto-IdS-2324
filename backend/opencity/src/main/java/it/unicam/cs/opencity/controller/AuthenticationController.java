@@ -37,7 +37,8 @@ public class AuthenticationController {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword()));
-            String token = jwtTokenProvider.generate(authentication.getName());
+            Integer id = userService.getUserDetails(credentials.getUsername()).getId();
+            String token = jwtTokenProvider.generate(id, authentication.getName());
             return ResponseEntity.ok().headers(authorizationHeaders(token)).build();
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials: " + e.getLocalizedMessage());

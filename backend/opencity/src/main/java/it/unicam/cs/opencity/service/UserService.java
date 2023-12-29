@@ -27,26 +27,20 @@ public class UserService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), new ArrayList<>());
     }
 
-    // TODO: da rivedere, scritto solo per test
     public void addUser(User user) {
         this.userRepository.save(user);
     }
 
-    /**
-     * Returns the complete list of users
-     * @return the list of users
-     */
     public Iterable<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    /**
-     * Returns the details of the given user
-     * @param id the id of the user
-     * @return the complete details of the user
-     */
     public Optional<User> getUserDetails(Integer id) {
         return userRepository.findById(id);
+    }
+
+    public User getUserDetails(String username) {
+        return userRepository.findByUsername(username);
     }
 
     /**
