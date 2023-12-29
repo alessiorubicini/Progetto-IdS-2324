@@ -31,7 +31,7 @@ VALUES
   ('Photo Contest', 'Capture the beauty of your city', '2023-01-01 12:00:00', '2023-02-01 12:00:00', 1, 1, NULL),
   ('Art Contest', 'Express your creativity', '2023-02-01 12:00:00', '2023-03-01 12:00:00', 2, 2, NULL);
 
-INSERT INTO Content (title, description, date, status, authorId, pointId, mediaId, contestId)
+INSERT INTO Content (title, description, publicationDate, status, authorId, pointId, mediaId, contestId)
 VALUES
   ('Sunset at the Colosseum', 'A beautiful sunset view', '2023-01-15 18:30:00', 'Published', 1, 1, 1, 1),
   ('Duomo Sketch', 'Artistic representation of Duomo di Milano', '2023-02-10 15:45:00', 'Draft', 2, 2, NULL, 2);
