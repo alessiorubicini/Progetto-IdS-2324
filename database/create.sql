@@ -7,12 +7,13 @@ CREATE TABLE User(
 	name VARCHAR(30) NOT NULL,
 	surname VARCHAR(30) NOT NULL,
     username VARCHAR(30) NOT NULL UNIQUE,
-	fiscalCode VARCHAR(16) UNIQUE NOT NULL,
+	fiscalCode VARCHAR(20) UNIQUE NOT NULL,
 	email VARCHAR(50) UNIQUE NOT NULL,
 	password VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE Participation(
+    PRIMARY KEY (userId, cityId, roleId),
 	userId INTEGER NOT NULL REFERENCES User.id,
 	cityId INTEGER NOT NULL REFERENCES City.id,
 	roleId INTEGER NOT NULL REFERENCES Role.id
@@ -30,18 +31,18 @@ CREATE TABLE City(
 CREATE TABLE Point(
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
 	name VARCHAR(30) NOT NULL,
-	description VARCHAR(30),
-	longitude FLOAT NOT NULL,
-	latitude FLOAT NOT NULL,
-	altitude FLOAT NOT NULL,
-	imagePath VARCHAR(50),
+	description VARCHAR(120),
+	longitude FLOAT NULL,
+	latitude FLOAT NULL,
+	altitude FLOAT NULL,
+	imageUrl VARCHAR(80),
 	cityId INTEGER NOT NULL REFERENCES City.id
 );
 
 CREATE TABLE Contest(
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
 	title VARCHAR(30) NOT NULL,
-	description VARCHAR(30),
+	description VARCHAR(120),
 	publicationDate DATETIME NOT NULL,
 	closingDate DATETIME NOT NULL,
 	animatorId INTEGER NOT NULL REFERENCES User.id,
@@ -52,8 +53,8 @@ CREATE TABLE Contest(
 CREATE TABLE Content(
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
 	title VARCHAR(30) NOT NULL,
-	description VARCHAR(30) NOT NULL,
-	date DATETIME NOT NULL,
+	description VARCHAR(120) NOT NULL,
+	publicationDate DATETIME NOT NULL,
     status ENUM('Pending', 'Published', 'Rejected', 'Draft') NOT NULL,
     authorId INTEGER NOT NULL REFERENCES User.id,
 	pointId INTEGER NOT NULL REFERENCES Point.id,
@@ -70,16 +71,16 @@ CREATE TABLE Media(
 CREATE TABLE Role(
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
 	title VARCHAR(30) NOT NULL UNIQUE,
-	description VARCHAR(30) NOT NULL
+	description VARCHAR(80) NOT NULL
 );
-
+/*
 CREATE TABLE SystemProblemReport(
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
 	title VARCHAR(30) NOT NULL,
-	description VARCHAR(30),
+	description VARCHAR(120),
 	date DATETIME NOT NULL,
-	version VARCHAR(30) NOT NULL,
-	instructions VARCHAR(100) NOT NULL,
+	version VARCHAR(20) NOT NULL,
+	instructions VARCHAR(120) NOT NULL,
 	userId INTEGER NOT NULL REFERENCES User.id
 );
 
@@ -100,3 +101,4 @@ CREATE TABLE RoleChangeRequest(
 	cityId INTEGER NOT NULL REFERENCES City.id ,
 	status ENUM('Pending', 'Accepted', 'Rejected') NOT NULL
 );
+ */

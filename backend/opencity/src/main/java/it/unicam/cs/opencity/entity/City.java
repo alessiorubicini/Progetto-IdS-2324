@@ -1,6 +1,5 @@
 package it.unicam.cs.opencity.entity;
 
-import it.unicam.cs.opencity.entity.point.Point;
 import jakarta.persistence.*;
 
 import java.util.List;

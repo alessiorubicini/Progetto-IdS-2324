@@ -39,6 +39,7 @@ public class UserController {
 
     @GetMapping("/{id}/contents")
     public ResponseEntity<Object> getUserContents(@PathVariable("id") String id) {
+
         // TODO: implementare
         return null;
     }

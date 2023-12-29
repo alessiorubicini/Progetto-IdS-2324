@@ -2,9 +2,9 @@ package it.unicam.cs.opencity.entity;
 
 public enum RequestStatus {
 
-    PENDING("Pending"),
-    ACCEPTED("Accepted"),
-    REJECTED("Rejected");
+    Pending("Pending"),
+    Accepted("Accepted"),
+    Rejected("Rejected");
 
     private final String status;
 

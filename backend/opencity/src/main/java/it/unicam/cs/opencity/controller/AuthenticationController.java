@@ -44,7 +44,6 @@ public class AuthenticationController {
         }
     }
 
-    // TODO: scritto solo per test, da rivedere
     @PostMapping("/signup")
     public ResponseEntity<Object> signup(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));

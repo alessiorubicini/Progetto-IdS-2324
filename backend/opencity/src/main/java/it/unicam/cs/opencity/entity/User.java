@@ -2,7 +2,7 @@ package it.unicam.cs.opencity.entity;
 
 import jakarta.persistence.*;
 
-import java.util.Map;
+import java.util.List;
 
 @Entity
 @Table(name = "User")
@@ -18,32 +18,24 @@ public class User {
     @Column(unique = true)
     private String email;
     private String password;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Participation> roles;
 
-    // TODO: sistemare relazione ternaria ruoli
-    //@ManyToMany(mappedBy = "User") private Map<City, Role> roles;
-
-    public User(Integer id, String fiscalCode, String name, String surname, String email, String password) {
+    public User(Integer id, String name, String surname, String username, String fiscalCode, String email, String password, List<Participation> roles) {
         this.id = id;
-        this.fiscalCode = fiscalCode;
         this.name = name;
         this.surname = surname;
+        this.username = username;
+        this.fiscalCode = fiscalCode;
         this.email = email;
         this.password = password;
-        //this.roles = roles;
+        this.roles = roles;
     }
 
     public User() { }
 
     public Integer getId() {
         return id;
-    }
-
-    public String getFiscalCode() {
-        return fiscalCode;
-    }
-
-    public void setFiscalCode(String fiscalCode) {
-        this.fiscalCode = fiscalCode;
     }
 
     public String getName() {
@@ -70,6 +62,14 @@ public class User {
         this.username = username;
     }
 
+    public String getFiscalCode() {
+        return fiscalCode;
+    }
+
+    public void setFiscalCode(String fiscalCode) {
+        this.fiscalCode = fiscalCode;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -86,11 +86,21 @@ public class User {
         this.password = password;
     }
 
-    /*public Map<City, Role> getRoles() {
+    public List<Participation> getRoles() {
         return roles;
     }
 
-    public void setRoles(Map<City, Role> roles) {
+    public void setRoles(List<Participation> roles) {
         this.roles = roles;
-    }*/
+    }
+
+    public Role getRoleFor(Integer cityId) {
+        for(Participation participation : this.roles) {
+            if(participation.getCity().getId().equals(cityId)) {
+                return participation.getRole();
+            }
+        }
+        return null;
+    }
+
 }
