@@ -12,8 +12,7 @@ public class Role {
     private String title;
     private String description;
 
-    public Role(Integer id, String title, String description) {
-        this.id = id;
+    public Role(String title, String description) {
         this.title = title;
         this.description = description;
     }

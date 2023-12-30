@@ -1,5 +1,7 @@
 package it.unicam.cs.opencity.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -19,10 +21,10 @@ public class User {
     private String email;
     private String password;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("user")
     private List<Participation> roles;
 
-    public User(Integer id, String name, String surname, String username, String fiscalCode, String email, String password, List<Participation> roles) {
-        this.id = id;
+    public User(String name, String surname, String username, String fiscalCode, String email, String password, List<Participation> roles) {
         this.name = name;
         this.surname = surname;
         this.username = username;

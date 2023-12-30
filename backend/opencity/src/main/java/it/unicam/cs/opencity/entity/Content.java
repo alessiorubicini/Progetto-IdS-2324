@@ -1,5 +1,6 @@
 package it.unicam.cs.opencity.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.sql.Date;
@@ -15,17 +16,16 @@ public class Content {
     private Date publicationDate;
     @Enumerated(EnumType.STRING)
     private ContentStatus status;
-    @ManyToOne @JoinColumn(name = "authorId")
+    @ManyToOne @JoinColumn(name = "authorId") @JsonBackReference
     private User author;
-    @ManyToOne @JoinColumn(name = "pointId")
+    @ManyToOne @JoinColumn(name = "pointId") @JsonBackReference
     private Point point;
     @OneToOne @JoinColumn(name = "mediaId")
     private Media media;
-    @ManyToOne @JoinColumn(name = "contestId")
+    @ManyToOne @JoinColumn(name = "contestId") @JsonBackReference
     private Contest contest;
 
-    public Content(Integer id, String title, String description, Date publicationDate, ContentStatus status, User author, Point point, Media media, Contest contest) {
-        this.id = id;
+    public Content(String title, String description, Date publicationDate, ContentStatus status, User author, Point point, Media media, Contest contest) {
         this.title = title;
         this.description = description;
         this.publicationDate = publicationDate;

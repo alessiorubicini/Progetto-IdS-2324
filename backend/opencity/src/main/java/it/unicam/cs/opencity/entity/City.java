@@ -1,7 +1,11 @@
 package it.unicam.cs.opencity.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,16 +19,18 @@ public class City {
     private String name;
     private String region;
     private Integer istatCode;
-    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true) @JsonManagedReference
     private List<Point> points;
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true) @JsonManagedReference
+    private List<Contest> contests;
 
-    public City(Integer id, String cadastralCode, String name, String region, Integer istatCode, List<Point> points) {
-        this.id = id;
+    public City(String cadastralCode, String name, String region, Integer istatCode, List<Point> points, List<Contest> contests) {
         this.cadastralCode = cadastralCode;
         this.name = name;
         this.region = region;
         this.istatCode = istatCode;
         this.points = points;
+        this.contests = contests;
     }
 
     public City() { }
@@ -71,5 +77,21 @@ public class City {
 
     public void setPoints(List<Point> points) {
         this.points = points;
+    }
+
+    public List<Contest> getContests() {
+        return contests;
+    }
+
+    public void setContests(List<Contest> contests) {
+        this.contests = contests;
+    }
+
+    public List<Content> getAllContents() {
+        List<Content> contents = new ArrayList<>();
+        for (Point point : this.points) {
+            contents.addAll(point.getContents());
+        }
+        return contents;
     }
 }

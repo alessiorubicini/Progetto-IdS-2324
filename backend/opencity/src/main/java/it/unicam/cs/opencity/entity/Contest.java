@@ -1,5 +1,8 @@
 package it.unicam.cs.opencity.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.sql.Date;
@@ -17,15 +20,14 @@ public class Contest {
     private Date closingDate;
     @OneToOne @JoinColumn(name = "animatorId")
     private User author;
-    @OneToOne @JoinColumn(name = "cityId")
+    @ManyToOne @JoinColumn(name = "cityId") @JsonBackReference
     private City city;
     @OneToOne @JoinColumn(name = "winnerId")
     private User winner;
-    @OneToMany(mappedBy = "contest", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "contest", cascade = CascadeType.ALL, orphanRemoval = true) @JsonManagedReference
     private List<Content> contents;
 
-    public Contest(Integer id, String title, String description, Date publicationDate, Date closingDate, User author, City city, User winner, List<Content> contents) {
-        this.id = id;
+    public Contest(String title, String description, Date publicationDate, Date closingDate, User author, City city, User winner, List<Content> contents) {
         this.title = title;
         this.description = description;
         this.publicationDate = publicationDate;

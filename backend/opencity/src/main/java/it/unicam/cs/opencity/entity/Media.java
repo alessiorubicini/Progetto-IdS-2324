@@ -11,8 +11,7 @@ public class Media {
     private String name;
     private String path;
 
-    public Media(Integer id, String name, String path) {
-        this.id = id;
+    public Media(String name, String path) {
         this.name = name;
         this.path = path;
     }
