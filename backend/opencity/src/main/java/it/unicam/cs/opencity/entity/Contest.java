@@ -107,4 +107,6 @@ public class Contest {
     public void setContents(List<Content> contents) {
         this.contents = contents;
     }
+
+
 }
