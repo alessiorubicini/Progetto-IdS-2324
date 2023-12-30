@@ -25,7 +25,9 @@ CREATE TABLE City(
 	name VARCHAR(30) NOT NULL,
 	region VARCHAR(30) NOT NULL,
 	province VARCHAR(30) NOT NULL,
-	istatCode INTEGER UNIQUE
+	istatCode INTEGER UNIQUE,
+    latitude FLOAT NOT NULL,
+    longitude FLOAT NOT NULL
 );
 
 CREATE TABLE Point(

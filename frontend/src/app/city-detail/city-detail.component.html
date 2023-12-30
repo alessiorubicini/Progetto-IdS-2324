@@ -1,3 +1,36 @@
-<div class="container">
-	<p>City detail page</p>
+<!-- city-detail.component.html -->
+
+<div class="container mt-4">
+
+	<h1>{{ city?.name }}</h1>	
+	
+	<ul class="nav nav-tabs mt-4">
+		<li class="nav-item">
+			<a class="nav-link" [class.active]="activeTab === 'pointsOfInterest'" (click)="setActiveTab('pointsOfInterest')">Points of Interest</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" [class.active]="activeTab === 'areas'" (click)="setActiveTab('areas')">Areas</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" [class.active]="activeTab === 'contests'" (click)="setActiveTab('contests')">Contests</a>
+		</li>
+	</ul>
+	
+	<div class="tab-content mt-3">
+		<!-- Points of Interest Tab -->
+		<div class="tab-pane" id="pointsOfInterest" [ngClass]="{ 'active':activeTab==='pointsOfInterest'}">
+			<p>Point of interest</p>
+		</div>
+		
+		<!-- Areas Tab -->
+		<div class="tab-pane" id="areas" [ngClass]="{ 'active':activeTab==='areas'}">
+			<p>areas</p>
+		</div>
+		
+		<!-- Contests Tab -->
+		<div class="tab-pane " id="contests" [ngClass]="{ 'active':activeTab==='contests'}">
+			<p>Contests</p>
+		</div>
+	</div>
+	
 </div>

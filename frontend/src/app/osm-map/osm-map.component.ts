@@ -1,6 +1,7 @@
 import { Component, Input, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
 import { City } from '../models/city';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-osm-map',
@@ -13,6 +14,12 @@ export class OsmMapComponent implements AfterViewInit {
 	@Input() cities: any[] = [];
 	
 	title = 'OSM Map';
+
+	constructor(private router: Router) {}
+
+	ngAfterViewInit(): void {
+		this.initMap();
+	}
 
 	private initMap() : void {
 		const map = L.map('map', {
@@ -29,20 +36,17 @@ export class OsmMapComponent implements AfterViewInit {
 		tiles.addTo(map);
 		
 		this.cities.forEach(city => {
-			var marker = L.marker(city.coordinates, {
+			var marker = L.marker([city.longitude, city.latitude], {
 				title: city.name,
 				draggable: false,
 			});
+			marker.bindPopup(`<h3>${city.name}</h3>`);
+			marker.on('click', () => {
+				console.log(city)
+				this.router.navigate(['city', city.id])
+			});
 			marker.addTo(map);
-			marker.bindPopup(this.popup(city));
 		});
 	}
 	
-	ngAfterViewInit(): void {
-		this.initMap();
-	}
-
-	private popup(city: City) : string {
-		return `<a [routerLink]="['city', ${city.id}]">Esplora</a>`;
-	}
 }

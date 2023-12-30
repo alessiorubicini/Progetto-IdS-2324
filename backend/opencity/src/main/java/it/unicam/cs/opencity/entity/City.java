@@ -19,16 +19,20 @@ public class City {
     private String name;
     private String region;
     private Integer istatCode;
+    private float latitude;
+    private float longitude;
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true) @JsonManagedReference
     private List<Point> points;
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true) @JsonManagedReference
     private List<Contest> contests;
 
-    public City(String cadastralCode, String name, String region, Integer istatCode, List<Point> points, List<Contest> contests) {
+    public City(String cadastralCode, String name, String region, Integer istatCode, float latitude, float longitude, List<Point> points, List<Contest> contests) {
         this.cadastralCode = cadastralCode;
         this.name = name;
         this.region = region;
         this.istatCode = istatCode;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.points = points;
         this.contests = contests;
     }
@@ -69,6 +73,22 @@ public class City {
 
     public void setIstatCode(Integer istatCode) {
         this.istatCode = istatCode;
+    }
+
+    public float getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(float latitude) {
+        this.latitude = latitude;
+    }
+
+    public float getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(float longitude) {
+        this.longitude = longitude;
     }
 
     public List<Point> getPoints() {

@@ -5,11 +5,11 @@ VALUES
   ('Vittoria', 'Forlani', 'vitto', 'ABC123XYZ45678901', 'vitto.forla@gmail.com', '$2a$10$cyZGnydVnv7JthlDzoiKz.5A6xzBQTDFwjUV2kFOWqli4EiLTVj1i'),
   ('Simone', 'Morello', 'simone', 'DEF456UVW12345678', 'simo.morello@outlook.com', '$2a$10$gQNK7PWcg9ngAOu.gBzWs.V4AOjpg/RpSzkkCLBVwrYLg317gwftO');
 
-INSERT INTO City (cadastralCode, name, region, province, istatCode)
+INSERT INTO City (cadastralCode, name, region, province, istatCode, latitude, longitude)
 VALUES
-  ('1234', 'Rome', 'Lazio', 'RM', 5815),
-  ('5678', 'Milan', 'Lombardy', 'MI', 1512),
-  ('9101', 'Florence', 'Tuscany', 'FI', 4801);
+  ('G920', 'Porto San Giorgio', 'Marche', 'FM', 109033, 43.180144, 13.793122),
+  ('B474', 'Camerino', 'Marche', 'MC', 043007, 43.135702, 13.068382),
+  ('I608', 'Senigallia', 'Marche', 'AN', 042045, 43.719696, 13.215435);
 
 INSERT INTO Role (title, description)
 VALUES
