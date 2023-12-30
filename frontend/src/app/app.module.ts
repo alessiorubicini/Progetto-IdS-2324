@@ -15,6 +15,7 @@ import { SignupComponent } from './signup/signup.component';
 import { HomeComponent } from './home/home.component';
 import { OsmMapComponent } from './osm-map/osm-map.component';
 import { CityDetailComponent } from './city-detail/city-detail.component';
+import { ContactsComponent } from './contacts/contacts.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { CityDetailComponent } from './city-detail/city-detail.component';
     SignupComponent,
     HomeComponent,
     OsmMapComponent,
-    CityDetailComponent
+    CityDetailComponent,
+    ContactsComponent
   ],
   imports: [
     BrowserModule,
