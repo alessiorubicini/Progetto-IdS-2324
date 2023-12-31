@@ -1,10 +1,20 @@
 <!-- city-detail.component.html -->
 
-<div class="container mt-4">
+
+<div class="card" style="width: 15rem;">
+	<div class="card-body">
+	  <h5 class="card-title">In this city you are:</h5>
+	  <p class="card-text">ANIMATOR</p>
+	  <a href="#" class="card-link">Consult your roles</a>
+	</div>
+  </div>
+
+<div class="container mt-5">
+
 
 	<h1>{{ city?.name }}</h1>	
 	
-	<ul class="nav nav-tabs mt-4">
+	<ul class="nav nav-tabs mt-4 mt">
 		<li class="nav-item">
 			<a class="nav-link" [class.active]="activeTab === 'pointsOfInterest'" (click)="setActiveTab('pointsOfInterest')">Points of Interest</a>
 		</li>

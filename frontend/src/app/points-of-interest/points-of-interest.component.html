@@ -1,6 +1,39 @@
-<div class="points-of-interest">
-    <p>points-of-interest works!</p>
+<div class="points-of-interest">   
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <div class="d-grid gap-2">
+                <button class="btn btn-outline-success btn-lg" type="button" [routerLink]="['/city/:id/create-content']">+ Crea contenuto</button>
+            </div>
+        </div>
 
+        <div class="col-md-6">
+            <div class="d-grid gap-2">
+                <button class="btn btn-outline-success btn-lg" type="button" [routerLink]="['/city/:id/create-poi']">+ Aggiungi punto di interesse</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="text-center py-5">
+            <h2>OpenCity</h2>
+            <p class="lead">You too can contribute to enhancing your territory!</p>
+            
+            
+    
+            <ul class="list-group" *ngIf="searching && citiesFiltered.length > 0">
+                <li class="list-group-item" *ngFor="let city of citiesFiltered">
+                    <a [routerLink]="['/city', city.id]">{{ city.name }}</a>
+                </li>
+            </ul>
+            
+            <app-osm-map
+                [centerCoordinates]="[43.221068, 12.474085]"
+                [zoomLevel]="8"
+                [cities]="this.cities"
+            ></app-osm-map>
+            
+        </div>
+    </div>
 
 
 </div>

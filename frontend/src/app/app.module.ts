@@ -20,6 +20,7 @@ import { CreateContentComponent } from './create-content/create-content.componen
 import { PointsOfInterestComponent } from './points-of-interest/points-of-interest.component';
 import { AreasComponent } from './areas/areas.component';
 import { ContestsComponent } from './contests/contests.component';
+import { CreatePoiComponent } from './create-poi/create-poi.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { ContestsComponent } from './contests/contests.component';
     CreateContentComponent,
     PointsOfInterestComponent,
     AreasComponent,
-    ContestsComponent
+    ContestsComponent,
+    CreatePoiComponent
   ],
   imports: [
     BrowserModule,

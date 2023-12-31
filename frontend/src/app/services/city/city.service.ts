@@ -18,5 +18,7 @@ export class CityService {
 	public getCityById(id: number) : Observable<City> {
 		return this.httpClient.get<City>(`${environment.apiUrl}/city/${id}`);
 	}
+
+
 }
 

@@ -4,6 +4,9 @@ import { SignupComponent } from "./signup/signup.component"
 import { HomeComponent } from "./home/home.component"
 import { CityDetailComponent } from "./city-detail/city-detail.component"
 import { ContactsComponent } from "./contacts/contacts.component"
+import { PointsOfInterestComponent } from "./points-of-interest/points-of-interest.component"
+import { CreateContentComponent } from "./create-content/create-content.component"
+import { CreatePoiComponent } from "./create-poi/create-poi.component"
 
 export const routes: Routes  = [
 	{ path: "", redirectTo: "home", pathMatch: "full" },
@@ -11,6 +14,7 @@ export const routes: Routes  = [
 	{ path: "login", component: LoginComponent },
 	{ path: "signup", component: SignupComponent },
 	{ path: "city/:id", component: CityDetailComponent },
-	{ path: "contacts", component: ContactsComponent }
-	
+	{ path: "contacts", component: ContactsComponent },
+	{ path: "city/:id/create-content", component: CreateContentComponent},
+	{ path: "city/:id/create-poi", component: CreatePoiComponent}
 ]
