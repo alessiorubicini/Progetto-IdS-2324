@@ -16,6 +16,10 @@ import { HomeComponent } from './home/home.component';
 import { OsmMapComponent } from './osm-map/osm-map.component';
 import { CityDetailComponent } from './city-detail/city-detail.component';
 import { ContactsComponent } from './contacts/contacts.component';
+import { CreateContentComponent } from './create-content/create-content.component';
+import { PointsOfInterestComponent } from './points-of-interest/points-of-interest.component';
+import { AreasComponent } from './areas/areas.component';
+import { ContestsComponent } from './contests/contests.component';
 
 
 @NgModule({
@@ -26,7 +30,11 @@ import { ContactsComponent } from './contacts/contacts.component';
     HomeComponent,
     OsmMapComponent,
     CityDetailComponent,
-    ContactsComponent
+    ContactsComponent,
+    CreateContentComponent,
+    PointsOfInterestComponent,
+    AreasComponent,
+    ContestsComponent
   ],
   imports: [
     BrowserModule,

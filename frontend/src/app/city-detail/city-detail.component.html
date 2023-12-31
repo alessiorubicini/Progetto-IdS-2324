@@ -19,17 +19,18 @@
 	<div class="tab-content mt-3">
 		<!-- Points of Interest Tab -->
 		<div class="tab-pane" id="pointsOfInterest" [ngClass]="{ 'active':activeTab==='pointsOfInterest'}">
-			<p>Point of interest</p>
+			<app-points-of-interest></app-points-of-interest>
 		</div>
 		
 		<!-- Areas Tab -->
 		<div class="tab-pane" id="areas" [ngClass]="{ 'active':activeTab==='areas'}">
-			<p>areas</p>
+			<app-areas></app-areas> 
 		</div>
 		
 		<!-- Contests Tab -->
 		<div class="tab-pane " id="contests" [ngClass]="{ 'active':activeTab==='contests'}">
-			<p>Contests</p>
+			<app-contests></app-contests> 
+
 		</div>
 	</div>
 	
