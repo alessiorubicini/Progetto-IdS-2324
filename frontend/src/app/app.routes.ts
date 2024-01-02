@@ -1,12 +1,12 @@
 import { Routes } from "@angular/router"
-import { LoginComponent } from "./login/login.component"
-import { SignupComponent } from "./signup/signup.component"
-import { HomeComponent } from "./home/home.component"
-import { CityDetailComponent } from "./city-detail/city-detail.component"
-import { ContactsComponent } from "./contacts/contacts.component"
-import { PointsOfInterestComponent } from "./poi/points-of-interest/points-of-interest.component"
-import { CreateContentComponent } from "./content/create-content/create-content.component"
-import { CreatePoiComponent } from "./poi/create-poi/create-poi.component"
+import { LoginComponent } from "./components/login/login.component"
+import { SignupComponent } from "./components/signup/signup.component"
+import { HomeComponent } from "./components/home/home.component"
+import { CityDetailComponent } from "./components/city-detail/city-detail.component"
+import { ContactsComponent } from "./components/contacts/contacts.component"
+import { PointsOfInterestComponent } from "./components/poi/points-of-interest/points-of-interest.component"
+import { CreateContentComponent } from "./components/content/create-content/create-content.component"
+import { CreatePoiComponent } from "./components/poi/create-poi/create-poi.component"
 
 export const routes: Routes  = [
 	{ path: "", redirectTo: "home", pathMatch: "full" },

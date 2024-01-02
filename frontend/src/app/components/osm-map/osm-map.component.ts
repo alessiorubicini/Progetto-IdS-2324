@@ -1,6 +1,5 @@
 import { Component, Input, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
-import { City } from '../models/city';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,7 +12,7 @@ export class OsmMapComponent implements AfterViewInit {
 	@Input() zoomLevel: number = 18;
 	@Input() items: any[] = [];
 	@Input() isForCity: boolean = true;
-	
+
 	title = 'OSM Map';
 
 	constructor(private router: Router) {}
@@ -27,7 +26,7 @@ export class OsmMapComponent implements AfterViewInit {
 			center: this.centerCoordinates,
 			zoom: this.zoomLevel
 		});
-		
+
 		const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			maxZoom: 18,
 			minZoom: 3,
@@ -35,7 +34,7 @@ export class OsmMapComponent implements AfterViewInit {
 		});
 
 		tiles.addTo(map);
-		
+
 		this.items.forEach(item => {
 			var marker = L.marker([item.longitude, item.latitude], {
 				title: item.name,
@@ -53,5 +52,5 @@ export class OsmMapComponent implements AfterViewInit {
 			marker.addTo(map);
 		});
 	}
-	
+
 }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { AuthService } from '../services/auth/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +13,7 @@ export class LoginComponent {
 	form: FormGroup;
 	passwordVisible: boolean = false;
 	authService: AuthService
-  
+
 	constructor(private router: Router, authService: AuthService, fb: FormBuilder) {
 		this.form = fb.group({
 			username: new FormControl('', [Validators.required]),
@@ -22,7 +22,7 @@ export class LoginComponent {
 		this.authService = authService;
 	}
 
-  
+
 	login(): void {
 	  if (this.form.valid) {
 		const username = this.form.get('username')!.value;
@@ -45,12 +45,12 @@ export class LoginComponent {
 
 	  }
 	}
-  
+
 	resetPassword(): void {
 	  // Redirect to password reset page
 	  this.router.navigate(['/forgot-password']);
 	}
-  
+
 	signUp(): void {
 	  // Redirect to sign up page
 	  this.router.navigate(['/signup']);

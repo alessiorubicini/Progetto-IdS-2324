@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PointService } from '../../services/point/point.service';
-import { MockdataService } from '../../services/mock/mockdata.service';
-import { City } from '../../models/city';
-import { CityService } from '../../services/city/city.service';
+import { PointService } from '../../../services/point/point.service';
+import { MockdataService } from '../../../services/mock/mockdata.service';
+import { City } from '../../../models/city';
+import { CityService } from '../../../services/city/city.service';
 
 @Component({
   selector: 'app-create-poi',
@@ -15,7 +15,7 @@ export class CreatePoiComponent {
 	// TODO: aggiungere form con informazioni contenuto
 	city?: City;
 	activeTab: string = 'pointsOfInterest';
-	
+
 	constructor(private route: ActivatedRoute, private cityService: CityService, private pointService: PointService) {
 		this.route.params.subscribe(params => {
 			const id = params["id"];

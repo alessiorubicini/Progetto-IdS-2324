@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { AuthService } from '../services/auth/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -14,7 +14,7 @@ export class SignupComponent {
 	passwordVisible: boolean = false;
 	authService: AuthService;
 	passwordsMatchError: boolean = false;
-  
+
 	constructor(private router: Router, authService: AuthService, fb: FormBuilder) {
 		this.form = fb.group({
 			name: new FormControl('', [Validators.required]),
@@ -24,7 +24,7 @@ export class SignupComponent {
 			password1: new FormControl('', [Validators.required]),
       		password2: new FormControl('', [Validators.required])
 		});
-		
+
 		this.authService = authService;
 	}
 

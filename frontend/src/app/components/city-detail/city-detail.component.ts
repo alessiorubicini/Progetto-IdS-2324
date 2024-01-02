@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { City } from '../models/city';
-import { CityService } from '../services/city/city.service';
-import { MockdataService } from '../services/mock/mockdata.service';
-//import { PointsOfInterestComponent } from '../points-of-interest/points-of-interest.component'; 
+import { City } from '../../models/city';
+import { CityService } from '../../services/city/city.service';
+import { MockdataService } from '../../services/mock/mockdata.service';
+//import { PointsOfInterestComponent } from '../points-of-interest/points-of-interest.component';
 //import { AreasComponent } from '../areas/areas.component';
 //import { ContestsComponent } from '../contests/contests.component';
 
@@ -15,7 +15,7 @@ import { MockdataService } from '../services/mock/mockdata.service';
 export class CityDetailComponent {
 	city?: City;
 	activeTab: string = 'pointsOfInterest';
-	
+
 	constructor(private route: ActivatedRoute, private cityService: CityService) {
 		//this.getCityDetail();
 		this.city = MockdataService.getCityMocks()[0];
