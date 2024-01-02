@@ -1,17 +1,17 @@
-<div class="points-of-interest">   
-    <div class="row mt-5">
-        <div class="col-md-6">
-            <div class="d-grid gap-2">
-                <button class="btn btn-outline-success btn-lg" type="button" [routerLink]="['/city', cityId, 'create-content']">+ Create content</button>
-            </div>
-        </div>
+<div class="points-of-interest">
+	<div class="row mt-3">
+		<div class="col-md-6">
+			<div class="d-grid gap-2">
+				<button class="btn btn-outline-success btn-lg" type="button" [routerLink]="['/city', cityId, 'create-content']">+ Create content</button>
+			</div>
+		</div>
 
-        <div class="col-md-6">
-            <div class="d-grid gap-2">
-                <button class="btn btn-outline-success btn-lg" type="button"  [routerLink]="['/city', cityId, 'create-poi']">+ Create point of interest</button>
-            </div>
-        </div>
-    </div>
+		<div class="col-md-6">
+			<div class="d-grid gap-2">
+				<button class="btn btn-outline-success btn-lg" type="button"  [routerLink]="['/city', cityId, 'create-poi']">+ Create point of interest</button>
+			</div>
+		</div>
+	</div>
 
 	<app-osm-map
 			[centerCoordinates]="[city!.longitude, city!.latitude]"
