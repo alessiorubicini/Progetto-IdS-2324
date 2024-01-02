@@ -18,7 +18,7 @@ export class PointsOfInterestComponent {
 		this.route.params.subscribe(params => {
 			const id = params["id"];
 			//this.getCityDetail();
-			this.city = MockdataService.getCityMocks()[0];
+			this.city = MockdataService.getCityMock(id);
 		})
 	}
 

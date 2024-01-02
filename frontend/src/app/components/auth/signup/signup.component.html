@@ -3,7 +3,7 @@
 <div class="container mt-5">
 
 	<div class="text-center mb-4">
-		<img  src="assets/img/opencity-logo.jpg" width="100" alt="App Logo" >
+		<img src="../../../../assets/img/opencity-logo.jpg" width="100" alt="App Logo" >
 		<h2 class="mt-2">Welcome to OpenCity!</h2>
 	  </div>
 
@@ -25,16 +25,16 @@
 					<label for="username">Username</label>
 					<input type="text" class="form-control" id="username" formControlName="username" placeholder="Enter your username">
 				</div>
-				
+
 			</div>
-	
+
 			<div class="col-md-6">
-			
+
 					<div class="form-group mb-3">
 						<label for="email">Email</label>
 						<input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter your email address">
 					</div>
-					
+
 					<div class="mb-3">
 						<label for="password1" class="form-label">Password</label>
 						<div class="input-group">
@@ -58,10 +58,10 @@
 					<div class="mb-3">
 						<div *ngIf="passwordsMatchError" class="error-message">
 							<p>Passwords do not match.</p>
-						</div>						  
+						</div>
 					</div>
 
-					
+
 					<div class="form-check form-group mb-3">
 						<input class="form-check-input" type="checkbox" value="" id="termsAndConditions">
 						<label class="form-check-label" for="flexCheckDefault">
@@ -75,16 +75,16 @@
 							I have read and agree to the <a href="#">Privacy Policy</a>.
 						</label>
 					</div>
-					  
-					
+
+
 					<div class="form-group mb-3">
 						<button type="button" class="btn btn-primary btn-block w-100" (click)="signup()">Signup</button>
 					</div>
-					
+
 					<div class="form-group text-center">
 						<p>Already have an account? <a [routerLink]="['/login']">Login here</a></p>
 					</div>
-				
+
 			</div>
 		</div>
 	</form>

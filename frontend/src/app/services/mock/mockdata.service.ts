@@ -5,9 +5,9 @@ import { City } from 'src/app/models/city';
 	providedIn: 'root'
 })
 export class MockdataService {
-	
+
 	constructor() { }
-	
+
 	public static getCityMocks() : City[] {
 		return [
 			{ id: 1, cadastralCode: "ABC123", name: "Porto San Giorgio", region: "Marche", province: "FM", istatCode: "12345", longitude: 43.180144, latitude: 13.793122, points: [], contests: []},
@@ -15,5 +15,11 @@ export class MockdataService {
 			{ id: 3, cadastralCode: "GHI789", name: "Senigallia", region: "Marche", province: "AN", istatCode: "98765", longitude: 43.719696, latitude: 13.215435, points: [], contests: [] }
 		]
 	}
-	
+
+	public static getCityMock(id: number) : City | undefined {
+		var cities = this.getCityMocks();
+		return cities.find(c => c.id == id);
+	}
+
+
 }

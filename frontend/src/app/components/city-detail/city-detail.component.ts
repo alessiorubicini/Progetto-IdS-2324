@@ -17,16 +17,16 @@ export class CityDetailComponent {
 	activeTab: string = 'pointsOfInterest';
 
 	constructor(private route: ActivatedRoute, private cityService: CityService) {
-		//this.getCityDetail();
-		this.city = MockdataService.getCityMocks()[0];
-	}
-
-	getCityDetail() : void {
 		this.route.params.subscribe(params => {
 			const cityId = params["id"];
-			this.cityService.getCityById(cityId).subscribe((city) => {
-				this.city = city;
-			})
+			this.city = MockdataService.getCityMock(cityId);
+			//this.getCityDetail(cityId);
+		})
+	}
+
+	getCityDetail(id: number) : void {
+		this.cityService.getCityById(id).subscribe((city) => {
+			this.city = city;
 		})
 	}
 
