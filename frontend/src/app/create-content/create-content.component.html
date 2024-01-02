@@ -1,5 +1,16 @@
 
-<h1> funzia </h1>
+<div class="container mt-5">
+
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
+			<li class="breadcrumb-item"><a [routerLink]="['/city', city?.id]">{{city?.name}}</a></li>
+			<li class="breadcrumb-item active">Create Content</li>
+		</ol>
+	</nav>
+
+	<h2>Create content for {{city?.name}}</h2>
+</div>
 
 <!-- CreateContent component da fare-->
 <!-- <p>create-content works!</p>
