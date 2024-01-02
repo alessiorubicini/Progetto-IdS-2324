@@ -1,18 +1,24 @@
 <!-- city-detail.component.html -->
 
 
-<div class="card" style="width: 15rem;">
-	<div class="card-body">
-	  <h5 class="card-title">In this city you are:</h5>
-	  <p class="card-text">ANIMATOR</p>
-	  <a href="#" class="card-link">Consult your roles</a>
-	</div>
-  </div>
-
 <div class="container mt-5">
-
-
-	<h1>{{ city?.name }}</h1>	
+	
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
+			<li class="breadcrumb-item active">{{city?.name}}</li>
+			
+		</ol>
+	</nav>
+	
+	<h1>{{ city?.name }}</h1>
+	
+	<div class="card mt-3" style="width: 15rem">
+		<div class="card-body">
+			<h5 class="card-title">Your role is: <strong>animator</strong></h5>
+			<a href="#" class="card-link">Consult your roles</a>
+		</div>
+	</div>
 	
 	<ul class="nav nav-tabs mt-4 mt">
 		<li class="nav-item">
@@ -29,7 +35,7 @@
 	<div class="tab-content mt-3">
 		<!-- Points of Interest Tab -->
 		<div class="tab-pane" id="pointsOfInterest" [ngClass]="{ 'active':activeTab==='pointsOfInterest'}">
-			<app-points-of-interest></app-points-of-interest>
+			<app-points-of-interest [cityId]="city?.id"></app-points-of-interest>
 		</div>
 		
 		<!-- Areas Tab -->
@@ -40,8 +46,10 @@
 		<!-- Contests Tab -->
 		<div class="tab-pane " id="contests" [ngClass]="{ 'active':activeTab==='contests'}">
 			<app-contests></app-contests> 
-
+			
 		</div>
 	</div>
+	
+	
 	
 </div>

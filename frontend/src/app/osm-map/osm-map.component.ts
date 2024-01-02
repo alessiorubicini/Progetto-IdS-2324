@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
 export class OsmMapComponent implements AfterViewInit {
 	@Input() centerCoordinates: L.LatLngTuple = [43.146785, 13.064328];
 	@Input() zoomLevel: number = 18;
-	@Input() cities: any[] = [];
+	@Input() items: any[] = [];
+	@Input() isForCity: boolean = true;
 	
 	title = 'OSM Map';
 
@@ -35,16 +36,20 @@ export class OsmMapComponent implements AfterViewInit {
 
 		tiles.addTo(map);
 		
-		this.cities.forEach(city => {
-			var marker = L.marker([city.longitude, city.latitude], {
-				title: city.name,
+		this.items.forEach(item => {
+			var marker = L.marker([item.longitude, item.latitude], {
+				title: item.name,
 				draggable: false,
 			});
-			marker.bindPopup(`<h3>${city.name}</h3>`);
+			marker.bindPopup(`<h3>${item.name}</h3>`);
 			marker.on('click', () => {
-				console.log(city)
-				this.router.navigate(['city', city.id])
+				if(this.isForCity) {
+					this.router.navigate(['city', item.id])
+				} else {
+					this.router.navigate(['point', item.id])
+				}
 			});
+
 			marker.addTo(map);
 		});
 	}
