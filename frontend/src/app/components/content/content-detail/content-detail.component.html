@@ -1,1 +1,38 @@
-<p>content-detail works!</p>
+<div class="container mt-5">
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
+			<li class="breadcrumb-item"><a [routerLink]="['/city', content!.point.city.id]">{{ content!.point.city.name }}</a></li>
+			<li class="breadcrumb-item active">{{ content?.title }}</li>
+		</ol>
+	</nav>
+
+	<h2>{{ content!.title }}</h2>
+
+	<div class="row">
+		<div class="col-sm-6">
+			<p>{{ content!.description }}</p>
+
+			<div class="btn-group">
+				<button type="button" class="btn btn-outline-primary">Salva nei preferiti <i class="bi bi-bookmark-heart"></i></button>
+				<button type="button" class="btn btn-outline-danger">Segnala <i class="bi bi-exclamation-octagon-fill"></i></button>
+			</div>
+
+
+
+		</div>
+		<div class="col-sm-6">
+			<!-- Assuming path is URL -->
+			<img class="content-image" src="{{ content!.media.path }}">
+		</div>
+	</div>
+
+	<div class="row mt-3">
+		<app-osm-map
+			[centerCoordinates]="[content!.point.longitude, content!.point.latitude]"
+			[zoomLevel]="21"
+			[items]="[content!.point]"
+			[isForCity]="false"
+		></app-osm-map>
+	</div>
+</div>

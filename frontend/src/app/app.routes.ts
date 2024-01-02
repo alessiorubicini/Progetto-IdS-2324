@@ -7,6 +7,7 @@ import {ContactsComponent} from "./components/contacts/contacts.component"
 import {PointsOfInterestComponent} from "./components/poi/points-of-interest/points-of-interest.component"
 import {CreateContentComponent} from "./components/content/create-content/create-content.component"
 import {CreatePoiComponent} from "./components/poi/create-poi/create-poi.component"
+import {ContentDetailComponent} from "./components/content/content-detail/content-detail.component";
 
 export const routes: Routes = [
 	{path: "", redirectTo: "home", pathMatch: "full"},
@@ -16,5 +17,6 @@ export const routes: Routes = [
 	{path: "city/:id", component: CityDetailComponent},
 	{path: "contacts", component: ContactsComponent},
 	{path: "city/:id/create-content", component: CreateContentComponent},
-	{path: "city/:id/create-poi", component: CreatePoiComponent}
+	{path: "city/:id/create-poi", component: CreatePoiComponent},
+	{path: "city/:id/contents/:contentId", component: ContentDetailComponent}
 ]

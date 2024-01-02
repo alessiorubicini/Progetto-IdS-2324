@@ -27,6 +27,7 @@ import { PointDetailComponent } from './components/poi/point-detail/point-detail
 import { AreaDetailComponent } from './components/area/area-detail/area-detail.component';
 import { CreateAreaComponent } from './components/area/create-area/create-area.component';
 import { ContentDetailComponent } from './components/content/content-detail/content-detail.component';
+import { ContentListComponent } from './components/content/content-list/content-list.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { ContentDetailComponent } from './components/content/content-detail/cont
     AreaDetailComponent,
     CreateAreaComponent,
     ContentDetailComponent,
+    ContentListComponent,
   ],
   imports: [
     BrowserModule,

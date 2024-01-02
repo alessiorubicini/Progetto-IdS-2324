@@ -11,7 +11,11 @@ export class PointService {
 
 	constructor(private httpClient: HttpClient) { }
 
-	public getPointsOfCity(id: number) : Observable<Point> {
+	public getPointsOfCity(id: number) : Observable<Point[]> {
+		return this.httpClient.get<Point[]>(`${environment.apiUrl}/city/${id}/points`);
+	}
+
+	public getPointDetails(id: number) : Observable<Point> {
 		return this.httpClient.get<Point>(`${environment.apiUrl}/city/${id}/points`);
 	}
 }
