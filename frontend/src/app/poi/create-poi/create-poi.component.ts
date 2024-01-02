@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PointService } from '../services/point/point.service';
-import { City } from '../models/city';
-import { CityService } from '../services/city/city.service';
-import { MockdataService } from '../services/mock/mockdata.service';
+import { PointService } from '../../services/point/point.service';
+import { MockdataService } from '../../services/mock/mockdata.service';
+import { City } from '../../models/city';
+import { CityService } from '../../services/city/city.service';
 
 @Component({
-  selector: 'app-create-content',
-  templateUrl: './create-content.component.html',
-  styleUrls: ['./create-content.component.scss']
+  selector: 'app-create-poi',
+  templateUrl: './create-poi.component.html',
+  styleUrls: ['./create-poi.component.scss']
 })
-export class CreateContentComponent {
+export class CreatePoiComponent {
 
 	// TODO: aggiungere form con informazioni contenuto
 	city?: City;
@@ -33,8 +33,9 @@ export class CreateContentComponent {
 		})
 	}
 
-	createContent() : void {
+	createPoint() : void {
 		// TODO: aggiungere chiamata POST alle API per inviare nuovo content
 	}
-	
+
+
 }

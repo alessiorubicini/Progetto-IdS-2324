@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { City } from '../models/city';
+import { City } from '../../models/city';
 import { ActivatedRoute } from '@angular/router';
-import { CityService } from '../services/city/city.service';
-import { MockdataService } from '../services/mock/mockdata.service';
+import { CityService } from '../../services/city/city.service';
+import { MockdataService } from '../../services/mock/mockdata.service';
 
 @Component({
   selector: 'app-points-of-interest',

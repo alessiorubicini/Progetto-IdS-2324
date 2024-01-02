@@ -16,11 +16,17 @@ import { HomeComponent } from './home/home.component';
 import { OsmMapComponent } from './osm-map/osm-map.component';
 import { CityDetailComponent } from './city-detail/city-detail.component';
 import { ContactsComponent } from './contacts/contacts.component';
-import { CreateContentComponent } from './create-content/create-content.component';
-import { PointsOfInterestComponent } from './points-of-interest/points-of-interest.component';
-import { AreasComponent } from './areas/areas.component';
-import { ContestsComponent } from './contests/contests.component';
-import { CreatePoiComponent } from './create-poi/create-poi.component';
+import { CreateContentComponent } from './content/create-content/create-content.component';
+import { PointsOfInterestComponent } from './poi/points-of-interest/points-of-interest.component';
+import { AreasComponent } from './area/areas/areas.component';
+import { CreatePoiComponent } from './poi/create-poi/create-poi.component';
+import { ContestsDetailComponent } from './Contest/contests-detail/contests-detail.component';
+import { CreateContestComponent } from './Contest/create-contest/create-contest.component';
+import { ContestListComponent } from './Contest/contest-list/contest-list.component';
+import { PointDetailComponent } from './poi/point-detail/point-detail.component';
+import { AreaDetailComponent } from './area/area-detail/area-detail.component';
+import { CreateAreaComponent } from './area/create-area/create-area.component';
+import { ContentDetailComponent } from './content/content-detail/content-detail.component';
 
 
 @NgModule({
@@ -35,8 +41,14 @@ import { CreatePoiComponent } from './create-poi/create-poi.component';
     CreateContentComponent,
     PointsOfInterestComponent,
     AreasComponent,
-    ContestsComponent,
-    CreatePoiComponent
+    CreatePoiComponent,
+    ContestsDetailComponent,
+    CreateContestComponent,
+    ContestListComponent,
+    PointDetailComponent,
+    AreaDetailComponent,
+    CreateAreaComponent,
+    ContentDetailComponent,
   ],
   imports: [
     BrowserModule,
