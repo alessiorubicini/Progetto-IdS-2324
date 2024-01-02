@@ -8,28 +8,46 @@
 			<li class="breadcrumb-item active">Create Content</li>
 		</ol>
 	</nav>
-
 	<h2>Create content for {{city?.name}}</h2>
 </div>
 
 <body>
   <div class="container">
-    <div class="mb-3">
-      <label for="titolo">Titolo*</label>
-      <input type="text" class="form-control" id="titolo" placeholder="Inserisci il titolo del contenuto">
+    <div class="mb-4">
+      <label for="title">Title </label>
+      <input type="text" class="form-control" id="title" required placeholder= "Enter the content title">
     </div>
 
-    <div class="mb-3">
-      <label for="contenuto">Contenuto</label>
-      <textarea class="form-control" id="contenuto" rows="5" placeholder="Inserisci il contenuto del tuo contenuto"></textarea>
+    <div class="mb-4">
+      <label for="content">Content </label>
+      <textarea class="form-control" id="content" rows="5" required placeholder="Enter the content of your request"></textarea>
     </div>
+
+    <div class="mb-4">
+      <label for="content">Point of interest </label>
+      <select class="form-select" aria-label="Default select example">
+        <option selected>Displays points of interest</option>
+        <option value="1">Pipo</option>
+        <option value="2">Puppa</option>
+        <option value="3">Simone</option>
+      </select>
+    </div>
+
+    <div class="mb-4">
+      <label for="content">Do you want to participate in a contest? </label>
+      <select class="form-select" aria-label="Default select example">
+        <option selected>Open this select menu</option>
+        <option value="1">Yes</option>
+        <option value="2">No</option>
+      </select>
+    </div>
+
+    <div class="mb-4">
+      <label for="formFile" class="form-label" >Upload a file </label>
+      <input class="form-control" type="file" id="formFile">
+    </div>  
           
-    <button type="submit" class="btn btn-primary">Crea</button>
-        
-      
-    
-
-    
+    <button type="submit" class="btn btn-primary">Send</button>
   </div>
 </body>
 
