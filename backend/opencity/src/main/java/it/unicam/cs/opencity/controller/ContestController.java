@@ -32,14 +32,14 @@ public class ContestController {
     @PutMapping("/{id}")
     public ResponseEntity<Object> proclaimWinner(@PathVariable("id") Integer id, @RequestParam Integer userId){
         if(contestService.proclaimWinner(id, userId))
-            return new ResponseEntity<>(ResponseEntity.ok(), HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getContestDetail(@RequestParam("id") Integer id) {
+    public ResponseEntity<Object> getContestDetail(@PathVariable Integer id) {
         Contest contest = contestService.getContestDetails(id);
         if(contest != null)
             return new ResponseEntity<>(contest, HttpStatus.OK);

@@ -2,17 +2,22 @@ package it.unicam.cs.opencity.service;
 
 
 import it.unicam.cs.opencity.entity.Contest;
+import it.unicam.cs.opencity.entity.User;
 import it.unicam.cs.opencity.repository.ContestRepository;
+import it.unicam.cs.opencity.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ContestService {
     private final ContestRepository contestRepository;
+    @Autowired
+    private UserService userService;
 
     @Autowired
-    public ContestService(ContestRepository contestRepository) {
+    public ContestService(ContestRepository contestRepository, UserService userService) {
         this.contestRepository = contestRepository;
+        this.userService = userService;
     }
 
     public boolean suggestContest(Contest contest) {
@@ -22,11 +27,13 @@ public class ContestService {
 
     public boolean proclaimWinner(Integer contestId, Integer userId) {
         Contest contest = contestRepository.findById(contestId).orElse(null);
-        if(contest != null){
-            contest.setWinner(new UserService().getUserDetails(userId).orElse(null));
+        User user = userService.getUserDetails(userId).orElse(null);
+        if(contest != null && user != null){
+            contest.setWinner(user);
             contestRepository.save(contest);
+            return true;
         }
-        return true;
+       return false;
     }
     public Contest getContestDetails(Integer contestId) {
         return contestRepository.findById(contestId).orElse(null);

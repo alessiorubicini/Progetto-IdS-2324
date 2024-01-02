@@ -24,6 +24,7 @@ public class User {
     @JsonIgnoreProperties("user")
     private List<Participation> roles;
 
+
     public User(String name, String surname, String username, String fiscalCode, String email, String password, List<Participation> roles) {
         this.name = name;
         this.surname = surname;

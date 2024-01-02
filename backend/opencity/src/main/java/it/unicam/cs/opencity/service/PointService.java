@@ -34,8 +34,7 @@ public class PointService {
             pointRepository.deleteById(pointId);
             return true;
         }
-        else
-            return false;
+        return false;
     }
 
 }

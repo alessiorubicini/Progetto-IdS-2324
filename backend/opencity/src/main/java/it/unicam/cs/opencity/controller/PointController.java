@@ -1,6 +1,5 @@
 package it.unicam.cs.opencity.controller;
 
-import it.unicam.cs.opencity.entity.City;
 import  it.unicam.cs.opencity.entity.Point;
 import it.unicam.cs.opencity.service.PointService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +28,10 @@ public class PointController {
     }
 
     @DeleteMapping("/{id}")
-    public boolean removePoint(@PathVariable("id") Integer id) {
-        pointService.removePoint(id);
-        return true;
+    public ResponseEntity<Object> removePoint(@PathVariable("id") Integer id) {
+        if(pointService.removePoint(id))
+            return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/{id}")
