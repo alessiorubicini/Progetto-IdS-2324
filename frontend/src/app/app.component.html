@@ -5,14 +5,14 @@
 			<img src="../assets/img/opencity-logo-nobg.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
 			OpenCity
 		</a>
-		
+
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-				
+
 				<li class="nav-item">
 					<a class="nav-link" aria-current="page" [routerLink]="['/home']" [routerLinkActive]="['active']">Home</a>
 				</li>
@@ -20,12 +20,12 @@
 				<li class="nav-item">
 					<a class="nav-link" href="#" [routerLink]="['/contacts']" [routerLinkActive]="['active']">Contacts</a>
 				</li>
-				
+
 			</ul>
 
-			<div *ngIf="token == null else loggedInBlock">
-				<button class="btn btn-outline-primary" [routerLink]="['/login']">Login</button>
-				<button class="btn btn-outline-primary" [routerLink]="['/signup']">Signup</button>
+			<div class="d-flex" *ngIf="token == null else loggedInBlock">
+				<button class="btn btn-primary me-2" [routerLink]="['/login']">Login <i class="bi bi-box-arrow-in-right"></i></button>
+				<button class="btn btn-outline-primary" [routerLink]="['/signup']">Signup <i class="bi bi-person-fill-add"></i></button>
 			</div>
 
 			<ng-template #loggedInBlock>
@@ -40,7 +40,7 @@
 					</li>
 				</ul>
 			</ng-template>
-	
+
 		</div>
 	</div>
 </nav>
