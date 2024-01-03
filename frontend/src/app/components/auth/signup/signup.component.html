@@ -3,7 +3,7 @@
 <div class="container mt-5">
 
 	<div class="text-center mb-4">
-		<img src="../../../../assets/img/opencity-logo.jpg" width="100" alt="App Logo" >
+		<img src="../../../../assets/img/opencity-logo-nobg.png" width="100" alt="App Logo" >
 		<h2 class="mt-2">Welcome to OpenCity!</h2>
 	  </div>
 
@@ -12,73 +12,78 @@
 
 			<div class="col-md-6">
 				<div class="form-group mb-3">
-					<label for="name">Name</label>
+					<label class="form-label" for="name">Name</label>
 					<input type="text" class="form-control" id="name" formControlName="name" placeholder="Enter your name">
 				</div>
 
 				<div class="form-group mb-3">
-					<label for="surname">Surname</label>
+					<label class="form-label" for="surname">Surname</label>
 					<input type="text" class="form-control" id="surname" formControlName="surname" placeholder="Enter your surname">
 				</div>
 
 				<div class="form-group mb-3">
-					<label for="username">Username</label>
+					<label class="form-label" for="username">Username</label>
 					<input type="text" class="form-control" id="username" formControlName="username" placeholder="Enter your username">
 				</div>
 
+				<div class="form-group mb-3">
+					<label class="form-label" for="email">Email</label>
+					<input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter your email address">
+				</div>
+
+				<div class="form-group mb-3">
+					<label class="form-label" for="fiscalCode">Fiscal code</label>
+					<input type="text" class="form-control" id="fiscalCode" formControlName="fiscalCode" placeholder="Enter your fiscal code">
+				</div>
 			</div>
 
 			<div class="col-md-6">
 
 					<div class="form-group mb-3">
-						<label for="email">Email</label>
-						<input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter your email address">
-					</div>
-
-					<div class="mb-3">
 						<label for="password1" class="form-label">Password</label>
 						<div class="input-group">
 							<input type="{{ passwordVisible ? 'text' : 'password' }}" class="form-control" formControlName="password1" id="password1" placeholder="Enter your password">
-							<button class="input-group-text" id="eye-icon" (click)="passwordVisible = !passwordVisible">
+							<button class="input-group-text" (click)="passwordVisible = !passwordVisible">
 								<i [class]="passwordVisible ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'"></i>
 							</button>
+						</div>
+						<div *ngIf="password1?.invalid && (password1?.dirty || password1?.touched)">
+							<p *ngIf="password1?.hasError('required')" class="text-danger">Password is required.</p>
+							<p *ngIf="password1?.hasError('minlength')" class="text-danger">Password must be at least 8 characters long.</p>
 						</div>
 					</div>
 
 					<div class="mb-3">
 						<label for="password2" class="form-label">Confirm password</label>
 						<div class="input-group">
-							<input type="{{ passwordVisible ? 'text' : 'password' }}" class="form-control" formControlName="password2" id="password2" placeholder="Enter your password">
-							<button class="input-group-text" id="eye-icon" (click)="passwordVisible = !passwordVisible">
+							<input type="{{ passwordVisible ? 'text' : 'password' }}" class="form-control" formControlName="password2" id="password2" placeholder="Confirm your password">
+							<button class="input-group-text" (click)="passwordVisible = !passwordVisible">
 								<i [class]="passwordVisible ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'"></i>
 							</button>
 						</div>
-					</div>
-
-					<div class="mb-3">
-						<div *ngIf="passwordsMatchError" class="error-message">
-							<p>Passwords do not match.</p>
+						<div *ngIf="password2?.invalid && (password2?.dirty || password2?.touched)">
+							<p *ngIf="password2?.hasError('required')" class="text-danger">Password is required.</p>
+							<p *ngIf="password2?.hasError('notSame')" class="text-danger">Passwords must match.</p>
 						</div>
 					</div>
 
-
 					<div class="form-check form-group mb-3">
-						<input class="form-check-input" type="checkbox" value="" id="termsAndConditions">
-						<label class="form-check-label" for="flexCheckDefault">
+						<input class="form-check-input" type="checkbox" value="" formControlName="termsAndConditions">
+						<label class="form-check-label">
 							I have read and agree to the <a href="#">Terms of Use</a>.
 						</label>
 					</div>
 
 					<div class="form-check form-group mb-4">
-						<input class="form-check-input" type="checkbox" value="" id="privacyPolicy">
-						<label class="form-check-label" for="flexCheckDefault">
+						<input class="form-check-input" type="checkbox" value="" formControlName="privacyPolicy">
+						<label class="form-check-label">
 							I have read and agree to the <a href="#">Privacy Policy</a>.
 						</label>
 					</div>
 
 
 					<div class="form-group mb-3">
-						<button type="button" class="btn btn-primary btn-block w-100" (click)="signup()">Signup</button>
+						<button type="button" class="btn btn-primary btn-block w-100" (click)="signup()" [disabled]="form.invalid">Signup</button>
 					</div>
 
 					<div class="form-group text-center">

@@ -1,21 +1,24 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { Observable, catchError, tap, throwError } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {environment} from 'src/environments/environment';
+import {JwtHelperService} from '@auth0/angular-jwt';
+import {Observable, catchError, tap, throwError} from 'rxjs';
+import {User} from "../../models/user";
+import {Router} from "@angular/router";
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class AuthService {
 
-	constructor(private httpClient: HttpClient, private jwtHelper: JwtHelperService) { }
+	constructor(private httpClient: HttpClient, private router: Router, private jwtHelper: JwtHelperService) {}
 
 	public login(credentials: { username: string; password: string }): Observable<any> {
-		return this.httpClient.post(`${environment.apiUrl}/api/auth/login`, credentials, {observe: 'response'})
+		return this.httpClient.post(`${environment.apiUrl}/auth/login`, credentials, {observe: 'response'})
 			.pipe(tap((response: any) => {
+					//localStorage.setItem("user-data", response.body);
 					const authToken = this.extractAuthToken(response.headers);
-					if(authToken) {
+					if (authToken) {
 						this.storeToken(authToken);
 					}
 				}),
@@ -26,11 +29,21 @@ export class AuthService {
 			);
 	}
 
-	public signup(): void {
-		// TODO: implementare registrazione utente
+	public signup(user: User): Observable<any> {
+		return this.httpClient.post(`${environment.apiUrl}/auth/signup`, user, {observe: 'response'})
+			.pipe(tap((response: any) => {
+					if(response.statusCode === 200) {
+						this.router.navigate(['/login']);
+					}
+				}),
+				catchError(error => {
+					console.error('Signup failed. Error:', error);
+					return throwError(() => error);
+				})
+			);
 	}
 
-	public logout() : void {
+	public logout(): void {
 		localStorage.removeItem("access_token");
 	}
 

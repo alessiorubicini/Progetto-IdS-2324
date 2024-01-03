@@ -8,6 +8,9 @@ import {PointsOfInterestComponent} from "./components/poi/points-of-interest/poi
 import {CreateContentComponent} from "./components/content/create-content/create-content.component"
 import {CreatePoiComponent} from "./components/poi/create-poi/create-poi.component"
 import {ContentDetailComponent} from "./components/content/content-detail/content-detail.component";
+import {PointDetailComponent} from "./components/poi/point-detail/point-detail.component";
+import {AreaDetailComponent} from "./components/area/area-detail/area-detail.component";
+import {CreateAreaComponent} from "./components/area/create-area/create-area.component";
 
 export const routes: Routes = [
 	{path: "", redirectTo: "home", pathMatch: "full"},
@@ -18,5 +21,8 @@ export const routes: Routes = [
 	{path: "contacts", component: ContactsComponent},
 	{path: "city/:id/create-content", component: CreateContentComponent},
 	{path: "city/:id/create-poi", component: CreatePoiComponent},
-	{path: "city/:id/contents/:contentId", component: ContentDetailComponent}
+	{path: "city/:id/create-area", component: CreateAreaComponent},
+	{path: "city/:id/contents/:contentId", component: ContentDetailComponent},
+	{path: "city/:id/points/:pointId", component: PointDetailComponent},
+	{path: "city/:id/areas/:areaId", component: AreaDetailComponent}
 ]
