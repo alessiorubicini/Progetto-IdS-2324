@@ -13,7 +13,16 @@ import {Role} from "../../models/role";
 })
 export class AuthService {
 
-	constructor(private httpClient: HttpClient, private router: Router, private jwtHelper: JwtHelperService) {}
+	public authenticated: boolean = false;
+
+	constructor(private httpClient: HttpClient, private router: Router, private jwtHelper: JwtHelperService) {
+		const token = localStorage.getItem('access_token');
+		if(token != null && !this.jwtHelper.isTokenExpired(token)) {
+			this.authenticated = true;
+		} else {
+			this.authenticated = false;
+		}
+	}
 
 	public login(credentials: { username: string; password: string }): Observable<any> {
 		return this.httpClient.post(`${environment.apiUrl}/auth/login`, credentials, {observe: 'response'})
@@ -24,7 +33,7 @@ export class AuthService {
 					}
 					const userInfo = JSON.stringify(response.body);
 					localStorage.setItem("user_info", userInfo);
-
+					this.authenticated = true;
 				}),
 				catchError(error => {
 					console.error('Login failed. Error:', error);
@@ -51,7 +60,7 @@ export class AuthService {
 		localStorage.removeItem("access_token");
 		localStorage.removeItem("user_info")
 		this.router.navigate(['/home']);
-
+		this.authenticated = false;
 	}
 
 	public isAuthenticated(): boolean {

@@ -23,7 +23,7 @@
 
 			</ul>
 
-			<div class="d-flex" *ngIf="!authenticated">
+			<div class="d-flex" *ngIf="!this.authenticated">
 				<button class="btn btn-primary me-2" [routerLink]="['/login']">Login <i class="bi bi-box-arrow-in-right"></i></button>
 				<button class="btn btn-outline-primary" [routerLink]="['/signup']">Signup <i class="bi bi-person-fill-add"></i></button>
 			</div>
@@ -31,12 +31,10 @@
 			<div *ngIf="authenticated">
 				<ul class=" navbar-nav mb-2 mb-lg-0 d-flex">
 					<li class="nav-item">
-						<a class="nav-link" [routerLink]="['/profile']">
-							<i class="bi bi-person-circle" style="font-size: 1.3rem;"></i>
-						</a>
+						<button class="btn btn-outline-primary me-2" [routerLink]="['/profile']"><i class="bi bi-person-circle"></i></button>
 					</li>
 					<li class="nav-item">
-						<button class="btn btn-outline-danger" (click)="logout()">Logout</button>
+						<button class="btn btn-outline-danger" (click)="logout()"><i class="bi bi-box-arrow-in-left"></i></button>
 					</li>
 				</ul>
 			</div>

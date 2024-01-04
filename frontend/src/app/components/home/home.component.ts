@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { City } from '../../models/city';
 import { CityService } from '../../services/city/city.service';
-import { tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { MockdataService } from '../../services/mock/mockdata.service';
 
