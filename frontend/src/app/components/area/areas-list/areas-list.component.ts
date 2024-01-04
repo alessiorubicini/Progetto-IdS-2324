@@ -32,6 +32,7 @@ export class AreasListComponent {
 	}
 
 	cityAreas() : Point[] {
-		return this.city!.points.filter(p => p.latitude == undefined && p.longitude == undefined);
+		//return this.city!.points.filter(p => p.latitude == undefined && p.longitude == undefined);
+		return [];
 	}
 }

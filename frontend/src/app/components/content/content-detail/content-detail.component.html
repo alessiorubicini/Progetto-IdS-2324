@@ -2,7 +2,7 @@
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
-			<li class="breadcrumb-item"><a [routerLink]="['/city', content!.point.city.id]">{{ content!.point.city.name }}</a></li>
+			<li class="breadcrumb-item"><a [routerLink]="['/city', city?.id]">{{ city?.name }}</a></li>
 			<li class="breadcrumb-item active">{{ content?.title }}</li>
 		</ol>
 	</nav>
@@ -21,15 +21,15 @@
 		</div>
 		<div class="col-sm-6">
 			<!-- Assuming path is URL -->
-			<img class="content-image img-fluid" src="{{ content!.media.path }}">
+			<img class="content-image img-fluid" src="{{ content!.mediaUrl }}">
 		</div>
 	</div>
 
-	<div class="row mt-3" *ngIf="content!.point.longitude != undefined && content!.point.latitude != undefined ">
+	<div class="row mt-3" *ngIf="point!.longitude != undefined && point!.latitude != undefined ">
 		<app-osm-map
-			[centerCoordinates]="[content!.point.longitude!, content!.point.latitude!]"
+			[centerCoordinates]="[point!.longitude!, point!.latitude!]"
 			[zoomLevel]="21"
-			[items]="[content!.point]"
+			[items]="[this.point!]"
 			[isForCity]="false"
 		></app-osm-map>
 	</div>

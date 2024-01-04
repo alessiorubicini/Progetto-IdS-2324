@@ -1,6 +1,6 @@
 <div class="container">
 	<div class="row">
-		<ng-container *ngIf="city && city.points">
+		<ng-container *ngIf="city">
 			<div *ngFor="let point of cityAreas()" class="col-md-4 col-sm-6 col-12">
 				<div *ngIf="point.longitude == undefined && point.latitude == undefined" class="card" style="width: 18rem; margin-bottom: 20px;">
 					<div class="card-body">

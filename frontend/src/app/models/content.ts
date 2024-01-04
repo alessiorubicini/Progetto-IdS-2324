@@ -1,7 +1,4 @@
 import { ContentStatus } from "./contentstatus";
-import { Media } from "./media";
-import { Point } from "./point";
-import { User } from "./user";
 
 export interface Content {
 	id: number;

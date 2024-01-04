@@ -16,7 +16,7 @@
 	<app-osm-map
 			[centerCoordinates]="[city!.longitude, city!.latitude]"
 			[zoomLevel]="14"
-			[items]="city!.points"
+			[items]="this.points!"
 			[isForCity]="false"
 		></app-osm-map>
 </div>
