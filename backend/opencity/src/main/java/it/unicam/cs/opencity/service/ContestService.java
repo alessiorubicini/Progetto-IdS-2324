@@ -11,8 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ContestService {
     private final ContestRepository contestRepository;
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
     public ContestService(ContestRepository contestRepository, UserService userService) {
@@ -29,14 +28,14 @@ public class ContestService {
         Contest contest = contestRepository.findById(contestId).orElse(null);
         User user = userService.getUserDetails(userId).orElse(null);
         if(contest != null && user != null){
-            contest.setWinner(user);
+            contest.setWinnerId(user.getId());
             contestRepository.save(contest);
             return true;
         }
        return false;
     }
+
     public Contest getContestDetails(Integer contestId) {
         return contestRepository.findById(contestId).orElse(null);
     }
-
 }

@@ -22,11 +22,6 @@ public class CityController {
         return ResponseEntity.ok(cityService.getAllCities());
     }
 
-    @GetMapping("/{id}/contents")
-    public ResponseEntity<Object> getCityContents(@PathVariable("id") String id) {
-        return ResponseEntity.ok(cityService.getCityContents(Integer.parseInt(id)));
-    }
-
     @GetMapping("/{id}/contests")
     public ResponseEntity<Object> getCityContests(@PathVariable("id") String id) {
         return ResponseEntity.ok(cityService.getCityContests(Integer.parseInt(id)));

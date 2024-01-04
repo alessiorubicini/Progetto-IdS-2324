@@ -1,8 +1,6 @@
 package it.unicam.cs.opencity.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-
 import java.sql.Date;
 
 @Entity
@@ -16,24 +14,20 @@ public class Content {
     private Date publicationDate;
     @Enumerated(EnumType.STRING)
     private ContentStatus status;
-    @ManyToOne @JoinColumn(name = "authorId") @JsonBackReference
-    private User author;
-    @ManyToOne @JoinColumn(name = "pointId") @JsonBackReference
-    private Point point;
-    @OneToOne @JoinColumn(name = "mediaId")
-    private Media media;
-    @ManyToOne @JoinColumn(name = "contestId") @JsonBackReference
-    private Contest contest;
+    private Integer authorId;
+    private Integer pointId;
+    private String mediaUrl;
+    private Integer contestId;
 
-    public Content(String title, String description, Date publicationDate, ContentStatus status, User author, Point point, Media media, Contest contest) {
+    public Content(String title, String description, Date publicationDate, ContentStatus status, Integer authorId, Integer pointId, String mediaUrl, Integer contestId) {
         this.title = title;
         this.description = description;
         this.publicationDate = publicationDate;
         this.status = status;
-        this.author = author;
-        this.point = point;
-        this.media = media;
-        this.contest = contest;
+        this.authorId = authorId;
+        this.pointId = pointId;
+        this.mediaUrl = mediaUrl;
+        this.contestId = contestId;
     }
 
     public Content() { }
@@ -74,35 +68,35 @@ public class Content {
         this.status = status;
     }
 
-    public User getAuthor() {
-        return author;
+    public Integer getAuthorId() {
+        return authorId;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setAuthorId(Integer authorId) {
+        this.authorId = authorId;
     }
 
-    public Point getPoint() {
-        return point;
+    public Integer getPointId() {
+        return pointId;
     }
 
-    public void setPoint(Point point) {
-        this.point = point;
+    public void setPointId(Integer pointId) {
+        this.pointId = pointId;
     }
 
-    public Media getMedia() {
-        return media;
+    public String getMediaUrl() {
+        return mediaUrl;
     }
 
-    public void setMedia(Media media) {
-        this.media = media;
+    public void setMediaUrl(String mediaUrl) {
+        this.mediaUrl = mediaUrl;
     }
 
-    public Contest getContest() {
-        return contest;
+    public Integer getContestId() {
+        return contestId;
     }
 
-    public void setContest(Contest contest) {
-        this.contest = contest;
+    public void setContestId(Integer contestId) {
+        this.contestId = contestId;
     }
 }

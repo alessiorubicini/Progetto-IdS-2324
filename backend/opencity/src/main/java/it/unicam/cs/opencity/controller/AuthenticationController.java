@@ -1,7 +1,6 @@
 package it.unicam.cs.opencity.controller;
 
 import it.unicam.cs.opencity.entity.User;
-import it.unicam.cs.opencity.entity.UserInfo;
 import it.unicam.cs.opencity.service.UserService;
 import it.unicam.cs.opencity.util.JwtTokenProvider;
 import it.unicam.cs.opencity.util.UserCredentials;
@@ -37,10 +36,7 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestBody UserCredentials credentials) {
         try {
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword()));
-//          Integer id = userService.getUserDetails(credentials.getUsername()).getId();
-//          UserInfo userInfo = new UserInfo(userService.getUserDetails(id).get());
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword()));
             UserDTO userDTO = this.userService.convertToDTO(userService.getUserDetails(credentials.getUsername()));
             String token = jwtTokenProvider.generate(userDTO.getId(), authentication.getName());
             return ResponseEntity.ok().headers(authorizationHeaders(token)).body(userDTO);

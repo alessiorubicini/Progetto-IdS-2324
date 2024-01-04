@@ -1,12 +1,12 @@
 import {Component} from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from "./services/auth/auth.service";
-import { ToastrService } from 'ngx-toastr';
+import {Router} from '@angular/router';
+import {AuthService} from "./services/auth/auth.service";
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+	selector: 'app-root',
+	templateUrl: './app.component.html',
+	styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
 	title = 'OpenCity';
@@ -21,7 +21,7 @@ export class AppComponent {
 		})
 	}
 
-	get authenticated() : boolean {
+	get authenticated(): boolean {
 		return this.authService.authenticated;
 	}
 }

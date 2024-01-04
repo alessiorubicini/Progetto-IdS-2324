@@ -6,24 +6,7 @@ import jakarta.persistence.*;
 @Table(name = "Participation")
 public class Participation {
 
-    @Id @ManyToOne @JoinColumn(name = "userId")
-    private User user;
+    @EmbeddedId
+    private ParticipationId id;
 
-    @Id @ManyToOne @JoinColumn(name = "cityId")
-    private City city;
-
-    @Id @ManyToOne @JoinColumn(name = "roleId")
-    private Role role;
-
-    public User getUser() {
-        return user;
-    }
-
-    public City getCity() {
-        return city;
-    }
-
-    public Role getRole() {
-        return role;
-    }
 }

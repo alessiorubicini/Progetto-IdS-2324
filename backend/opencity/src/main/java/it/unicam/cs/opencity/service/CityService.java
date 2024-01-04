@@ -5,6 +5,9 @@ import it.unicam.cs.opencity.entity.Content;
 import it.unicam.cs.opencity.entity.Contest;
 import it.unicam.cs.opencity.entity.Point;
 import it.unicam.cs.opencity.repository.CityRepository;
+import it.unicam.cs.opencity.repository.ContentRepository;
+import it.unicam.cs.opencity.repository.ContestRepository;
+import it.unicam.cs.opencity.repository.PointRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +18,16 @@ import java.util.Optional;
 public class CityService {
 
     private final CityRepository cityRepository;
+    private final PointRepository pointRepository;
+    private final ContentRepository contentRepository;
+    private final ContestRepository contestRepository;
 
     @Autowired
-    public CityService(CityRepository cityRepository) {
+    public CityService(CityRepository cityRepository, PointRepository pointRepository, ContentRepository contentRepository, ContestRepository contestRepository) {
         this.cityRepository = cityRepository;
+        this.pointRepository = pointRepository;
+        this.contentRepository = contentRepository;
+        this.contestRepository = contestRepository;
     }
 
     public Iterable<City> getAllCities() {
@@ -29,19 +38,14 @@ public class CityService {
         return this.cityRepository.findById(id);
     }
 
-    public List<Content> getCityContents(Integer id) {
-        Optional<City> city = this.cityRepository.findById(id);
-        return city.map(City::getAllContents).orElse(null);
-    }
-
     public List<Contest> getCityContests(Integer id) {
         Optional<City> city = this.cityRepository.findById(id);
-        return city.map(City::getContests).orElse(null);
+        return contestRepository.findByCityId(id);
     }
 
     public List<Point> getCityPoints(Integer id) {
         Optional<City> city = this.cityRepository.findById(id);
-        return city.map(City::getPoints).orElse(null);
+        return pointRepository.findByCityId(id);
     }
 
     public boolean addCity(City city) {

@@ -18,24 +18,18 @@ public class Contest {
     private String description;
     private Date publicationDate;
     private Date closingDate;
-    @OneToOne @JoinColumn(name = "animatorId")
-    private User author;
-    @ManyToOne @JoinColumn(name = "cityId") @JsonBackReference
-    private City city;
-    @OneToOne @JoinColumn(name = "winnerId")
-    private User winner;
-    @OneToMany(mappedBy = "contest", cascade = CascadeType.ALL, orphanRemoval = true) @JsonManagedReference
-    private List<Content> contents;
+    private Integer authorId;
+    private Integer cityId;
+    private Integer winnerId;
 
-    public Contest(String title, String description, Date publicationDate, Date closingDate, User author, City city, User winner, List<Content> contents) {
+    public Contest(String title, String description, Date publicationDate, Date closingDate, Integer authorId, Integer cityId, Integer winnerId) {
         this.title = title;
         this.description = description;
         this.publicationDate = publicationDate;
         this.closingDate = closingDate;
-        this.author = author;
-        this.city = city;
-        this.winner = winner;
-        this.contents = contents;
+        this.authorId = authorId;
+        this.cityId = cityId;
+        this.winnerId = winnerId;
     }
 
     public Contest() { }
@@ -76,36 +70,28 @@ public class Contest {
         this.closingDate = closingDate;
     }
 
-    public User getAuthor() {
-        return author;
+    public Integer getAuthorId() {
+        return authorId;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setAuthorId(Integer authorId) {
+        this.authorId = authorId;
     }
 
-    public City getCity() {
-        return city;
+    public Integer getCityId() {
+        return cityId;
     }
 
-    public void setCity(City city) {
-        this.city = city;
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
     }
 
-    public User getWinner() {
-        return winner;
+    public Integer getWinnerId() {
+        return winnerId;
     }
 
-    public void setWinner(User winner) {
-        this.winner = winner;
-    }
-
-    public List<Content> getContents() {
-        return contents;
-    }
-
-    public void setContents(List<Content> contents) {
-        this.contents = contents;
+    public void setWinnerId(Integer winnerId) {
+        this.winnerId = winnerId;
     }
 
 

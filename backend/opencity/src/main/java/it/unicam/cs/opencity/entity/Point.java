@@ -1,8 +1,5 @@
 package it.unicam.cs.opencity.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.List;
@@ -19,20 +16,16 @@ public class Point {
     private float latitude;
     private float altitude;
     private String imageUrl;
-    @ManyToOne @JoinColumn(name = "cityId") @JsonBackReference
-    private City city;
-    @OneToMany(mappedBy = "point", cascade = CascadeType.ALL, orphanRemoval = true) @JsonManagedReference
-    private List<Content> contents;
+    private Integer cityId;
 
-    public Point(String name, String description, float longitude, float latitude, float altitude, String imageUrl, City city, List<Content> contents) {
+    public Point(String name, String description, float longitude, float latitude, float altitude, String imageUrl, Integer cityId) {
         this.name = name;
         this.description = description;
         this.longitude = longitude;
         this.latitude = latitude;
         this.altitude = altitude;
         this.imageUrl = imageUrl;
-        this.city = city;
-        this.contents = contents;
+        this.cityId = cityId;
     }
 
     public Point() { }
@@ -89,19 +82,11 @@ public class Point {
         this.imageUrl = imageUrl;
     }
 
-    public City getCity() {
-        return city;
+    public Integer getCityId() {
+        return cityId;
     }
 
-    public void setCity(City city) {
-        this.city = city;
-    }
-
-    public List<Content> getContents() {
-        return contents;
-    }
-
-    public void setContents(List<Content> contents) {
-        this.contents = contents;
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
     }
 }

@@ -1,6 +1,5 @@
 package it.unicam.cs.opencity.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
@@ -20,19 +19,14 @@ public class User {
     @Column(unique = true)
     private String email;
     private String password;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties("user")
-    private List<Participation> roles;
 
-
-    public User(String name, String surname, String username, String fiscalCode, String email, String password, List<Participation> roles) {
+    public User(String name, String surname, String username, String fiscalCode, String email, String password) {
         this.name = name;
         this.surname = surname;
         this.username = username;
         this.fiscalCode = fiscalCode;
         this.email = email;
         this.password = password;
-        this.roles = roles;
     }
 
     public User() { }
@@ -87,23 +81,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public List<Participation> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Participation> roles) {
-        this.roles = roles;
-    }
-
-    public Role getRoleFor(Integer cityId) {
-        for(Participation participation : this.roles) {
-            if(participation.getCity().getId().equals(cityId)) {
-                return participation.getRole();
-            }
-        }
-        return null;
     }
 
 }
