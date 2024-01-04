@@ -23,12 +23,12 @@
 
 			</ul>
 
-			<div class="d-flex" *ngIf="token == null else loggedInBlock">
+			<div class="d-flex" *ngIf="!authenticated">
 				<button class="btn btn-primary me-2" [routerLink]="['/login']">Login <i class="bi bi-box-arrow-in-right"></i></button>
 				<button class="btn btn-outline-primary" [routerLink]="['/signup']">Signup <i class="bi bi-person-fill-add"></i></button>
 			</div>
 
-			<ng-template #loggedInBlock>
+			<div *ngIf="authenticated">
 				<ul class=" navbar-nav mb-2 mb-lg-0 d-flex">
 					<li class="nav-item">
 						<a class="nav-link" [routerLink]="['/profile']">
@@ -39,7 +39,7 @@
 						<button class="btn btn-outline-danger" (click)="logout()">Logout</button>
 					</li>
 				</ul>
-			</ng-template>
+			</div>
 
 		</div>
 	</div>

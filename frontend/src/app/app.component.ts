@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from "./services/auth/auth.service";
+
 
 @Component({
   selector: 'app-root',
@@ -8,19 +10,14 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
 	title = 'OpenCity';
-  	token: string | null;
+  	authenticated: boolean = false;
 
-	constructor(private router: Router) {
-		this.token = this.getToken();
-	}
-
-	getToken(): string | null {
-		return localStorage.getItem("access_token");
+	constructor(private router: Router, private authService: AuthService) {
+		this.authenticated = authService.isAuthenticated();
 	}
 
 	public logout() {
-		localStorage.removeItem("access_token");
-		this.router.navigate(['/home']);
+		this.authService.logout();
 	}
 
 }

@@ -2,9 +2,11 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from 'src/environments/environment';
 import {JwtHelperService} from '@auth0/angular-jwt';
-import {Observable, catchError, tap, throwError} from 'rxjs';
+import {catchError, Observable, tap, throwError} from 'rxjs';
 import {User} from "../../models/user";
 import {Router} from "@angular/router";
+import {Role} from "../../models/role";
+
 
 @Injectable({
 	providedIn: 'root'
@@ -16,11 +18,13 @@ export class AuthService {
 	public login(credentials: { username: string; password: string }): Observable<any> {
 		return this.httpClient.post(`${environment.apiUrl}/auth/login`, credentials, {observe: 'response'})
 			.pipe(tap((response: any) => {
-					//localStorage.setItem("user-data", response.body);
 					const authToken = this.extractAuthToken(response.headers);
 					if (authToken) {
 						this.storeToken(authToken);
 					}
+					const userInfo = JSON.stringify(response.body);
+					localStorage.setItem("user_info", userInfo);
+
 				}),
 				catchError(error => {
 					console.error('Login failed. Error:', error);
@@ -45,12 +49,20 @@ export class AuthService {
 
 	public logout(): void {
 		localStorage.removeItem("access_token");
+		localStorage.removeItem("user_info")
+		this.router.navigate(['/home']);
+
 	}
 
 	public isAuthenticated(): boolean {
-		// Check if the token is expired or valid
 		const token = localStorage.getItem('access_token');
-		return !this.jwtHelper.isTokenExpired(token);
+		return token != null && !this.jwtHelper.isTokenExpired(token);
+	}
+
+	public getUserRole() : Role | null {
+		const userInfo = localStorage.getItem("user-info");
+		if(userInfo) return JSON.parse(userInfo);
+		return null;
 	}
 
 	private storeToken(token: string): void {
