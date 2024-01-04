@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router'
+import { City } from '../../../models/city';
+import { CityService } from '../../../services/city/city.service';
+import { PointService } from '../../../services/point/point.service';
+import { MockdataService } from '../../../services/mock/mockdata.service';
 
 @Component({
   selector: 'app-create-area',
@@ -6,5 +11,32 @@ import { Component } from '@angular/core';
   styleUrls: ['./create-area.component.scss']
 })
 export class CreateAreaComponent {
+
+
+// TODO: aggiungere form con informazioni contenuto
+city?: City;
+activeTab: string = 'areas';
+
+constructor(private route: ActivatedRoute, private cityService: CityService, private pointService: PointService) {
+  this.route.params.subscribe(params => {
+    const id = params["id"];
+    //this.getCityDetail();
+    this.city = MockdataService.getCityMock(id);
+  })
+}
+
+getCityDetail() : void {
+  this.route.params.subscribe(params => {
+    const cityId = params["id"];
+    this.cityService.getCityById(cityId).subscribe((city) => {
+      this.city = city;
+    })
+  })
+}
+
+createPoint() : void {
+  // TODO: aggiungere chiamata POST alle API per inviare nuovo content
+}
+
 
 }
