@@ -4,6 +4,7 @@ import { CityService } from '../../services/city/city.service';
 import { Router } from '@angular/router';
 import { MockdataService } from '../../services/mock/mockdata.service';
 
+
 @Component({
 	selector: 'app-home',
 	templateUrl: './home.component.html',
