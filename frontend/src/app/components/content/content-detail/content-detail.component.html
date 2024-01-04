@@ -25,9 +25,9 @@
 		</div>
 	</div>
 
-	<div class="row mt-3">
+	<div class="row mt-3" *ngIf="content!.point.longitude != undefined && content!.point.latitude != undefined ">
 		<app-osm-map
-			[centerCoordinates]="[content!.point.longitude, content!.point.latitude]"
+			[centerCoordinates]="[content!.point.longitude!, content!.point.latitude!]"
 			[zoomLevel]="21"
 			[items]="[content!.point]"
 			[isForCity]="false"

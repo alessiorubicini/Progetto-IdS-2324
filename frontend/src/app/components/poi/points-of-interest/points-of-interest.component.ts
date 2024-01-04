@@ -10,7 +10,6 @@ import { MockdataService } from '../../../services/mock/mockdata.service';
   styleUrls: ['./points-of-interest.component.scss']
 })
 export class PointsOfInterestComponent {
-
 	@Input() cityId?: number;
 	city?: City
 

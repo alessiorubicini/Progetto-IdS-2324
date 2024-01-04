@@ -18,7 +18,7 @@ import { CityDetailComponent } from './components/city-detail/city-detail.compon
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { CreateContentComponent } from './components/content/create-content/create-content.component';
 import { PointsOfInterestComponent } from './components/poi/points-of-interest/points-of-interest.component';
-import { AreasComponent } from './components/area/areas/areas.component';
+import { AreasListComponent } from './components/area/areas-list/areas-list.component';
 import { CreatePoiComponent } from './components/poi/create-poi/create-poi.component';
 import { ContestsDetailComponent } from './components/contest/contests-detail/contests-detail.component';
 import { CreateContestComponent } from './components/contest/create-contest/create-contest.component';
@@ -41,7 +41,7 @@ import { ContentListComponent } from './components/content/content-list/content-
     ContactsComponent,
     CreateContentComponent,
     PointsOfInterestComponent,
-    AreasComponent,
+    AreasListComponent,
     CreatePoiComponent,
     ContestsDetailComponent,
     CreateContestComponent,
@@ -51,6 +51,7 @@ import { ContentListComponent } from './components/content/content-list/content-
     CreateAreaComponent,
     ContentDetailComponent,
     ContentListComponent,
+    AreasListComponent,
   ],
   imports: [
     BrowserModule,

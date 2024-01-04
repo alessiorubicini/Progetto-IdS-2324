@@ -2,24 +2,24 @@
 
 
 <div class="container mt-5">
-	
+
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
 			<li class="breadcrumb-item active">{{city?.name}}</li>
-			
+
 		</ol>
 	</nav>
-	
+
 	<h1>{{ city?.name }}</h1>
-	
+
 	<div class="card mt-3" style="width: 15rem">
 		<div class="card-body">
 			<h5 class="card-title">Your role is: <strong>animator</strong></h5>
 			<a href="#" class="card-link">Consult your roles</a>
 		</div>
 	</div>
-	
+
 	<ul class="nav nav-tabs mt-4 mt">
 		<li class="nav-item">
 			<a class="nav-link" [class.active]="activeTab === 'pointsOfInterest'" (click)="setActiveTab('pointsOfInterest')">Points of Interest</a>
@@ -31,25 +31,25 @@
 			<a class="nav-link" [class.active]="activeTab === 'contests'" (click)="setActiveTab('contests')">Contests</a>
 		</li>
 	</ul>
-	
+
 	<div class="tab-content mt-3">
 		<!-- Points of Interest Tab -->
 		<div class="tab-pane" id="pointsOfInterest" [ngClass]="{ 'active':activeTab==='pointsOfInterest'}">
 			<app-points-of-interest [cityId]="city?.id"></app-points-of-interest>
 		</div>
-		
+
 		<!-- Areas Tab -->
 		<div class="tab-pane" id="areas" [ngClass]="{ 'active':activeTab==='areas'}">
-			<app-areas></app-areas> 
+			<app-areas-list [cityId]="city?.id"></app-areas-list>
 		</div>
-		
+
 		<!-- Contests Tab -->
 		<div class="tab-pane " id="contests" [ngClass]="{ 'active':activeTab==='contests'}">
-			<app-contests-detail></app-contests-detail> 
-			
+			<app-contests-detail></app-contests-detail>
+
 		</div>
 	</div>
-	
-	
-	
+
+
+
 </div>

@@ -1,1 +1,19 @@
-<p>areas-list works!</p>
+<div class="container">
+	<div class="row">
+		<ng-container *ngIf="city && city.points">
+			<div *ngFor="let point of cityAreas()" class="col-md-4 col-sm-6 col-12">
+				<div *ngIf="point.longitude == undefined && point.latitude == undefined" class="card" style="width: 18rem; margin-bottom: 20px;">
+					<div class="card-body">
+						<h5 class="card-title">{{ point.name }}</h5>
+						<p class="card-text">{{ point.description }}</p>
+						<a [routerLink]="['city', city.id, 'points', point.id]" class="card-link">Learn more</a>
+					</div>
+				</div>
+			</div>
+		</ng-container>
+
+		<div *ngIf="!city || cityAreas().length == 0">
+			<p>No areas available.</p>
+		</div>
+	</div>
+</div>
