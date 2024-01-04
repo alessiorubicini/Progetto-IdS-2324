@@ -1,6 +1,7 @@
 package it.unicam.cs.opencity.service;
 
 import it.unicam.cs.opencity.entity.User;
+import it.unicam.cs.opencity.util.UserDTO;
 import it.unicam.cs.opencity.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,6 +32,11 @@ public class UserService implements UserDetailsService {
         }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), new ArrayList<>());
     }
+
+    public UserDTO convertToDTO(User user){
+        return new UserDTO(user.getId(), user.getUsername(), user.getEmail());
+    }
+
 
     public void addUser(User user) {
         this.userRepository.save(user);

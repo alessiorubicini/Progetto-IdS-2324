@@ -5,6 +5,7 @@ import it.unicam.cs.opencity.entity.UserInfo;
 import it.unicam.cs.opencity.service.UserService;
 import it.unicam.cs.opencity.util.JwtTokenProvider;
 import it.unicam.cs.opencity.util.UserCredentials;
+import it.unicam.cs.opencity.util.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -38,10 +39,11 @@ public class AuthenticationController {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword()));
-            Integer id = userService.getUserDetails(credentials.getUsername()).getId();
-            String token = jwtTokenProvider.generate(id, authentication.getName());
-            UserInfo userInfo = new UserInfo(userService.getUserDetails(id).get());
-            return ResponseEntity.ok().headers(authorizationHeaders(token)).body(userInfo);
+//          Integer id = userService.getUserDetails(credentials.getUsername()).getId();
+//          UserInfo userInfo = new UserInfo(userService.getUserDetails(id).get());
+            UserDTO userDTO = this.userService.convertToDTO(userService.getUserDetails(credentials.getUsername()));
+            String token = jwtTokenProvider.generate(userDTO.getId(), authentication.getName());
+            return ResponseEntity.ok().headers(authorizationHeaders(token)).body(userDTO);
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials: " + e.getLocalizedMessage());
         }
