@@ -1,15 +1,19 @@
 package it.unicam.cs.opencity.util;
 
+import it.unicam.cs.opencity.entity.Participation;
+
+import java.util.List;
+
 public class UserDTO {
 
     private int id;
     private String username;
-    private String email;
+    private List<Participation> participations;
 
-    public UserDTO(int id, String username, String email){
+    public UserDTO(int id, String username, List<Participation> participations){
         this.id = id;
         this.username = username;
-        this.email = email;
+        this.participations = participations;
     }
 
     public int getId() {
@@ -28,12 +32,12 @@ public class UserDTO {
         this.username = username;
     }
 
-    public String getEmail() {
-        return email;
+    public List<Participation> getParticipations() {
+        return participations;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setParticipations(List<Participation> participations) {
+        this.participations = participations;
     }
 
 }

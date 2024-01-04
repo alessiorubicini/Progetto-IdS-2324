@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Optional;
 
 @Service
@@ -34,7 +33,7 @@ public class UserService implements UserDetailsService {
     }
 
     public UserDTO convertToDTO(User user){
-        return new UserDTO(user.getId(), user.getUsername(), user.getEmail());
+        return new UserDTO(user.getId(), user.getUsername(), user.getRoles());
     }
 
 
