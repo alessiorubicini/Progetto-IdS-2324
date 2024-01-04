@@ -8,8 +8,7 @@ export interface Contest {
 	description: string;
 	publicationDate: Date;
 	closingDate: Date;
-	author: User;
-	city: City;
-	winner: User;
-	contents: Content[];
+	authorId: number;
+	cityId: number;
+	winnerId: number;
 }

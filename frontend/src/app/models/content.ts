@@ -9,7 +9,8 @@ export interface Content {
 	description: string;
 	publicationDate: Date;
 	status: ContentStatus;
-	author: User;
-	point: Point;
-	media: Media;
+	authorId: number;
+	pointId: number;
+	mediaUrl: string;
+	contestId?: number;
 }

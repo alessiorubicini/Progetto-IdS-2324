@@ -2,7 +2,7 @@ import { Contest } from "./contest";
 import { Point } from "./point";
 
 export interface City {
-	id: number;
+	id?: number;
 	cadastralCode: string;
 	name: string;
 	region: string;
@@ -10,6 +10,4 @@ export interface City {
 	longitude: number;
 	latitude: number;
 	istatCode: string;
-	points: Point[];
-	contests: Contest[];
 }

@@ -3,7 +3,7 @@ import {City} from "./city";
 import {Role} from "./role";
 
 export interface Participation {
-	user: User;
+	userId: number;
 	city: City;
 	role: Role;
 }
