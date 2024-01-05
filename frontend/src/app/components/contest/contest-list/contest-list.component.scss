@@ -1,0 +1,9 @@
+.truncate-text {
+	display: -webkit-box;
+	-webkit-line-clamp: 3; /* Set the number of lines to truncate */
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	max-height: 3em; /* Set your desired fixed height for 3 lines */
+	text-overflow: ellipsis; /* Add ellipsis at the end of truncation */
+	white-space: normal; /* Ensure that content breaks onto a new line when necessary */
+}

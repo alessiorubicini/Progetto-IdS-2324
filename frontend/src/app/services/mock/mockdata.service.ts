@@ -9,6 +9,12 @@ import {ContentStatus} from "../../models/contentstatus";
 	providedIn: 'root'
 })
 export class MockdataService {
+	static getContestMock(contestId: any): any {
+		return [
+			{id:1, title: "Christmas Market", description: "booo", publicationDate:"12", closingDate:"14", authorId:"Pippo", cityId:2, winnerId:3 },
+			{id:1, title: "Summer Jamboree", description: "bo2", publicationDate:"3", closingDate:"7", authorId:"Pluto", cityId:2, winnerId:1 }
+		]
+	}
 
 	public static getUserMock() : User {
 		return { id: 1, email: "johndoe@gmail.com", name: "John", surname: "Doe", username: "JohnDoe", fiscalCode: "JDGWMJ87A23F364O", password: "-" }
