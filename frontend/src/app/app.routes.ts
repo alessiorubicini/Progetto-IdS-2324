@@ -11,6 +11,7 @@ import {ContentDetailComponent} from "./components/content/content-detail/conten
 import {PointDetailComponent} from "./components/poi/point-detail/point-detail.component";
 import {AreaDetailComponent} from "./components/area/area-detail/area-detail.component";
 import {CreateAreaComponent} from "./components/area/create-area/create-area.component";
+import { CreateContestComponent } from "./components/contest/create-contest/create-contest.component"
 
 export const routes: Routes = [
 	{path: "", redirectTo: "home", pathMatch: "full"},
@@ -24,5 +25,6 @@ export const routes: Routes = [
 	{path: "city/:id/create-area", component: CreateAreaComponent},
 	{path: "city/:id/contents/:contentId", component: ContentDetailComponent},
 	{path: "city/:id/points/:pointId", component: PointDetailComponent},
-	{path: "city/:id/areas/:areaId", component: AreaDetailComponent}
+	{path: "city/:id/areas/:areaId", component: AreaDetailComponent},
+	{path: "city/:id/create-contest", component: CreateContestComponent}
 ]
