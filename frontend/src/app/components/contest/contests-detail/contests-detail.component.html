@@ -1,3 +1,4 @@
+<!--
 <p>contests-detail works!</p>
 
 <div class="container mt-5">
@@ -5,13 +6,65 @@
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
 			<li class="breadcrumb-item"><a [routerLink]="['/city', city?.id]">{{ city?.name }}</a></li>
-			<!--
+			
 			<li class="breadcrumb-item active">{{ contest?.name }}</li> 
-		-->
+		
 		</ol>
 	</nav>
 
-	<!-- 
+	
 	<h2>{{ contest!.name }}</h2>
-	-->
+
+	<div class="row">
+		<div class="col-sm-6">
+			<p>Proposto da {{ contest!.author }} - {{ contest!.publicationDate }}</p>
+			<p>{{ contest!.description }}</p>
+			<div class="countdown" data-mdb-countdown-init="2024-01-01T12:00:00Z,2024-12-31T23:59:59Z" data-mdb-countdown-on-finish="function() {
+  			alert('Il conto alla rovescia è terminato!');
+}"></div>
+
+
 </div>
+-->
+	
+
+<p> Contenuti proposti</p>
+
+<!--
+<div class="input-group mb-3">
+	<input type="text" class="form-control" placeholder="Search contest" (input)="onSearch($event)">
+</div>
+
+<ul class="list-group" *ngIf="searching && citiesFiltered.length > 0">
+	<li class="list-group-item" *ngFor="let city of citiesFiltered">
+		<a [routerLink]="['/contest', contest.id]">{{ contest.title }}</a>
+	</li>
+</ul>
+
+-->
+
+<div class="row mt-3">
+	<div class="col-md-6">
+		<div class="card">
+			<img src="https://www.viveresenigallia.it/upload/2021_12/733509_Cfakepath732955PHOTO202112041715501std.jpg" class="card-img-top" alt="...">
+			<div class="card-body">
+				<h5 class="card-title">Christmas markets</h5>
+				<p class="card-truncate-text">The market takes place on Thursday</p>
+				<p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+			</div>
+		</div>
+		
+			</div>
+
+	<div class="col-md-6">
+		<div class="card">
+			<img src="https://www.viveresenigallia.it/upload/2019_08/515298_Cfakepathfollasummerjamboree2015.jpg" class="card-img-top" alt="...">
+			<div class="card-body">
+				<h5 class="card-title">Summer Jamboree</h5>
+				<p class="card-truncate-text">The hottest rockin' holiday on earth</p>
+				<p class="card-text"><small class="text-body-secondary">14 Dicembre 2023 - Manca ancora 1g al termine</small></p>
+			</div>
+		</div>
+	</div>
+</div>
+
