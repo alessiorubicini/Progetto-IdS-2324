@@ -9,7 +9,7 @@
 
 	<h2>{{ point!.name }}</h2>
 
-	<div class="row">
+	<div class="row" id="point-details">
 		<div class="col-sm-6">
 			<p>{{ point!.description }}</p>
 
@@ -18,19 +18,45 @@
 				<button type="button" class="btn btn-outline-danger">Segnala <i class="bi bi-exclamation-octagon-fill"></i></button>
 			</div>
 
+			<!-- List of contents for the point -->
+			<div class="mt-4">
+				<h5>Contents</h5>
+				<div *ngIf="authenticated">
+					<button class="btn btn-outline-primary btn-lg" type="button" [routerLink]="['../../', 'create-content']">Create content</button>
+				</div>
+
+				<ng-container *ngIf="point && contents">
+					<div *ngFor="let content of contents" class="list-group">
+						<a [routerLink]="['contents', content?.id]" class="list-group-item list-group-item-action" aria-current="true">
+							<div class="d-flex w-100 justify-content-between">
+								<h5 class="mb-1">{{ content.title }}</h5>
+								<small>{{ content.publicationDate.getDate() }} / {{content.publicationDate.getMonth()+1}} / {{content.publicationDate.getFullYear()}}</small>
+							</div>
+							<small>{{ content.description }}</small>
+						</a>
+					</div>
+				</ng-container>
+
+				<div *ngIf="!contents || contents.length == 0">
+					<p>No contents available for this point.</p>
+				</div>
+
+			</div>
+
 		</div>
 		<div class="col-sm-6">
-			<!-- Assuming path is URL -->
 			<img class="point-image img-fluid" src="{{ point!.imageUrl }}">
+
+			<div class="row mt-3" *ngIf="point!.longitude != undefined && point!.latitude != undefined ">
+				<app-osm-map
+					[centerCoordinates]="[point!.longitude!, point!.latitude!]"
+					[zoomLevel]="21"
+					[items]="[this.point!]"
+					[isForCity]="false"
+				></app-osm-map>
+			</div>
 		</div>
 	</div>
 
-	<div class="row mt-3" *ngIf="point!.longitude != undefined && point!.latitude != undefined ">
-		<app-osm-map
-			[centerCoordinates]="[point!.longitude!, point!.latitude!]"
-			[zoomLevel]="21"
-			[items]="[this.point!]"
-			[isForCity]="false"
-		></app-osm-map>
-	</div>
+
 </div>

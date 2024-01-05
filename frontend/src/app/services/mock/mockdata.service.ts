@@ -35,7 +35,7 @@ export class MockdataService {
 	}
 
 	public static getContentMock() : Content {
-		return { id: 1, title: "Convegno di astrofisica", description: "Quis eiusmod enim commodo quis incididunt labore ipsum pariatur irure. Esse ipsum magna ut irure Lorem ea enim do fugiat labore enim reprehenderit et tempor. Nisi et incididunt irure voluptate. Occaecat quis in ut est fugiat pariatur veniam ad dolor amet. Sunt esse elit reprehenderit sunt qui cillum. Pariatur Lorem magna adipisicing mollit aute. Ad non laboris ea.", authorId: 1, publicationDate: new Date("2023-02-10 15:45:00"), pointId: 1, mediaUrl: "https://www.unicam.it/sites/default/files/eventi/2021/10/loc/scuola_Urbani_10marzo2021.jpeg", status: this.getContentStatus()}
+		return { id: 1, title: "Convegno di astrofisica", description: "Unisciti a noi per esplorare le meraviglie dell'universo al nostro prossimo convegno di astrofisica! Esperti di fama mondiale condivideranno le ultime scoperte e teorie affascinanti nel campo dell'astrofisica, spaziando dall'origine dell'universo alle più recenti rivelazioni sui buchi neri e sulle galassie lontane.", authorId: 1, publicationDate: new Date("2023-02-10 15:45:00"), pointId: 1, mediaUrl: "https://www.unicam.it/sites/default/files/eventi/2021/10/loc/scuola_Urbani_10marzo2021.jpeg", status: this.getContentStatus()}
 	}
 
 }

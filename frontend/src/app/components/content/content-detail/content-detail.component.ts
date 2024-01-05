@@ -15,8 +15,8 @@ import {PointService} from "../../../services/point/point.service";
 })
 export class ContentDetailComponent {
 	city?: City
-	content?: Content
 	point?: Point
+	content?: Content
 
 	constructor(private route: ActivatedRoute, private contentService: ContentService, private cityService: CityService, private pointService: PointService) {
 		this.route.params.subscribe(params => {

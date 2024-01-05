@@ -7,6 +7,7 @@ import {PointService} from "../../../services/point/point.service";
 import {MockdataService} from "../../../services/mock/mockdata.service";
 import {City} from "../../../models/city";
 import {CityService} from "../../../services/city/city.service";
+import {AuthService} from "../../../services/auth/auth.service";
 
 @Component({
   selector: 'app-point-detail',
@@ -18,7 +19,7 @@ export class PointDetailComponent {
 	point?: Point;
 	contents?: Content[];
 
-	constructor(private route: ActivatedRoute, private cityService: CityService, private contentService: ContentService, private pointService: PointService) {
+	constructor(private route: ActivatedRoute, private authService: AuthService, private cityService: CityService, private contentService: ContentService, private pointService: PointService) {
 		this.route.params.subscribe(params => {
 			const cityId = params["id"];
 			const pointId = params["pointId"];
@@ -47,5 +48,9 @@ export class PointDetailComponent {
 		this.contentService.getContentsOfPoint(id).subscribe((contents) => {
 			this.contents = contents;
 		})
+	}
+
+	get authenticated(): boolean {
+		return this.authService.authenticated;
 	}
 }

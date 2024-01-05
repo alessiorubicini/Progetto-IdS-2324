@@ -5,6 +5,7 @@ import { CityService } from '../../../services/city/city.service';
 import { MockdataService } from '../../../services/mock/mockdata.service';
 import {PointService} from "../../../services/point/point.service";
 import {Point} from "../../../models/point";
+import {AuthService} from "../../../services/auth/auth.service";
 
 @Component({
   selector: 'app-points-of-interest',
@@ -16,7 +17,7 @@ export class PointsOfInterestComponent {
 	city?: City
 	points?: Point[]
 
-	constructor(private route: ActivatedRoute, private cityService: CityService, private pointService: PointService) {
+	constructor(private route: ActivatedRoute, private authService: AuthService, private cityService: CityService, private pointService: PointService) {
 		this.route.params.subscribe(params => {
 			const cityId = params["id"];
 			this.city = MockdataService.getCityMock(cityId);
@@ -38,6 +39,9 @@ export class PointsOfInterestComponent {
 		})
 	}
 
+	get authenticated(): boolean {
+		return this.authService.authenticated;
+	}
 }
 
 

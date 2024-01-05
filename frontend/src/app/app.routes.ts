@@ -21,7 +21,7 @@ export const routes: Routes = [
 	{path: "city/:id/create-content", component: CreateContentComponent},
 	{path: "city/:id/create-poi", component: CreatePoiComponent},
 	{path: "city/:id/create-area", component: CreateAreaComponent},
-	{path: "city/:id/contents/:contentId", component: ContentDetailComponent},
+	{path: "city/:id/points/:pointId/contents/:contentId", component: ContentDetailComponent},
 	{path: "city/:id/points/:pointId", component: PointDetailComponent},
 	{path: "city/:id/create-contest", component: CreateContestComponent}
 ]

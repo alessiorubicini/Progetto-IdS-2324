@@ -3,6 +3,7 @@
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
 			<li class="breadcrumb-item"><a [routerLink]="['/city', city?.id]">{{ city?.name }}</a></li>
+			<li class="breadcrumb-item"><a [routerLink]="['../../']">{{ point?.name }}</a></li>
 			<li class="breadcrumb-item active">{{ content?.title }}</li>
 		</ol>
 	</nav>
