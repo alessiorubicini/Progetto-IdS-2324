@@ -12,6 +12,7 @@ export class OsmMapComponent implements AfterViewInit {
 	@Input() zoomLevel: number = 18;
 	@Input() items: any[] = [];
 	@Input() isForCity: boolean = true;
+	@Input() cityId?: number = undefined;
 
 	title = 'OSM Map';
 
@@ -45,10 +46,9 @@ export class OsmMapComponent implements AfterViewInit {
 				if(this.isForCity) {
 					this.router.navigate(['city', item.id])
 				} else {
-					this.router.navigate(['point', item.id])
+					this.router.navigate(['city', this.cityId!, 'points', item.id])
 				}
 			});
-
 			marker.addTo(map);
 		});
 	}

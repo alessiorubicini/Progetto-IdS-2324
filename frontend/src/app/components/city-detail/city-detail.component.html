@@ -31,18 +31,18 @@
 
 	<div class="tab-content mt-3">
 		<!-- Points of Interest Tab -->
-		<div class="tab-pane" id="pointsOfInterest" [ngClass]="{ 'active':activeTab==='pointsOfInterest'}">
+		<div class="tab-pane" id="pointsOfInterest" [ngClass]="{ 'active':activeTab === 'pointsOfInterest'}">
 			<app-points-of-interest [cityId]="city?.id"></app-points-of-interest>
 		</div>
 
 		<!-- Areas Tab -->
-		<div class="tab-pane" id="areas" [ngClass]="{ 'active':activeTab==='areas'}">
+		<div class="tab-pane" id="areas" [ngClass]="{ 'active':activeTab === 'areas'}">
 			<app-areas-list [cityId]="city?.id"></app-areas-list>
 		</div>
 
 		<!-- Contests Tab -->
-		<div class="tab-pane " id="contests" [ngClass]="{ 'active':activeTab==='contests'}">
-			<app-contests-detail></app-contests-detail>
+		<div class="tab-pane " id="contests" [ngClass]="{ 'active':activeTab === 'contests'}">
+			<app-contest-list></app-contest-list>
 		</div>
 	</div>
 </div>

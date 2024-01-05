@@ -1,1 +1,36 @@
-<p>point-detail works!</p>
+<div class="container mt-5">
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
+			<li class="breadcrumb-item"><a [routerLink]="['/city', city?.id]">{{ city?.name }}</a></li>
+			<li class="breadcrumb-item active">{{ point?.name }}</li>
+		</ol>
+	</nav>
+
+	<h2>{{ point!.name }}</h2>
+
+	<div class="row">
+		<div class="col-sm-6">
+			<p>{{ point!.description }}</p>
+
+			<div class="btn-group">
+				<button type="button" class="btn btn-outline-primary">Salva nei preferiti <i class="bi bi-bookmark-heart"></i></button>
+				<button type="button" class="btn btn-outline-danger">Segnala <i class="bi bi-exclamation-octagon-fill"></i></button>
+			</div>
+
+		</div>
+		<div class="col-sm-6">
+			<!-- Assuming path is URL -->
+			<img class="point-image img-fluid" src="{{ point!.imageUrl }}">
+		</div>
+	</div>
+
+	<div class="row mt-3" *ngIf="point!.longitude != undefined && point!.latitude != undefined ">
+		<app-osm-map
+			[centerCoordinates]="[point!.longitude!, point!.latitude!]"
+			[zoomLevel]="21"
+			[items]="[this.point!]"
+			[isForCity]="false"
+		></app-osm-map>
+	</div>
+</div>

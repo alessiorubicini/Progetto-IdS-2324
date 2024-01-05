@@ -7,7 +7,7 @@ import {AppComponent} from './app.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {JwtModule} from '@auth0/angular-jwt';
 import {provideHttpClient} from '@angular/common/http';
-import {provideRouter, RouterModule, RouterLinkActive} from '@angular/router';
+import {provideRouter, RouterModule} from '@angular/router';
 import {routes} from './app.routes';
 import {LoginComponent} from './components/auth/login/login.component';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -23,7 +23,6 @@ import {ContestsDetailComponent} from './components/contest/contests-detail/cont
 import {CreateContestComponent} from './components/contest/create-contest/create-contest.component';
 import {ContestListComponent} from './components/contest/contest-list/contest-list.component';
 import {PointDetailComponent} from './components/poi/point-detail/point-detail.component';
-import {AreaDetailComponent} from './components/area/area-detail/area-detail.component';
 import {CreateAreaComponent} from './components/area/create-area/create-area.component';
 import {ContentDetailComponent} from './components/content/content-detail/content-detail.component';
 import {ContentListComponent} from './components/content/content-list/content-list.component';
@@ -46,7 +45,6 @@ import {ToastrModule} from 'ngx-toastr';
 		CreateContestComponent,
 		ContestListComponent,
 		PointDetailComponent,
-		AreaDetailComponent,
 		CreateAreaComponent,
 		ContentDetailComponent,
 		ContentListComponent,

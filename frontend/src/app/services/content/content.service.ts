@@ -12,8 +12,8 @@ export class ContentService {
 
 	constructor(private httpClient: HttpClient) { }
 
-	public getAllContentsOfCity(id: number): Observable<Content[]>  {
-		return this.httpClient.get<Content[]>(`${environment.apiUrl}/city/${id}/contents`);
+	public getContentsOfPoint(id: number): Observable<Content[]> {
+		return this.httpClient.get<Content[]>(`${environment.apiUrl}/point/${id}/contents`);
 	}
 
 	public getContentDetails(id: number): Observable<Content> {
