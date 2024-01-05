@@ -1,18 +1,16 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {environment} from 'src/environments/environment';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {catchError, Observable, tap, throwError} from 'rxjs';
 import {User} from "../../models/user";
 import {Router} from "@angular/router";
-import {Role} from "../../models/role";
-
+import {UserInfo} from "../../models/user-info";
 
 @Injectable({
 	providedIn: 'root'
 })
 export class AuthService {
-
 	public authenticated: boolean = false;
 
 	constructor(private httpClient: HttpClient, private router: Router, private jwtHelper: JwtHelperService) {
@@ -26,7 +24,7 @@ export class AuthService {
 
 	public login(credentials: { username: string; password: string }): Observable<any> {
 		return this.httpClient.post(`${environment.apiUrl}/auth/login`, credentials, {observe: 'response'})
-			.pipe(tap((response: any) => {
+			.pipe(tap((response: HttpResponse<any>) => {
 					const authToken = this.extractAuthToken(response.headers);
 					if (authToken) {
 						this.storeToken(authToken);
@@ -44,8 +42,8 @@ export class AuthService {
 
 	public signup(user: User): Observable<any> {
 		return this.httpClient.post(`${environment.apiUrl}/auth/signup`, user, {observe: 'response'})
-			.pipe(tap((response: any) => {
-					if(response.statusCode === 200) {
+			.pipe(tap((response: HttpResponse<any>) => {
+					if(response.status === 200) {
 						this.router.navigate(['/login']);
 					}
 				}),
@@ -68,7 +66,7 @@ export class AuthService {
 		return token != null && !this.jwtHelper.isTokenExpired(token);
 	}
 
-	public getUserRole() : Role | null {
+	public getUserInfo() : UserInfo | null {
 		const userInfo = localStorage.getItem("user-info");
 		if(userInfo) return JSON.parse(userInfo);
 		return null;

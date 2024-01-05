@@ -29,8 +29,8 @@ export class OsmMapComponent implements AfterViewInit {
 		});
 
 		const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-			maxZoom: 18,
-			minZoom: 3,
+			maxZoom: 20,
+			minZoom: 5,
 			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 		});
 

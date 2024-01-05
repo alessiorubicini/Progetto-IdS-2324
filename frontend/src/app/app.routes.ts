@@ -11,6 +11,7 @@ import {PointDetailComponent} from "./components/poi/point-detail/point-detail.c
 import {CreateAreaComponent} from "./components/area/create-area/create-area.component";
 import { CreateContestComponent } from "./components/contest/create-contest/create-contest.component"
 import { ContestsDetailComponent } from "./components/contest/contests-detail/contests-detail.component"
+import {UserProfileComponent} from "./components/user-profile/user-profile.component";
 
 export const routes: Routes = [
 	{path: "", redirectTo: "home", pathMatch: "full"},
@@ -19,6 +20,7 @@ export const routes: Routes = [
 	{path: "signup", component: SignupComponent},
 	{path: "city/:id", component: CityDetailComponent},
 	{path: "contacts", component: ContactsComponent},
+	{path: "profile", component: UserProfileComponent},
 	{path: "city/:id/create-content", component: CreateContentComponent},
 	{path: "city/:id/create-poi", component: CreatePoiComponent},
 	{path: "city/:id/create-area", component: CreateAreaComponent},

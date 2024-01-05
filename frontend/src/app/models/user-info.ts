@@ -1,6 +1,6 @@
 import {Participation} from "./participation";
 
-export interface UserDTO {
+export interface UserInfo {
 	id: number;
 	username: string;
 	roles: Participation[];

@@ -28,6 +28,7 @@ import {ContentDetailComponent} from './components/content/content-detail/conten
 import {ContentListComponent} from './components/content/content-list/content-list.component';
 import {AreasListComponent} from './components/area/areas-list/areas-list.component';
 import {ToastrModule} from 'ngx-toastr';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 @NgModule({
 	declarations: [
@@ -49,6 +50,7 @@ import {ToastrModule} from 'ngx-toastr';
 		ContentDetailComponent,
 		ContentListComponent,
 		AreasListComponent,
+  UserProfileComponent,
 	],
 	imports: [
 		BrowserModule,

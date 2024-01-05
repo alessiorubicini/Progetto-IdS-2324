@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthService} from "./services/auth/auth.service";
 import {ToastrService} from 'ngx-toastr';
+import {Title} from "@angular/platform-browser";
 
 @Component({
 	selector: 'app-root',
@@ -11,7 +12,9 @@ import {ToastrService} from 'ngx-toastr';
 export class AppComponent {
 	title = 'OpenCity';
 
-	constructor(private router: Router, private authService: AuthService, private toastrService: ToastrService) { }
+	constructor(private router: Router, private authService: AuthService, private toastrService: ToastrService, private titleService: Title) {
+		this.titleService.setTitle("OpenCity");
+	}
 
 	public logout() {
 		this.authService.logout();
