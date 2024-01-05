@@ -21,7 +21,7 @@ export class PointsOfInterestComponent {
 		this.route.params.subscribe(params => {
 			const cityId = params["id"];
 			this.city = MockdataService.getCityMock(cityId);
-			this.points = [MockdataService.getPointMock()];
+			this.points = MockdataService.getAllPointMocksOfCity(cityId)!;
 			//this.getCityDetail();
 			//this.getCityPoints()
 		})
@@ -41,6 +41,10 @@ export class PointsOfInterestComponent {
 
 	get authenticated(): boolean {
 		return this.authService.authenticated;
+	}
+
+	get physicalPoints() : Point[] {
+		return this.points?.filter(p => p.latitude != undefined || p.longitude != undefined)!
 	}
 }
 

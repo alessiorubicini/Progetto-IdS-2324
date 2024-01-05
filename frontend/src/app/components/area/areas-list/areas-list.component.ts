@@ -13,12 +13,14 @@ import {Point} from "../../../models/point";
 export class AreasListComponent {
 	@Input() cityId?: number;
 	city?: City
+	areas?: Point[]
 
 	constructor(private route: ActivatedRoute, private cityService: CityService) {
 		this.route.params.subscribe(params => {
 			const id = params["id"];
-			//this.getCityDetail();
 			this.city = MockdataService.getCityMock(id);
+			this.areas = MockdataService.getAllPointMocksOfCity(id)?.filter(p => p.longitude == undefined)!;
+			//this.getCityDetail();
 		})
 	}
 
@@ -31,8 +33,4 @@ export class AreasListComponent {
 		})
 	}
 
-	cityAreas() : Point[] {
-		//return this.city!.points.filter(p => p.latitude == undefined && p.longitude == undefined);
-		return [];
-	}
 }

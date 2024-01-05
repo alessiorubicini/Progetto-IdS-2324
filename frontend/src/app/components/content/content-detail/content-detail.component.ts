@@ -21,10 +21,11 @@ export class ContentDetailComponent {
 	constructor(private route: ActivatedRoute, private contentService: ContentService, private cityService: CityService, private pointService: PointService) {
 		this.route.params.subscribe(params => {
 			const contentId = params["contentId"];
+			const pointId = params["pointId"];
 			const cityId = params["id"];
 			this.content = MockdataService.getContentMock();
 			this.city = MockdataService.getCityMock(cityId);
-			this.point = MockdataService.getPointMock();
+			this.point = MockdataService.getPointMock(pointId);
 			//this.getCityDetail(cityId);
 			//this.getContentDetail(contentId);
 		})

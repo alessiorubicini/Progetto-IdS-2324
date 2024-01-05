@@ -8,7 +8,7 @@
 	<app-osm-map
 			[centerCoordinates]="[city!.longitude, city!.latitude]"
 			[zoomLevel]="14"
-			[items]="this.points!"
+			[items]="this.physicalPoints"
 			[isForCity]="false"
 			[cityId]="city!.id"
 		></app-osm-map>
