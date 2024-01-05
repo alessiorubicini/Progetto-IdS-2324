@@ -2,6 +2,7 @@ package it.unicam.cs.opencity.controller;
 
 import it.unicam.cs.opencity.entity.City;
 import it.unicam.cs.opencity.service.CityService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,10 @@ public class CityController {
         return ResponseEntity.ok(cityService.getAllCities());
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<Object> getCityDetails(@PathVariable("id") Integer id){
+        return ResponseEntity.ok(cityService.getCityDetails(id));
+    }
     @GetMapping("/{id}/contests")
     public ResponseEntity<Object> getCityContests(@PathVariable("id") String id) {
         return ResponseEntity.ok(cityService.getCityContests(Integer.parseInt(id)));

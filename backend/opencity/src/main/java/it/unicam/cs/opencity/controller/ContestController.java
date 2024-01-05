@@ -20,7 +20,7 @@ public class ContestController {
         this.contestService = contestService;
     }
 
-    @PostMapping("/")
+    @PostMapping("/suggest")
     public ResponseEntity<Object> addContest(@RequestBody Contest contest) {
         if (contestService.suggestContest(contest))
             return new ResponseEntity<>(contest, HttpStatus.OK);

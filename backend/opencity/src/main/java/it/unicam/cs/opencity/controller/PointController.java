@@ -19,7 +19,7 @@ public class PointController {
         this.pointService = pointService;
     }
 
-    @PostMapping("/")
+    @PostMapping("/add")
     public ResponseEntity<Point> addPoint(@RequestBody Point point) {
         if(pointService.addPoint(point))
             return new ResponseEntity<>(point, HttpStatus.CREATED);

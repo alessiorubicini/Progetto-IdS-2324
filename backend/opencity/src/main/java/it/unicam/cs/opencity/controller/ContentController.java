@@ -22,7 +22,7 @@ public class ContentController {
         this.contentService = contentService;
     }
 
-    @PostMapping("/")
+    @PostMapping("/upload")
     public ResponseEntity<Content> uploadContent(@RequestBody Content content) {
         if(contentService.uploadContent(content))
             return new ResponseEntity<>(content, HttpStatus.CREATED);
