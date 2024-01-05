@@ -34,6 +34,7 @@
 				<div class="form-group mb-3">
 					<label class="form-label" for="fiscalCode">Fiscal code</label>
 					<input type="text" class="form-control" id="fiscalCode" formControlName="fiscalCode" placeholder="Enter your fiscal code">
+					<p *ngIf="form.hasError('invalidFiscalCode')" class="text-danger">Fiscal code not valid.</p>
 				</div>
 			</div>
 
@@ -63,7 +64,7 @@
 						</div>
 						<div *ngIf="password2?.invalid && (password2?.dirty || password2?.touched)">
 							<p *ngIf="password2?.hasError('required')" class="text-danger">Password is required.</p>
-							<p *ngIf="password2?.hasError('notSame')" class="text-danger">Passwords must match.</p>
+							<p *ngIf="form.hasError('notSame')" class="text-danger">Passwords must match.</p>
 						</div>
 					</div>
 

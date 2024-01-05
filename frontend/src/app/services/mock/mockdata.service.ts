@@ -10,7 +10,7 @@ import {ContentStatus} from "../../models/contentstatus";
 })
 export class MockdataService {
 
-	public static getCityMocks() : City[] {
+	public static getAllCityMocks() : City[] {
 		return [
 			{ id: 1, cadastralCode: "ABC123", name: "Porto San Giorgio", region: "Marche", province: "FM", istatCode: "12345", longitude: 43.180144, latitude: 13.793122},
 			{ id: 2, cadastralCode: "DEF456", name: "Camerino", region: "Marche", province: "MC", istatCode: "67890", longitude: 43.135702, latitude: 13.068382 },
@@ -19,7 +19,7 @@ export class MockdataService {
 	}
 
 	public static getCityMock(id: number) : City | undefined {
-		return this.getCityMocks().find(c => c.id == id);
+		return this.getAllCityMocks().find(c => c.id == id);
 	}
 
 	public static getContentStatus() : ContentStatus{

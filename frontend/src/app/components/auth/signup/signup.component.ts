@@ -1,8 +1,9 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../../services/auth/auth.service';
 import {User} from '../../../models/user';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
 	selector: 'app-signup',
@@ -10,11 +11,10 @@ import {User} from '../../../models/user';
 	styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent {
-
 	form: FormGroup;
 	passwordVisible: boolean = false;
 
-	constructor(private router: Router, private authService: AuthService, private fb: FormBuilder) {
+	constructor(private router: Router, private authService: AuthService, private fb: FormBuilder, private toastrService: ToastrService) {
 		this.form = this.fb.group({
 			name: ['', [Validators.required]],
 			surname: ['', [Validators.required]],
@@ -26,36 +26,48 @@ export class SignupComponent {
 			termsAndConditions: [false, Validators.requiredTrue],
 			privacyPolicy: [false, Validators.requiredTrue]
 		}, {
-			validator: this.checkPasswordMatching
+			validators: [this.validatePasswordMatching, this.validateFiscalCode]
 		});
 	}
 
-	// TODO: password matching check not working!
-	checkPasswordMatching(group: FormGroup) {
-		const password1 = group.get('password1')?.value;
-		const password2 = group.get('password2')?.value
-		return password1 === password2 ? null : { notSame: true };
+	validatePasswordMatching(control: AbstractControl) {
+		const password1 = control.get('password1')?.value;
+		const password2 = control.get('password2')?.value
+		if(password1 && password2 && password1 != password2) {
+			return { 'notSame': true };
+		}
+		return null;
 	}
+
+	validateFiscalCode(control: AbstractControl) {
+		const fiscalCode = control.get('fiscalCode')?.value;
+		const regex = /^[A-Z]{6}\d{2}[A-Z]\d{2}[A-Z]\d{3}[A-Z]$/;
+		if(fiscalCode && !regex.test(fiscalCode)) {
+			return { 'invalidFiscalCode': true };
+		}
+		return null;
+	}
+
+	get password1() { return this.form.get('password1'); }
+	get password2() { return this.form.get('password2'); }
+	get fiscalCode() { return this.form.get('fiscalCode'); }
 
 	signup(): void {
 		const user: User = this.getUserFromForm();
-		this.authService.signup(user).subscribe({
+		this.authService.signup(user)
+			.subscribe({
 				next: (result) => {
 					this.router.navigate(['/login']);
 				},
 				error: (error) => {
+					this.toastrService.error(error, "Signup failed");
 					console.error('Signup failed:', error);
-				},
-				complete: () => {
-					console.error('Signup completed');
 				}
 			});
 	}
 
 	getUserFromForm(): User {
-		if (!this.form.valid) {
-			throw new Error('Form data is not valid');
-		}
+		if (!this.form.valid) throw new Error('Form data is not valid');
 		return {
 			name: this.form.get('name')?.value,
 			surname: this.form.get('surname')?.value,
@@ -65,7 +77,4 @@ export class SignupComponent {
 			password: this.form.get('password1')?.value,
 		};
 	}
-
-	get password1() { return this.form.get('password1'); }
-	get password2() { return this.form.get('password2'); }
 }

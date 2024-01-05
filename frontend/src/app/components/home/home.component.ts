@@ -18,7 +18,7 @@ export class HomeComponent {
     citiesFiltered: City[] = [];
 
 	constructor(private cityService: CityService, private router: Router) {
-		this.cities = MockdataService.getCityMocks();
+		this.cities = MockdataService.getAllCityMocks();
 		//this.getAllCities()
 	}
 

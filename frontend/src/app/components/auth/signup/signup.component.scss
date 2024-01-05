@@ -1,0 +1,8 @@
+label {
+	color: #000000;
+}
+
+label::after {
+	content: ' *';
+	color: rgb(255, 17, 0);
+}
