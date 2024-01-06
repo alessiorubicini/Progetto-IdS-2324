@@ -1,12 +1,83 @@
+<!-- user-profile.component.html -->
 <div class="container mt-5">
-	<div *ngIf="authenticated">
-		<h2></h2>
+	<div *ngIf="!user">
+		<div class="alert alert-danger" role="alert">
+			Error 404: that user does not exist.
+		</div>
 	</div>
 
-	<div *ngIf="!authenticated">
-		<h2 class="text-danger">Error</h2>
-		<div class="alert alert-danger" role="alert">
-			You are not authenticated. Please <a [routerLink]="['/login']">log in</a> with an existing account to see this page.
+	<div *ngIf="user">
+		<h2>{{ user!.name }} {{ user!.surname }}</h2>
+
+		<div class="row">
+			<div class="col-sm-2">
+				<i class="bi bi-person-circle" style="font-size: 6em"></i>
+			</div>
+			<div class="col-sm-6">
+				<ul class="list-group">
+					<li class="list-group-item"><i class="bi bi-person-fill"></i> @{{ user!.username }}</li>
+					<li class="list-group-item"><i class="bi bi-envelope"></i> {{ user!.email}} </li>
+					<li class="list-group-item"><i class="bi bi-credit-card-2-front"></i> {{user!.fiscalCode}}</li>
+				</ul>
+			</div>
+			<div class="col-sm-4" *ngIf="authenticated && isUserProfile">
+				<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+					<button class="btn btn-outline-primary btn-lg " type="button">Edit your profile</button>
+					<button class="btn btn-outline-danger btn-lg" type="button">Delete your account</button>
+				</div>
+			</div>
 		</div>
+
+		<ul class="nav nav-tabs mt-4 mt">
+			<li class="nav-item">
+				<a class="nav-link" [class.active]="activeTab === 'contents'" (click)="setActiveTab('contents')">Published Contents <i class="bi bi-card-list"></i></a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" [class.active]="activeTab === 'contests'" (click)="setActiveTab('contests')">Participated Contests <i class="bi bi-trophy-fill"></i></a>
+			</li>
+			<ng-container  *ngIf="authenticated && isUserProfile">
+				<li class="nav-item">
+					<a class="nav-link" [class.active]="activeTab === 'favorites'" (click)="setActiveTab('favorites')">Favorites <i class="bi bi-bookmark-heart"></i></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" [class.active]="activeTab === 'roles'" (click)="setActiveTab('roles')">Roles <i class="bi bi-person-vcard"></i></a>
+				</li>
+			</ng-container>
+		</ul>
+
+		<div class="tab-content mt-3 mb-4">
+			<!-- Contents Tab -->
+			<div class="tab-pane" id="contents" [ngClass]="{ 'active':activeTab === 'contents'}">
+
+			</div>
+			<!-- Contests Tab -->
+			<div class="tab-pane" id="contests" [ngClass]="{ 'active':activeTab === 'contests'}">
+
+			</div>
+			<ng-container  *ngIf="authenticated && isUserProfile">
+				<!-- Favorites Tab -->
+				<div class="tab-pane" id="favorites" [ngClass]="{ 'active':activeTab === 'favorites'}">
+
+				</div>
+				<!-- Roles Tab -->
+				<div class="tab-pane" id="roles" [ngClass]="{ 'active':activeTab === 'roles'}">
+					<h5>Your roles</h5>
+					<ng-container *ngIf="user">
+						<div *ngFor="let role of user.roles" class="list-group">
+							<li class="list-group-item">
+								<nav aria-label="breadcrumb">
+									<ol class="breadcrumb">
+										<li class="breadcrumb-item"><a [routerLink]="['../city', role.city.id]">{{ role.city.name }}</a></li>
+										<li class="breadcrumb-item">{{ role.role.title }}</li>
+									</ol>
+								</nav>
+							</li>
+						</div>
+					</ng-container>
+				</div>
+			</ng-container>
+
+		</div>
+
 	</div>
 </div>
