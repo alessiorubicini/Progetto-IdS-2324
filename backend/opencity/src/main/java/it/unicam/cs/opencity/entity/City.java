@@ -1,12 +1,6 @@
 package it.unicam.cs.opencity.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "City")
@@ -19,16 +13,16 @@ public class City {
     private String name;
     private String region;
     private Integer istatCode;
-    private float latitude;
     private float longitude;
+    private float latitude;
 
-    public City(String cadastralCode, String name, String region, Integer istatCode, float latitude, float longitude) {
+    public City(String cadastralCode, String name, String region, Integer istatCode, float longitude, float latitude) {
         this.cadastralCode = cadastralCode;
         this.name = name;
         this.region = region;
         this.istatCode = istatCode;
-        this.latitude = latitude;
         this.longitude = longitude;
+        this.latitude = latitude;
     }
 
     public City() { }

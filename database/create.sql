@@ -33,18 +33,30 @@ CREATE TABLE City(
 CREATE TABLE Point(
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
 	name VARCHAR(30) NOT NULL,
-	description VARCHAR(120),
+	description VARCHAR(300),
 	longitude FLOAT NULL,
 	latitude FLOAT NULL,
 	altitude FLOAT NULL,
-	imageUrl VARCHAR(80),
+	imageUrl VARCHAR(300),
 	cityId INTEGER NOT NULL REFERENCES City.id
+);
+
+CREATE TABLE Content(
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	title VARCHAR(50) NOT NULL,
+	description VARCHAR(250) NOT NULL,
+	publicationDate DATETIME NOT NULL,
+    status ENUM('Pending', 'Published', 'Rejected', 'Draft') NOT NULL,
+    mediaUrl VARCHAR(150) NOT NULL,
+    authorId INTEGER NOT NULL REFERENCES User.id,
+	pointId INTEGER NOT NULL REFERENCES Point.id,
+	contestId INTEGER REFERENCES Contest.id
 );
 
 CREATE TABLE Contest(
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
 	title VARCHAR(30) NOT NULL,
-	description VARCHAR(120),
+	description VARCHAR(200),
 	publicationDate DATETIME NOT NULL,
 	closingDate DATETIME NOT NULL,
 	animatorId INTEGER NOT NULL REFERENCES User.id,
@@ -52,32 +64,14 @@ CREATE TABLE Contest(
 	winnerId INTEGER REFERENCES User.id
 );
 
-CREATE TABLE Content(
-	id INTEGER PRIMARY KEY AUTO_INCREMENT,
-	title VARCHAR(30) NOT NULL,
-	description VARCHAR(120) NOT NULL,
-	publicationDate DATETIME NOT NULL,
-    status ENUM('Pending', 'Published', 'Rejected', 'Draft') NOT NULL,
-    authorId INTEGER NOT NULL REFERENCES User.id,
-	pointId INTEGER NOT NULL REFERENCES Point.id,
-	mediaId INTEGER REFERENCES Media.id,
-	contestId INTEGER REFERENCES Contest.id
-);
-
-CREATE TABLE Media(
-	id INTEGER PRIMARY KEY AUTO_INCREMENT,
-	name VARCHAR(30) NOT NULL,
-	path VARCHAR(50) NOT NULL
-);
-
 CREATE TABLE Role(
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
 	title VARCHAR(30) NOT NULL UNIQUE,
-	description VARCHAR(80) NOT NULL
+	description VARCHAR(100) NOT NULL
 );
 
-create table favorite(
-PRIMARY KEY (userId, contentId),
+CREATE TABLE Favorite(
+    PRIMARY KEY (userId, contentId),
 	userId INTEGER NOT NULL REFERENCES User.id,
 	contentId INTEGER NOT NULL REFERENCES Content.id
 );

@@ -1,8 +1,6 @@
 package it.unicam.cs.opencity.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "Point")

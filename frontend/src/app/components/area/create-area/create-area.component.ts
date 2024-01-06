@@ -23,9 +23,9 @@ export class CreateAreaComponent {
 			//this.getCityDetail();
 			this.city = MockdataService.getCityMock(id);
 		})
-		this.form = fb.group({
+		this.form = this.fb.group({
 			name: new FormControl('', [Validators.required]),
-			description: new FormControl('', [Validators.required]),
+			description: new FormControl('', [Validators.required, Validators.maxLength(180)]),
 			imageUrl: new FormControl('', [Validators.required])
 		});
 	}

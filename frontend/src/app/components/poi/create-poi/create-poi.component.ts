@@ -26,7 +26,7 @@ export class CreatePoiComponent {
 		});
 		this.form = fb.group({
 			title: new FormControl('', [Validators.required]),
-			description: new FormControl('', [Validators.required]),
+			description: new FormControl('', [Validators.required, Validators.maxLength(180)]),
 			mediaUrl: new FormControl('', [Validators.required])
 		});
 	}

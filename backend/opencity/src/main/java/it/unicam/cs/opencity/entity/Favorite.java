@@ -6,11 +6,11 @@ import jakarta.persistence.*;
 @Table(name = "Favorite")
 public class Favorite {
 
-
     @EmbeddedId
     private FavoriteId id;
 
     public void setId(FavoriteId id) {
         this.id = id;
     }
+
 }
