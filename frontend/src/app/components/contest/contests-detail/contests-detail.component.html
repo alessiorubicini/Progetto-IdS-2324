@@ -10,6 +10,43 @@
 		</ol>
 	</nav>
 
+	<h3> Contenuti proposti</h3>
+	
+	<div class="input-group mb-3">
+		<input type="text" class="form-control" placeholder="Search contest" >
+	</div>
+
+	<div class="card-group">
+		<div class="card">
+		  <img src="..." class="card-img-top" alt="...">
+		  <div class="card-body">
+			<h5 class="card-title">Card title</h5>
+			<p class="card-truncate-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+			<p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+			<a class="card-link">View contest</a>
+		  </div>
+		</div>
+		<div class="card">
+		  <img src="..." class="card-img-top" alt="...">
+		  <div class="card-body">
+			<h5 class="card-title">Card title</h5>
+			<p class="card-truncate-text">This card has supporting text below as a natural lead-in to additional content.</p>
+			<p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+			<a class="card-link">View contest</a>
+		  </div>
+		</div>
+		<div class="card">
+		  <img src="..." class="card-img-top" alt="...">
+		  <div class="card-body">
+			<h5 class="card-title">Card title</h5>
+			<p class="card-truncate-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+			<p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+			<a class="card-link">View contest</a>
+		  </div>
+		</div>
+	  </div>
+
+
 </div>
 	
 	
@@ -18,6 +55,7 @@
 		<div class="col-sm-6">
 			<p>Proposto da {{ contest!.author }} - {{ contest!.publicationDate }}</p>
 			<p>{{ contest!.description }}</p>
+			<p>Fine contest: {{ contest!.closingDate }}</p>	
 			<div class="countdown" data-mdb-countdown-init="2024-01-01T12:00:00Z,2024-12-31T23:59:59Z" data-mdb-countdown-on-finish="function() {
   			alert('Il conto alla rovescia è terminato!');
 }"></div>
@@ -27,12 +65,9 @@
 
 	
 
-<p> Contenuti proposti</p>
 
 <!--
-<div class="input-group mb-3">
-	<input type="text" class="form-control" placeholder="Search contest" (input)="onSearch($event)">
-</div>
+
 
 <ul class="list-group" *ngIf="searching && citiesFiltered.length > 0">
 	<li class="list-group-item" *ngFor="let city of citiesFiltered">
