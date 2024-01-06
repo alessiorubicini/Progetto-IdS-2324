@@ -10,7 +10,7 @@ import {HTTP_INTERCEPTORS, provideHttpClient} from '@angular/common/http';
 import {provideRouter, RouterModule} from '@angular/router';
 import {routes} from './app.routes';
 import {LoginComponent} from './components/auth/login/login.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SignupComponent} from './components/auth/signup/signup.component';
 import {HomeComponent} from './components/home/home.component';
 import {OsmMapComponent} from './components/osm-map/osm-map.component';
@@ -67,7 +67,8 @@ import {HeaderInterceptor} from "./services/interceptors/header-interceptor";
 				allowedDomains: [environment.apiUrl],
 				disallowedRoutes: [`${environment.apiUrl}/auth/login`]
 			},
-		})
+		}),
+		FormsModule
 	],
 	providers: [provideHttpClient(), provideRouter(routes), {
 		provide: HTTP_INTERCEPTORS,

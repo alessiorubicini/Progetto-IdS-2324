@@ -1,54 +1,56 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { PointService } from '../../../services/point/point.service';
-import { MockdataService } from '../../../services/mock/mockdata.service';
-import { City } from '../../../models/city';
-import { CityService } from '../../../services/city/city.service';
+import {Component, Input} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {MockdataService} from '../../../services/mock/mockdata.service';
+import {City} from '../../../models/city';
 import {ApiService} from "../../../services/facades/api/api.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Point} from "../../../models/point";
-import {ContentStatus} from "../../../models/contentstatus";
+import {catchError, tap, throwError} from "rxjs";
+import {HttpResponse} from "@angular/common/http";
 
 @Component({
-  selector: 'app-create-poi',
-  templateUrl: './create-poi.component.html',
-  styleUrls: ['./create-poi.component.scss']
+	selector: 'app-create-poi',
+	templateUrl: './create-poi.component.html',
+	styleUrls: ['./create-poi.component.scss']
 })
 export class CreatePoiComponent {
 	city?: City;
 	form: FormGroup;
 
-	constructor(private route: ActivatedRoute, public api: ApiService, private fb: FormBuilder) {
-		this.route.params.subscribe(params => {
-			const id = params["id"];
-			//this.getCityDetail();
-			this.city = MockdataService.getCityMock(id);
-		});
-		this.form = fb.group({
-			title: new FormControl('', [Validators.required]),
-			description: new FormControl('', [Validators.required, Validators.maxLength(180)]),
-			mediaUrl: new FormControl('', [Validators.required])
-		});
-	}
-
-	getCityDetail() : void {
+	constructor(private route: ActivatedRoute, private router: Router, public api: ApiService, private fb: FormBuilder) {
 		this.route.params.subscribe(params => {
 			const cityId = params["id"];
-			this.api.city.getCityById(cityId).subscribe((city) => {
-				this.city = city;
-			})
-		})
+			//this.getCityDetail(cityId);
+			this.city = MockdataService.getCityMock(cityId);
+		});
+		this.form = fb.group({
+			name: new FormControl('', [Validators.required]),
+			description: new FormControl('', [Validators.required, Validators.maxLength(300)]),
+			longitude: new FormControl('', [Validators.required]),
+			latitude: new FormControl('', [Validators.required]),
+			altitude: new FormControl('', [Validators.required]),
+			imageUrl: new FormControl('', [Validators.required])
+		});
 	}
 
-	createPoint() : void {
-		if(this.form.valid) {
+	createPoint(): void {
+		if (this.form.valid) {
 			const point: Point = this.getPointFromForm();
-			// Send point to APIs
+			this.api.point.addPoint(point).pipe(tap((response: HttpResponse<any>) => {
+					if (response.status === 200) {
+						this.router.navigate(['../']);
+					}
+				}),
+				catchError(error => {
+					console.error('Signup failed. Error:', error);
+					return throwError(() => error);
+				})
+			);
 		}
 	}
 
-	getPointFromForm() : Point {
-		if(this.form.valid && this.city) {
+	getPointFromForm(): Point {
+		if (this.form.valid && this.city) {
 			return {
 				name: this.form.get('name')?.value,
 				description: this.form.get('description')?.value,
@@ -63,5 +65,10 @@ export class CreatePoiComponent {
 		}
 	}
 
+	getCityDetail(id: number): void {
+		this.api.city.getCityById(id).subscribe((city) => {
+			this.city = city;
+		})
+	}
 
 }

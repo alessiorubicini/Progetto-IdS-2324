@@ -19,19 +19,12 @@ public class PointController {
         this.pointService = pointService;
     }
 
-    @PostMapping("/add")
+    @PostMapping("/")
     public ResponseEntity<Point> addPoint(@RequestBody Point point) {
         if(pointService.addPoint(point))
             return new ResponseEntity<>(point, HttpStatus.CREATED);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Object> removePoint(@PathVariable("id") Integer id) {
-        if(pointService.removePoint(id))
-            return new ResponseEntity<>(HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/{id}")
@@ -41,6 +34,13 @@ public class PointController {
             return new ResponseEntity<>(point, HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> removePoint(@PathVariable("id") Integer id) {
+        if(pointService.removePoint(id))
+            return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }

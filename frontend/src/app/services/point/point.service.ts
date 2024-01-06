@@ -20,6 +20,6 @@ export class PointService {
 	}
 
 	public addPoint(point: Point) : Observable<any> {
-		return this.httpClient.post(`${environment.apiUrl}/point/add`, point);
+		return this.httpClient.post(`${environment.apiUrl}/point/`, point);
 	}
 }

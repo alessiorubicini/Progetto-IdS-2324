@@ -34,34 +34,47 @@
 			<h2>Create a point of interest for {{ city.name }}</h2>
 
 			<form [formGroup]="form">
-				<div class="mb-4">
+				<div class="form-group mb-4">
 					<label class="form-label" for="name">Name </label>
 					<input type="text" class="form-control" id="name" placeholder="Point name" formControlName="name" required>
 				</div>
 
-				<div class="mb-4">
+				<div class="form-group mb-4">
 					<label class="form-label" for="description">Description </label>
-					<textarea class="form-control" id="description" rows="3" placeholder="A description of the point" required></textarea>
+					<textarea class="form-control" id="description" rows="3" placeholder="A description of the point" formControlName="description" required></textarea>
+					<div class="form-text" id="basic-addon4">Max 300 characters.</div>
 				</div>
+
+				<!--<div class="form-group mb-4">
+					<label class="form-label" for="type">Type of point </label>
+					<select class="form-select" id="type" [(ngModel)]="typeOfPoint">
+						<option value="logical">Logical</option>
+						<option value="physical">Physical</option>
+					</select>
+				</div>-->
 
 				<div class="form-group mb-4">
 					<label class="form-label" for="coordinates">Coordinates </label>
 					<div class="input-group mb-3" id="coordinates">
 						<span class="input-group-text"><i class="bi bi-crosshair"></i></span>
-						<input type="text" class="form-control" placeholder="Longitude" formControlName="longitude">
-						<input type="text" class="form-control" placeholder="Latitude" formControlName="latitude">
-						<input type="text" class="form-control" placeholder="Altitude (m)" formControlName="altitude">
+						<input type="number" class="form-control" placeholder="Longitude" formControlName="longitude">
+						<input type="number" class="form-control" placeholder="Latitude" formControlName="latitude">
+						<input type="number" class="form-control" placeholder="Altitude (m)" formControlName="altitude">
 					</div>
 				</div>
 
 				<div class="form-group mb-3">
 					<label class="form-label" for="image-url">Media URL </label>
-					<input type="text" class="form-control" id="image-url" formControlName="imageUrl" placeholder= "Enter the url of the image" required>
+					<div class="input-group mb-3" id="image-url">
+						<span class="input-group-text"><i class="bi bi-link-45deg"></i></span>
+						<input type="text" class="form-control" placeholder="Enter the url of the image" formControlName="imageUrl" required>
+					</div>
+
 				</div>
 
-				<div class="btn-group" role="group">
+				<div class="btn-group mt-3" role="group">
 					<button type="button" class="btn btn-outline-danger" [routerLink]="['../']">Cancel</button>
-					<button type="button" class="btn btn-primary" (click)="createPoint()" [disabled]="form.invalid">Create point</button>
+					<button type="button" class="btn btn-primary" (click)="createPoint()" [disabled]="form.invalid">Create point<i class="bi bi-plus"></i></button>
 				</div>
 
 			</form>
