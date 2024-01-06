@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import {AuthService} from "../../services/auth/auth.service";
 import {UserInfo} from "../../models/user-info";
 import {ActivatedRoute} from "@angular/router";
 import {MockdataService} from "../../services/mock/mockdata.service";
-import {UiService} from "../../services/facades/ui/ui.service";
 import {ApiService} from "../../services/facades/api/api.service";
 
 @Component({
@@ -16,8 +14,8 @@ export class UserProfileComponent {
 	userId? : number;
 	activeTab: string = 'contents';
 
-	constructor(private ui: UiService, private api: ApiService) {
-		this.ui.route.params.subscribe(params => {
+	constructor(private route: ActivatedRoute, private api: ApiService) {
+		this.route.params.subscribe(params => {
 			const userId = params["id"];
 			this.userId = userId;
 			if(userId == api.auth.getUserInfo()?.id) {

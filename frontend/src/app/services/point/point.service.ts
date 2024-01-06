@@ -18,4 +18,8 @@ export class PointService {
 	public getPointDetails(id: number) : Observable<Point> {
 		return this.httpClient.get<Point>(`${environment.apiUrl}/city/${id}/points`);
 	}
+
+	public addPoint(point: Point) : Observable<any> {
+		return this.httpClient.post(`${environment.apiUrl}/point/add`, point);
+	}
 }

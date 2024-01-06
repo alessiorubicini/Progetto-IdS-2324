@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { City } from '../../models/city';
-import { CityService } from '../../services/city/city.service';
 import { MockdataService } from '../../services/mock/mockdata.service';
 import {ApiService} from "../../services/facades/api/api.service";
 

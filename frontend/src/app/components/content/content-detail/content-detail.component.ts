@@ -1,14 +1,10 @@
 import { Component } from '@angular/core';
 import {Content} from "../../../models/content";
 import {ActivatedRoute} from "@angular/router";
-import {ContentService} from "../../../services/content/content.service";
 import {MockdataService} from "../../../services/mock/mockdata.service";
 import {City} from "../../../models/city";
-import {CityService} from "../../../services/city/city.service";
 import {Point} from "../../../models/point";
-import {PointService} from "../../../services/point/point.service";
 import {UserInfo} from "../../../models/user-info";
-import {UiService} from "../../../services/facades/ui/ui.service";
 import {ApiService} from "../../../services/facades/api/api.service";
 
 @Component({
@@ -22,8 +18,8 @@ export class ContentDetailComponent {
 	content?: Content
 	user?: UserInfo
 
-	constructor(private ui: UiService, private api: ApiService) {
-		this.ui.route.params.subscribe(params => {
+	constructor(private route: ActivatedRoute, private api: ApiService) {
+		this.route.params.subscribe(params => {
 			const contentId = params["contentId"];
 			const pointId = params["pointId"];
 			const cityId = params["id"];

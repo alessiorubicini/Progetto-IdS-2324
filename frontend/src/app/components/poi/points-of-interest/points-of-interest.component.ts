@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { City } from '../../../models/city';
 import { MockdataService } from '../../../services/mock/mockdata.service';
 import {Point} from "../../../models/point";
-import {UiService} from "../../../services/facades/ui/ui.service";
 import {ApiService} from "../../../services/facades/api/api.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-points-of-interest',
@@ -14,8 +14,8 @@ export class PointsOfInterestComponent {
 	city?: City
 	points?: Point[]
 
-	constructor(private ui: UiService, private api: ApiService) {
-		this.ui.route.params.subscribe(params => {
+	constructor(private route: ActivatedRoute, private api: ApiService) {
+		this.route.params.subscribe(params => {
 			const cityId = params["id"];
 			this.city = MockdataService.getCityMock(cityId);
 			this.points = MockdataService.getAllPointMocksOfCity(cityId)!;

@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {ApiService} from "./services/facades/api/api.service";
-import {UiService} from "./services/facades/ui/ui.service";
+import {ToastrService} from "ngx-toastr";
+import {Title} from "@angular/platform-browser";
 
 @Component({
 	selector: 'app-root',
@@ -10,13 +11,13 @@ import {UiService} from "./services/facades/ui/ui.service";
 export class AppComponent {
 	title = 'OpenCity';
 
-	constructor(private api: ApiService, private ui: UiService) {
-		this.ui.title.setTitle("OpenCity");
+	constructor(private api: ApiService, public toastr: ToastrService, public titleService: Title) {
+		this.titleService.setTitle("OpenCity");
 	}
 
 	public logout() {
 		this.api.auth.logout();
-		this.ui.toastr.success("Successfully logged out!", "Warning", {
+		this.toastr.success("Successfully logged out!", "Warning", {
 			timeOut: 3000,
 			positionClass: 'toast-bottom-right'
 		})
