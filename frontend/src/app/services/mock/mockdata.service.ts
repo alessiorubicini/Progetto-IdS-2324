@@ -5,17 +5,25 @@ import {User} from "../../models/user";
 import {Point} from "../../models/point";
 import {ContentStatus} from "../../models/contentstatus";
 import {UserInfo} from "../../models/user-info";
+import { Contest } from 'src/app/models/contest';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class MockdataService {
-	static getContestMock(contestId: any): any {
+	
+	
+	public static getAllContestsMocks(): Contest[] {
 		return [
-			{ id: 1, title: "Christmas Market", description: "booo", publicationDate:"12", closingDate:"14", authorId:"Pippo", cityId:2, winnerId:3 },
-			{ id: 2, title: "Summer Jamboree", description: "bo2", publicationDate:"3", closingDate:"7", authorId:"Pluto", cityId:2, winnerId:1 }
+			{ id: 1, title: "Christmas Market", description: "The market takes place on Thursday", publicationDate: new Date("2023-12-15 15:00:00"), closingDate: new Date("2023-12-20 20:00:00"), authorId:1, cityId:2, winnerId:3 },
+			{ id: 2, title: "Summer Jamboree", description: "The hottest rockin' holiday on earth", publicationDate: new Date("2023-07-26 11:00:00"), closingDate:new Date("2023-08-14 18:00:00"), authorId:3, cityId:1, winnerId:1 }
 		]
 	}
+	
+	public static getContestMock(id: number) : Contest | undefined {
+		return this.getAllContestsMocks().find(p => p.id == id);
+	}
+
 
 	public static getAllUsersMocks() : UserInfo[] {
 		return [
