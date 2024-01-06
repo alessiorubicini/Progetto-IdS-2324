@@ -19,14 +19,17 @@ public class User {
     @Column(unique = true)
     private String email;
     private String password;
+    @OneToMany
+    private List<Favorite> favorites;
 
-    public User(String name, String surname, String username, String fiscalCode, String email, String password) {
+    public User(String name, String surname, String username, String fiscalCode, String email, String password, List<Favorite> favorites) {
         this.name = name;
         this.surname = surname;
         this.username = username;
         this.fiscalCode = fiscalCode;
         this.email = email;
         this.password = password;
+        this.favorites = favorites;
     }
 
     public User() { }
@@ -83,4 +86,11 @@ public class User {
         this.password = password;
     }
 
+    public List<Favorite> getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(List<Favorite> favorites) {
+        this.favorites = favorites;
+    }
 }

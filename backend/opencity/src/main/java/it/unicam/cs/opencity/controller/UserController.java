@@ -53,7 +53,6 @@ public class UserController {
             return ResponseEntity.status(403).body("Not authorized to remove this user");
         }
     }
-
     @GetMapping("/roles")
     public ResponseEntity<Object> getRoles() {
         return ResponseEntity.ok(roleService.getRoles());

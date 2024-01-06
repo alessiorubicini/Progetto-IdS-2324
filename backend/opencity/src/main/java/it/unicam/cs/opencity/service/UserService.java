@@ -1,6 +1,8 @@
 package it.unicam.cs.opencity.service;
 
+import it.unicam.cs.opencity.entity.Favorite;
 import it.unicam.cs.opencity.entity.User;
+import it.unicam.cs.opencity.repository.FavoriteRepository;
 import it.unicam.cs.opencity.repository.ParticipationRepository;
 import it.unicam.cs.opencity.util.UserDTO;
 import it.unicam.cs.opencity.repository.UserRepository;
@@ -18,11 +20,13 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final ParticipationRepository participationRepository;
+    private final FavoriteRepository favoriteRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository, ParticipationRepository participationRepository) {
+    public UserService(UserRepository userRepository, ParticipationRepository participationRepository, FavoriteRepository favoriteRepository) {
         this.userRepository = userRepository;
         this.participationRepository = participationRepository;
+        this.favoriteRepository = favoriteRepository;
     }
 
     @Override
@@ -36,6 +40,11 @@ public class UserService implements UserDetailsService {
 
     public UserDTO convertToDTO(User user){
         return new UserDTO(user.getId(), user.getUsername(), participationRepository.findByIdUserId(user.getId()));
+    }
+
+    public void addFavorite(Favorite favorite)
+    {
+        this.favoriteRepository.save(favorite);
     }
 
     public void addUser(User user) {

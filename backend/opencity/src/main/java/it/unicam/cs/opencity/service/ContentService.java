@@ -1,7 +1,9 @@
 package it.unicam.cs.opencity.service;
 
 import it.unicam.cs.opencity.entity.Content;
+import it.unicam.cs.opencity.entity.Favorite;
 import it.unicam.cs.opencity.repository.ContentRepository;
+import it.unicam.cs.opencity.repository.FavoriteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +14,12 @@ import java.util.List;
 public class ContentService {
 
     private final ContentRepository contentRepository;
+    private final FavoriteRepository favoriteRepository;
 
     @Autowired
-    public ContentService(ContentRepository contentRepository) {
+    public ContentService(ContentRepository contentRepository, FavoriteRepository favoriteRepository) {
         this.contentRepository = contentRepository;
+        this.favoriteRepository = favoriteRepository;
     }
 
     public Optional<Content> getContentDetails(Integer id){
@@ -40,9 +44,13 @@ public class ContentService {
             return false;
     }
 
-    public boolean updateContent(Integer id, Content newContent){
+    public boolean updateContent(Content newContent){
         contentRepository.save(newContent);
         return true;
     }
 
+    public boolean addFavorite(Favorite favorite){
+        favoriteRepository.save(favorite);
+        return true;
+    }
 }
