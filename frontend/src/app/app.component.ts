@@ -27,4 +27,8 @@ export class AppComponent {
 	get authenticated(): boolean {
 		return this.authService.authenticated;
 	}
+
+	get userId(): number{
+		return this.authService.getUserInfo()?.id!;
+	}
 }

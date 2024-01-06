@@ -20,7 +20,7 @@ export const routes: Routes = [
 	{path: "signup", component: SignupComponent},
 	{path: "city/:id", component: CityDetailComponent},
 	{path: "contacts", component: ContactsComponent},
-	{path: "profile", component: UserProfileComponent},
+	{path: "user/:id", component: UserProfileComponent},
 	{path: "city/:id/create-content", component: CreateContentComponent},
 	{path: "city/:id/create-poi", component: CreatePoiComponent},
 	{path: "city/:id/create-area", component: CreateAreaComponent},
