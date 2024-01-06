@@ -1,54 +1,73 @@
-
 <div class="container mt-5">
 
-	<nav aria-label="breadcrumb">
-		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
-			<li class="breadcrumb-item"><a [routerLink]="['/city', city?.id]">{{city?.name}}</a></li>
-			<li class="breadcrumb-item active">Create Content</li>
-		</ol>
-	</nav>
-	<h2>Create content for {{city?.name}}</h2>
+	<ng-container *ngIf="!api.auth.authenticated">
+		<div class="alert alert-warning" role="alert">
+			Error 401: you are not authenticated.
+		</div>
+	</ng-container>
+
+	<ng-container *ngIf="api.auth.authenticated">
+
+		<ng-container *ngIf="!city">
+			<div class="alert alert-danger" role="alert">
+				Error 404: that city does not exist.
+			</div>
+			<a [routerLink]="['../../']">Back to the home</a>
+		</ng-container>
+
+		<ng-container *ngIf="city && point">
+
+			<!--<ng-container *ngIf="api.auth.userRoleForCity(city.id!)">
+				<div class="alert alert-warning" role="alert">
+					Error 403: you do not have the necessary permissions for this.
+				</div>
+			</ng-container>-->
+
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
+					<li class="breadcrumb-item"><a [routerLink]="['/city', city.id]">{{ city.name }}</a></li>
+					<li class="breadcrumb-item active">Create Content</li>
+				</ol>
+			</nav>
+
+			<h2>Create content for {{ city.name }}</h2>
+
+			<form [formGroup]="form">
+				<div class="form-group mb-4">
+					<label class="form-label" for="title">Title </label>
+					<input type="text" class="form-control" id="title" formControlName="title" placeholder="Enter the content title" required>
+				</div>
+
+				<div class="form-group mb-4">
+					<label class="form-label" for="description">Description </label>
+					<textarea class="form-control" id="description" formControlName="description" rows="5" placeholder="Enter the content of your request" required></textarea>
+				</div>
+
+				<div class="form-group mb-3">
+					<label class="form-label" for="media-url">Media URL </label>
+					<input type="text" class="form-control" id="media-url" formControlName="mediaUrl" placeholder= "Enter the url of the image" required>
+				</div>
+
+				<div class="form-group mb-4" *ngIf="availableContests.length != 0">
+					<label class="form-label" for="contest">Do you want to join a contest in {{ city.name }}? </label>
+					<select class="form-select" id="contest" formControlName="contestId">
+						<option *ngFor="let contest of availableContests" [value]="contest.id">{{ contest.title }}</option>
+					</select>
+				</div>
+
+				<div class="spinner-border" role="status" *ngIf="!availableContests || availableContests.length == 0">
+					<span class="visually-hidden">Loading contests...</span>
+				</div>
+
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-outline-danger" [routerLink]="['../']">Cancel</button>
+					<button type="button" class="btn btn-primary" (click)="createContent()" [disabled]="form.invalid">Create content</button>
+				</div>
+			</form>
+
+		</ng-container>
+	</ng-container>
+
 </div>
-
-<body>
-  <div class="container">
-    <div class="mb-4">
-      <label for="title">Title </label>
-      <input type="text" class="form-control" id="title" required placeholder= "Enter the content title">
-    </div>
-
-    <div class="mb-4">
-      <label for="content">Content </label>
-      <textarea class="form-control" id="content" rows="5" required placeholder="Enter the content of your request"></textarea>
-    </div>
-
-    <div class="mb-4">
-      <label for="content">Point of interest </label>
-      <select class="form-select" aria-label="Default select example">
-        <option selected>Displays points of interest</option>
-        <option value="1">Pipo</option>
-        <option value="2">Puppa</option>
-        <option value="3">Simone</option>
-      </select>
-    </div>
-
-    <div class="mb-4">
-      <label for="content">Do you want to participate in a contest? </label>
-      <select class="form-select" aria-label="Default select example">
-        <option selected>Open this select menu</option>
-        <option value="1">Yes</option>
-        <option value="2">No</option>
-      </select>
-    </div>
-
-    <div class="mb-4">
-      <label for="formFile" class="form-label" >Upload a file </label>
-      <input class="form-control" type="file" id="formFile">
-    </div>  
-     
-      <button type="submit" class="btn btn-outline-primary" style="margin-right: 10px;">Create content</button>
-      <button type="submit" class="btn btn-outline-danger">Cancel</button>
-  </div>
-</body>
 

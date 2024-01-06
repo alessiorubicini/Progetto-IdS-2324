@@ -2,48 +2,50 @@
 
 <div class="container mt-5">
 	<div class="row justify-content-center">
-	  <div class="col-md-6">
+		<div class="col-md-6">
 
-		<div class="text-center mb-4">
-		  <img src="../../../../assets/img/opencity-logo-nobg.png" width="150" alt="App Logo" >
-		  <h2 class="mt-2">Welcome back to OpenCity</h2>
+			<div class="text-center mb-4">
+				<img src="../../../../assets/img/opencity-logo-nobg.png" width="150" alt="App Logo">
+				<h2 class="mt-2">Welcome back to OpenCity</h2>
+			</div>
+
+			<form [formGroup]="form">
+				<div class="form-group mb-3">
+					<label for="username">Username</label>
+					<input type="text" class="form-control" id="username" formControlName="username"
+						   placeholder="Enter your username">
+				</div>
+
+				<div class="mb-3">
+					<label for="password" class="form-label">Password</label>
+					<div class="input-group">
+						<input type="{{ passwordVisible ? 'text' : 'password' }}" class="form-control"
+							   formControlName="password" id="password" placeholder="Enter your password">
+						<button class="input-group-text" id="eye-icon" (click)="passwordVisible = !passwordVisible">
+							<i [class]="passwordVisible ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'"></i>
+						</button>
+					</div>
+
+				</div>
+
+				<div class="form-group mb-3">
+					<div class="d-flex justify-content-between align-items-center">
+						<a href="#">Forgot Password?</a>
+					</div>
+				</div>
+
+				<div class="form-group mb-3">
+					<button type="button" class="btn btn-primary btn-block w-100" (click)="login()">Login</button>
+				</div>
+
+				<!--<div class="form-group mb-3">
+				  <button type="button" class="btn btn-outline-primary btn-block w-100">Login with Google <i class="bi bi-google"></i></button>
+				</div>-->
+
+				<div class="form-group text-center">
+					<p>Don't have an account? <a [routerLink]="['/signup']">Sign up here</a></p>
+				</div>
+			</form>
 		</div>
-
-		<form [formGroup]="form">
-		  <div class="form-group mb-3">
-			<label for="username">Username</label>
-			<input type="text" class="form-control" id="username" formControlName="username" placeholder="Enter your username">
-		  </div>
-
-		  <div class="mb-3">
-			<label for="password" class="form-label">Password</label>
-			<div class="input-group">
-			  <input type="{{ passwordVisible ? 'text' : 'password' }}" class="form-control" formControlName="password" id="password" placeholder="Enter your password">
-			  <button class="input-group-text" id="eye-icon" (click)="passwordVisible = !passwordVisible">
-				<i [class]="passwordVisible ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'"></i>
-			  </button>
-			</div>
-
-		  </div>
-
-		  <div class="form-group mb-3">
-			<div class="d-flex justify-content-between align-items-center">
-			  <a href="#">Forgot Password?</a>
-			</div>
-		  </div>
-
-		  <div class="form-group mb-3">
-			<button type="button" class="btn btn-primary btn-block w-100" (click)="login()">Login</button>
-		  </div>
-
-		  <!--<div class="form-group mb-3">
-			<button type="button" class="btn btn-outline-primary btn-block w-100">Login with Google <i class="bi bi-google"></i></button>
-		  </div>-->
-
-		  <div class="form-group text-center">
-			<p>Don't have an account? <a [routerLink]="['/signup']">Sign up here</a></p>
-		  </div>
-		</form>
-	  </div>
 	</div>
 </div>

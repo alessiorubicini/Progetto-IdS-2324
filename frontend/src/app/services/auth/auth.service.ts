@@ -6,6 +6,7 @@ import {catchError, Observable, tap, throwError} from 'rxjs';
 import {User} from "../../models/user";
 import {Router} from "@angular/router";
 import {UserInfo} from "../../models/user-info";
+import {Role} from "../../models/role";
 
 @Injectable({
 	providedIn: 'root'
@@ -61,11 +62,6 @@ export class AuthService {
 		this.authenticated = false;
 	}
 
-	public isAuthenticated(): boolean {
-		const token = localStorage.getItem('access_token');
-		return token != null && !this.jwtHelper.isTokenExpired(token);
-	}
-
 	public getUserInfo() : UserInfo | null {
 		const userInfo = localStorage.getItem("user-info");
 		if(userInfo) return JSON.parse(userInfo);
@@ -82,5 +78,10 @@ export class AuthService {
 			return authHeader.substring(7); // Remove "Bearer " part
 		}
 		return null;
+	}
+
+	public userRoleForCity(id: number) : Role | undefined {
+		const info = this.getUserInfo();
+		return info?.roles.find(r => r.city.id == id)?.role;
 	}
 }

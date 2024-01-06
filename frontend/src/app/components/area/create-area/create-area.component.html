@@ -1,46 +1,62 @@
 <!-- create-area.component.html -->
 <div class="container mt-5">
 
-	<ng-container *ngIf="!city">
-		<div class="alert alert-danger" role="alert">
-			Error 404: that city does not exist.
+	<ng-container *ngIf="!api.auth.authenticated">
+		<div class="alert alert-warning" role="alert">
+			Error 401: you are not authenticated.
 		</div>
-		<a [routerLink]="['../../']">Back to the home</a>
 	</ng-container>
 
-	<ng-container *ngIf="city">
-		<nav aria-label="breadcrumb">
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
-				<li class="breadcrumb-item"><a [routerLink]="['/city', city.id]">{{city.name}}</a></li>
-				<li class="breadcrumb-item active">Create Area</li>
-			</ol>
-		</nav>
+	<ng-container *ngIf="api.auth.authenticated">
 
-		<h2>Create an area for {{city.name}}</h2>
-
-		<form [formGroup]="form">
-			<div class="form-group mb-3">
-				<label for="name">Name</label>
-				<input type="text" class="form-control" id="name" formControlName="name" placeholder= "Enter the name of the area" required>
+		<ng-container *ngIf="!city">
+			<div class="alert alert-danger" role="alert">
+				Error 404: that city does not exist.
 			</div>
+			<a [routerLink]="['../../']">Back to the home</a>
+		</ng-container>
 
-			<div class="mb-3">
-				<label for="description">Description</label>
-				<textarea class="form-control" id="description" formControlName="description" rows="5" placeholder="Enter a description of the area" required></textarea>
-			</div>
+		<ng-container *ngIf="city">
 
-			<div class="form-group mb-3">
-				<label for="image-url">Title</label>
-				<input type="text" class="form-control" id="image-url" formControlName="imageUrl" placeholder= "Enter the url of the image" required>
-			</div>
+			<!--<ng-container *ngIf="api.auth.userRoleForCity(city.id!)">
+				<div class="alert alert-warning" role="alert">
+					Error 403: you do not have the necessary permissions for this.
+				</div>
+			</ng-container>-->
 
-			<div class="btn-group" role="group">
-				<button type="button" class="btn btn-outline-primary" (click)="createPoint()">Create point</button>
-				<button type="button" class="btn btn-outline-danger" [routerLink]="['../']">Cancel</button>
-			</div>
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
+					<li class="breadcrumb-item"><a [routerLink]="['/city', city.id]">{{ city.name }}</a></li>
+					<li class="breadcrumb-item active">Create Area</li>
+				</ol>
+			</nav>
 
-		</form>
+			<h2>Create an area for {{city.name}}</h2>
+
+			<form [formGroup]="form">
+				<div class="form-group mb-3">
+					<label class="form-label" for="name">Name</label>
+					<input type="text" class="form-control" id="name" formControlName="name" placeholder= "Enter the name of the area" required>
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label" for="description">Description</label>
+					<textarea class="form-control" id="description" formControlName="description" rows="5" placeholder="Enter a description of the area" required></textarea>
+				</div>
+
+				<div class="form-group mb-3">
+					<label class="form-label" for="image-url">Image URL </label>
+					<input type="text" class="form-control" id="image-url" formControlName="imageUrl" placeholder= "Enter the url of the image" required>
+				</div>
+
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-outline-danger" [routerLink]="['../']">Cancel</button>
+					<button type="button" class="btn btn-primary" (click)="createPoint()" [disabled]="form.invalid">Create point</button>
+				</div>
+
+			</form>
+		</ng-container>
 	</ng-container>
 
 </div>

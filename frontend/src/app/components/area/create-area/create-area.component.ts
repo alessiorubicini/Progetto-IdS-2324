@@ -17,7 +17,7 @@ export class CreateAreaComponent {
 	city?: City;
 	form: FormGroup;
 
-	constructor(private route: ActivatedRoute, private router: Router, private api: ApiService, private fb: FormBuilder) {
+	constructor(private route: ActivatedRoute, private router: Router, public api: ApiService, private fb: FormBuilder) {
 		this.route.params.subscribe(params => {
 			const id = params["id"];
 			//this.getCityDetail();
@@ -64,4 +64,5 @@ export class CreateAreaComponent {
 			cityId: this.city?.id!
 		};
 	}
+
 }

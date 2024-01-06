@@ -1,7 +1,7 @@
 import { ContentStatus } from "./contentstatus";
 
 export interface Content {
-	id: number;
+	id?: number;
 	title: string;
 	description: string;
 	publicationDate: Date;

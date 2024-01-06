@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PointService } from '../../../services/point/point.service';
 import { City } from '../../../models/city';
-import { CityService } from '../../../services/city/city.service';
 import { MockdataService } from '../../../services/mock/mockdata.service';
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {ApiService} from "../../../services/facades/api/api.service";
+import {Content} from "../../../models/content";
+import {ContentStatus} from "../../../models/contentstatus";
+import {Contest} from "../../../models/contest";
+import {Point} from "../../../models/point";
 
 @Component({
   selector: 'app-create-content',
@@ -11,30 +15,70 @@ import { MockdataService } from '../../../services/mock/mockdata.service';
   styleUrls: ['./create-content.component.scss']
 })
 export class CreateContentComponent {
-
-	// TODO: aggiungere form con informazioni contenuto
 	city?: City;
-	activeTab: string = 'pointsOfInterest';
+	point?: Point
+	form: FormGroup;
+	availableContests: Contest[] = [];
 
-	constructor(private route: ActivatedRoute, private cityService: CityService, private pointService: PointService) {
+	constructor(private route: ActivatedRoute, public api: ApiService, private fb: FormBuilder) {
 		this.route.params.subscribe(params => {
 			const id = params["id"];
-			//this.getCityDetail();
+			const pointId = params["pointId"];
 			this.city = MockdataService.getCityMock(id);
+			this.point = MockdataService.getPointMock(pointId);
+			this.availableContests = MockdataService.getAllContestsMocks();
+			//this.getCityDetail();
+			//this.getPointDetail();
+			//this.getAvailableContests();
 		})
+		this.form = fb.group({
+			title: new FormControl('', [Validators.required]),
+			description: new FormControl('', [Validators.required]),
+			mediaUrl: new FormControl('', [Validators.required])
+		});
 	}
 
-	getCityDetail() : void {
+	createContent() : void {
+		if(this.form.valid) {
+			const content: Content = this.getContentFromForm();
+			// Send content to APIs
+		}
+	}
+
+	getContentFromForm() : Content {
+		if(this.form.valid && this.city && this.point) {
+			return {
+				title: this.form.get('title')?.value,
+				description: this.form.get('description')?.value,
+				publicationDate: new Date(),
+				status: ContentStatus.DRAFT,
+				authorId: this.api.auth.getUserInfo()?.id!,
+				pointId: this.point?.id!,
+				mediaUrl: this.form.get('mediaUrl')?.value,
+				contestId: this.form.get('contestId')?.value
+			};
+		} else {
+			throw new Error('Form data is not valid');
+		}
+	}
+
+	private getCityDetail() : void {
 		this.route.params.subscribe(params => {
 			const cityId = params["id"];
-			this.cityService.getCityById(cityId).subscribe((city) => {
+			this.api.city.getCityById(cityId).subscribe((city) => {
 				this.city = city;
 			})
 		})
 	}
 
-	createContent() : void {
-		// TODO: aggiungere chiamata POST alle API per inviare nuovo content
+	private getPointDetail(id: number) {
+		this.api.point.getPointDetails(id).subscribe((point) => {
+			this.point = point;
+		})
+	}
+
+	private getAvailableContests() {
+
 	}
 
 }
