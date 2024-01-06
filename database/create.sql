@@ -75,6 +75,12 @@ CREATE TABLE Role(
 	title VARCHAR(30) NOT NULL UNIQUE,
 	description VARCHAR(80) NOT NULL
 );
+
+create table favorite(
+PRIMARY KEY (userId, contentId),
+	userId INTEGER NOT NULL REFERENCES User.id,
+	contentId INTEGER NOT NULL REFERENCES Content.id
+);
 /*
 CREATE TABLE SystemProblemReport(
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
