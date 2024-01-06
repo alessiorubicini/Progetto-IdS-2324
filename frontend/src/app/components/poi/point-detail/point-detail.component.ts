@@ -25,7 +25,7 @@ export class PointDetailComponent {
 			const pointId = params["pointId"];
 			this.city = MockdataService.getCityMock(cityId);
 			this.point = MockdataService.getPointMock(pointId);
-			this.contents = [MockdataService.getContentMock()];
+			this.contents = MockdataService.getContentsMocksOfPoint(pointId);
 			//this.getCityDetail(cityId);
 			//this.getPointDetail(cityId);
 			//this.getPointContents(pointId);

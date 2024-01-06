@@ -7,6 +7,7 @@ import {City} from "../../../models/city";
 import {CityService} from "../../../services/city/city.service";
 import {Point} from "../../../models/point";
 import {PointService} from "../../../services/point/point.service";
+import {UserInfo} from "../../../models/user-info";
 
 @Component({
   selector: 'app-content-detail',
@@ -17,6 +18,7 @@ export class ContentDetailComponent {
 	city?: City
 	point?: Point
 	content?: Content
+	user?: UserInfo
 
 	constructor(private route: ActivatedRoute, private contentService: ContentService, private cityService: CityService, private pointService: PointService) {
 		this.route.params.subscribe(params => {
@@ -26,8 +28,10 @@ export class ContentDetailComponent {
 			this.content = MockdataService.getContentMock();
 			this.city = MockdataService.getCityMock(cityId);
 			this.point = MockdataService.getPointMock(pointId);
+			this.user = MockdataService.getUserMock(this.content.authorId);
 			//this.getCityDetail(cityId);
 			//this.getContentDetail(contentId);
+			//this.getPointDetail(pointId)
 		})
 	}
 

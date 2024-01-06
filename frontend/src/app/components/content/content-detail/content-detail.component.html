@@ -9,6 +9,7 @@
 	</nav>
 
 	<h2>{{ content!.title }}</h2>
+	<h6>Published on {{ content!.publicationDate.getDate() }}.{{content!.publicationDate.getMonth()+1}}.{{content!.publicationDate.getFullYear()}} by <a href="#">{{this.user?.username}}</a> </h6>
 
 	<div class="row">
 		<div class="col-sm-6">

@@ -47,7 +47,7 @@
 		<div class="col-sm-6">
 			<img class="point-image img-fluid" src="{{ point!.imageUrl }}">
 
-			<div class="row mt-3" *ngIf="point!.longitude != undefined && point!.latitude != undefined ">
+			<div class="row mt-3" *ngIf="point!.longitude != undefined && point!.latitude != undefined">
 				<app-osm-map
 					[centerCoordinates]="[point!.longitude!, point!.latitude!]"
 					[zoomLevel]="21"
