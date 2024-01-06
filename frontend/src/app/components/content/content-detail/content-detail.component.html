@@ -1,38 +1,50 @@
 <div class="container mt-5">
-	<nav aria-label="breadcrumb">
-		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
-			<li class="breadcrumb-item"><a [routerLink]="['/city', city?.id]">{{ city?.name }}</a></li>
-			<li class="breadcrumb-item"><a [routerLink]="['../../']">{{ point?.name }}</a></li>
-			<li class="breadcrumb-item active">{{ content?.title }}</li>
-		</ol>
-	</nav>
 
-	<h2>{{ content!.title }}</h2>
-	<h6>Published on {{ content!.publicationDate.getDate() }}.{{content!.publicationDate.getMonth()+1}}.{{content!.publicationDate.getFullYear()}} by <a [routerLink]="['/user', user?.id]">{{this.user?.username}}</a> </h6>
+	<ng-container *ngIf="!content">
+		<div class="alert alert-danger" role="alert">
+			Error 404: that content does not exist.
+		</div>
+		<a [routerLink]="['../../']">Back to the point</a>
+	</ng-container>
 
-	<div class="row">
-		<div class="col-sm-6">
-			<p>{{ content!.description }}</p>
+	<ng-container *ngIf="city && point && content">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
+				<li class="breadcrumb-item"><a [routerLink]="['/city', city.id]">{{ city.name }}</a></li>
+				<li class="breadcrumb-item"><a [routerLink]="['../../']">{{ point.name }}</a></li>
+				<li class="breadcrumb-item active">{{ content.title }}</li>
+			</ol>
+		</nav>
 
-			<div class="btn-group">
-				<button type="button" class="btn btn-outline-primary">Salva nei preferiti <i class="bi bi-bookmark-heart"></i></button>
-				<button type="button" class="btn btn-outline-danger">Segnala <i class="bi bi-exclamation-octagon-fill"></i></button>
+		<h2>{{ content.title }}</h2>
+		<h6>Published on {{ content.publicationDate.getDate() }}.{{content.publicationDate.getMonth()+1}}.{{content.publicationDate.getFullYear()}} by <a [routerLink]="['/user', user?.id]">{{this.user?.username}}</a> </h6>
+
+		<div class="row">
+			<div class="col-sm-6">
+				<p>{{ content.description }}</p>
+
+				<div class="btn-group">
+					<button type="button" class="btn btn-outline-primary">Salva nei preferiti <i class="bi bi-bookmark-heart"></i></button>
+					<button type="button" class="btn btn-outline-danger">Segnala <i class="bi bi-exclamation-octagon-fill"></i></button>
+				</div>
+
 			</div>
-
+			<div class="col-sm-6">
+				<!-- Assuming path is URL -->
+				<img class="content-image img-fluid" src="{{ content.mediaUrl }}">
+			</div>
 		</div>
-		<div class="col-sm-6">
-			<!-- Assuming path is URL -->
-			<img class="content-image img-fluid" src="{{ content!.mediaUrl }}">
-		</div>
-	</div>
 
-	<div class="row mt-3" *ngIf="point!.longitude != undefined && point!.latitude != undefined ">
-		<app-osm-map
-			[centerCoordinates]="[point!.longitude!, point!.latitude!]"
-			[zoomLevel]="21"
-			[items]="[this.point!]"
-			[isForCity]="false"
-		></app-osm-map>
-	</div>
+		<div class="row mt-3" *ngIf="point!.longitude != undefined && point!.latitude != undefined ">
+			<app-osm-map
+				[centerCoordinates]="[point!.longitude!, point!.latitude!]"
+				[zoomLevel]="19"
+				[items]="[this.point!]"
+				[isForCity]="false"
+			></app-osm-map>
+		</div>
+	</ng-container>
+
+
 </div>

@@ -6,7 +6,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {JwtModule} from '@auth0/angular-jwt';
-import {provideHttpClient} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, provideHttpClient} from '@angular/common/http';
 import {provideRouter, RouterModule} from '@angular/router';
 import {routes} from './app.routes';
 import {LoginComponent} from './components/auth/login/login.component';
@@ -29,6 +29,7 @@ import {ContentListComponent} from './components/content/content-list/content-li
 import {AreasListComponent} from './components/area/areas-list/areas-list.component';
 import {ToastrModule} from 'ngx-toastr';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import {HeaderInterceptor} from "./services/interceptors/header-interceptor";
 
 @NgModule({
 	declarations: [
@@ -68,7 +69,11 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 			},
 		})
 	],
-	providers: [provideHttpClient(), provideRouter(routes)],
+	providers: [provideHttpClient(), provideRouter(routes), {
+		provide: HTTP_INTERCEPTORS,
+		useClass: HeaderInterceptor,
+		multi: true
+	}],
 	bootstrap: [AppComponent],
 	exports: [RouterModule]
 })

@@ -11,15 +11,14 @@ import { Contest } from 'src/app/models/contest';
 	providedIn: 'root'
 })
 export class MockdataService {
-	
-	
+
 	public static getAllContestsMocks(): Contest[] {
 		return [
 			{ id: 1, title: "Christmas Market", description: "The market takes place on Thursday", publicationDate: new Date("2023-12-15 15:00:00"), closingDate: new Date("2023-12-20 20:00:00"), authorId:1, cityId:2, winnerId:3 },
 			{ id: 2, title: "Summer Jamboree", description: "The hottest rockin' holiday on earth", publicationDate: new Date("2023-07-26 11:00:00"), closingDate:new Date("2023-08-14 18:00:00"), authorId:3, cityId:1, winnerId:1 }
 		]
 	}
-	
+
 	public static getContestMock(id: number) : Contest | undefined {
 		return this.getAllContestsMocks().find(p => p.id == id);
 	}
@@ -67,13 +66,13 @@ export class MockdataService {
 		return this.getAllPointsMocks().find(p => p.id == id);
 	}
 
-	public static getContentMock() : Content {
-		return { id: 1, title: "Convegno di astrofisica", description: "Unisciti a noi per esplorare le meraviglie dell'universo al nostro prossimo convegno di astrofisica! Esperti di fama mondiale condivideranno le ultime scoperte e teorie affascinanti nel campo dell'astrofisica, spaziando dall'origine dell'universo alle più recenti rivelazioni sui buchi neri e sulle galassie lontane.", authorId: 1, publicationDate: new Date("2023-02-10 15:45:00"), pointId: 6, mediaUrl: "https://www.unicam.it/sites/default/files/eventi/2021/10/loc/scuola_Urbani_10marzo2021.jpeg", status: this.getContentStatus()}
+	public static getContentMock(id: number) : Content {
+		return this.getAllContentsMocks().find(c => c.id == id)!;
 	}
 
 	public static getAllContentsMocks(): Content[] {
 		return [
-			{ id: 1, title: "Convegno di astrofisica", description: "Unisciti a noi per esplorare le meraviglie dell'universo al nostro prossimo convegno di astrofisica! Esperti di fama mondiale condivideranno le ultime scoperte e teorie affascinanti nel campo dell'astrofisica, spaziando dall'origine dell'universo alle più recenti rivelazioni sui buchi neri e sulle galassie lontane.", authorId: 1, publicationDate: new Date("2023-02-10 15:45:00"), pointId: 6, mediaUrl: "https://www.unicam.it/sites/default/files/eventi/2021/10/loc/scuola_Urbani_10marzo2021.jpeg", status: this.getContentStatus()}
+			{ id: 1, title: "La scoperta delle onde gravitazionali", description: "Unisciti a noi per esplorare le meraviglie dell'universo al nostro prossimo convegno di astrofisica! Esperti di fama mondiale condivideranno le ultime scoperte e teorie affascinanti nel campo dell'astrofisica, spaziando dall'origine dell'universo alle più recenti rivelazioni sui buchi neri e sulle galassie lontane.", authorId: 1, publicationDate: new Date("2023-02-10 15:45:00"), pointId: 6, mediaUrl: "https://www.unicam.it/sites/default/files/eventi/2021/10/loc/scuola_Urbani_10marzo2021.jpeg", status: this.getContentStatus()}
 		]
 	}
 

@@ -1,9 +1,9 @@
 import {Component, Input} from '@angular/core';
 import {City} from "../../../models/city";
-import {ActivatedRoute} from "@angular/router";
-import {CityService} from "../../../services/city/city.service";
 import {MockdataService} from "../../../services/mock/mockdata.service";
 import {Point} from "../../../models/point";
+import {UiService} from "../../../services/facades/ui/ui.service";
+import {ApiService} from "../../../services/facades/api/api.service";
 
 @Component({
   selector: 'app-areas-list',
@@ -11,26 +11,24 @@ import {Point} from "../../../models/point";
   styleUrls: ['./areas-list.component.scss']
 })
 export class AreasListComponent {
-	@Input() cityId?: number;
 	city?: City
 	areas?: Point[]
 
-	constructor(private route: ActivatedRoute, private cityService: CityService) {
-		this.route.params.subscribe(params => {
+	constructor(private ui: UiService, private api: ApiService) {
+		this.ui.route.params.subscribe(params => {
 			const id = params["id"];
 			this.city = MockdataService.getCityMock(id);
-			this.areas = MockdataService.getAllPointMocksOfCity(id)?.filter(p => p.longitude == undefined)!;
+			this.areas = MockdataService.getAllPointMocksOfCity(id)?.filter(p => !p.longitude)!;
 			//this.getCityDetail();
 		})
 	}
 
 	getCityDetail() : void {
-		this.route.params.subscribe(params => {
+		this.ui.route.params.subscribe(params => {
 			const cityId = params["id"];
-			this.cityService.getCityById(cityId).subscribe((city) => {
+			this.api.city.getCityById(cityId).subscribe((city) => {
 				this.city = city;
 			})
 		})
 	}
-
 }

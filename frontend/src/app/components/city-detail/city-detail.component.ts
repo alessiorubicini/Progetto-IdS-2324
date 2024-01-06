@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { City } from '../../models/city';
 import { CityService } from '../../services/city/city.service';
 import { MockdataService } from '../../services/mock/mockdata.service';
+import {ApiService} from "../../services/facades/api/api.service";
 
 @Component({
 	selector: 'app-city-detail',
@@ -13,7 +14,7 @@ export class CityDetailComponent {
 	city?: City;
 	activeTab: string = 'pointsOfInterest';
 
-	constructor(private route: ActivatedRoute, private cityService: CityService) {
+	constructor(private route: ActivatedRoute, private api: ApiService) {
 		this.route.params.subscribe(params => {
 			const cityId = params["id"];
 			this.city = MockdataService.getCityMock(cityId);
@@ -22,7 +23,7 @@ export class CityDetailComponent {
 	}
 
 	getCityDetail(id: number) : void {
-		this.cityService.getCityById(id).subscribe((city) => {
+		this.api.city.getCityById(id).subscribe((city) => {
 			this.city = city;
 		})
 	}

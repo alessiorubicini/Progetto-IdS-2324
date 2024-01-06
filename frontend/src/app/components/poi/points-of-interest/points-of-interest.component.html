@@ -1,15 +1,25 @@
 <div class="points-of-interest">
-	<div class="row mt-3" *ngIf="authenticated">
-		<div class="col-12">
-			<button class="btn btn-outline-primary btn-lg" type="button" [routerLink]="['/city', cityId, 'create-poi']">+ Create point of interest</button>
-		</div>
-	</div>
 
-	<app-osm-map
+	<ng-container *ngIf="!city">
+		<div class="alert alert-danger" role="alert">
+			Error 404: that city does not exist.
+		</div>
+	</ng-container>
+
+	<ng-container *ngIf="city">
+		<div class="row mt-3" *ngIf="authenticated">
+			<div class="col-12">
+				<button class="btn btn-outline-primary btn-lg" type="button" [routerLink]="['/city', city.id, 'create-poi']">+ Create point of interest</button>
+			</div>
+		</div>
+
+		<app-osm-map
 			[centerCoordinates]="[city!.longitude, city!.latitude]"
 			[zoomLevel]="14"
 			[items]="this.physicalPoints"
 			[isForCity]="false"
 			[cityId]="city!.id"
 		></app-osm-map>
+	</ng-container>
+
 </div>

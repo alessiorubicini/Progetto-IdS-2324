@@ -1,48 +1,57 @@
 <!-- city-detail.component.html -->
 <div class="container mt-5">
 
-	<nav aria-label="breadcrumb">
-		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
-			<li class="breadcrumb-item active">{{city?.name}}</li>
-		</ol>
-	</nav>
-
-	<h1>{{ city?.name }}</h1>
-
-	<p>
-		<i class="bi bi-person-fill"></i>
-		<span>&nbsp;</span>
-		<a [routerLink]="['/home']"><i class="bi bi-question-circle"></i></a>
-		Your role: <strong>tourist</strong>
-	</p>
-
-	<ul class="nav nav-tabs mt-4 mt">
-		<li class="nav-item">
-			<a class="nav-link" [class.active]="activeTab === 'pointsOfInterest'" (click)="setActiveTab('pointsOfInterest')">Points of Interest</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" [class.active]="activeTab === 'areas'" (click)="setActiveTab('areas')">Areas</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" [class.active]="activeTab === 'contests'" (click)="setActiveTab('contests')">Contests</a>
-		</li>
-	</ul>
-
-	<div class="tab-content mt-3">
-		<!-- Points of Interest Tab -->
-		<div class="tab-pane" id="pointsOfInterest" [ngClass]="{ 'active':activeTab === 'pointsOfInterest'}">
-			<app-points-of-interest [cityId]="city?.id"></app-points-of-interest>
+	<ng-container *ngIf="!city">
+		<div class="alert alert-danger" role="alert">
+			Error 404: that city does not exist.
 		</div>
+		<a [routerLink]="['../../']">Back to the home</a>
+	</ng-container>
 
-		<!-- Areas Tab -->
-		<div class="tab-pane" id="areas" [ngClass]="{ 'active':activeTab === 'areas'}">
-			<app-areas-list [cityId]="city?.id"></app-areas-list>
-		</div>
+	<ng-container *ngIf="city">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
+				<li class="breadcrumb-item active">{{city.name}}</li>
+			</ol>
+		</nav>
 
-		<!-- Contests Tab -->
-		<div class="tab-pane " id="contests" [ngClass]="{ 'active':activeTab === 'contests'}">
-			<app-contest-list></app-contest-list>
+		<h1>{{ city.name }}</h1>
+
+		<p>
+			<i class="bi bi-person-fill"></i>
+			<span>&nbsp;</span>
+			<a [routerLink]="['/home']"><i class="bi bi-question-circle"></i></a>
+			Your role: <strong>tourist</strong>
+		</p>
+
+		<ul class="nav nav-tabs mt-4 mt">
+			<li class="nav-item">
+				<a class="nav-link" [class.active]="activeTab === 'pointsOfInterest'" (click)="setActiveTab('pointsOfInterest')">Points of Interest</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" [class.active]="activeTab === 'areas'" (click)="setActiveTab('areas')">Areas</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" [class.active]="activeTab === 'contests'" (click)="setActiveTab('contests')">Contests</a>
+			</li>
+		</ul>
+
+		<div class="tab-content mt-3">
+			<!-- Points of Interest Tab -->
+			<div class="tab-pane" id="pointsOfInterest" [ngClass]="{ 'active':activeTab === 'pointsOfInterest'}">
+				<app-points-of-interest ></app-points-of-interest>
+			</div>
+
+			<!-- Areas Tab -->
+			<div class="tab-pane" id="areas" [ngClass]="{ 'active':activeTab === 'areas'}">
+				<app-areas-list></app-areas-list>
+			</div>
+
+			<!-- Contests Tab -->
+			<div class="tab-pane " id="contests" [ngClass]="{ 'active':activeTab === 'contests'}">
+				<app-contest-list></app-contest-list>
+			</div>
 		</div>
-	</div>
+	</ng-container>
 </div>

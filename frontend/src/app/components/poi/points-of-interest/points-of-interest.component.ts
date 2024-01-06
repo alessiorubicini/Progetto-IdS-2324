@@ -1,11 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { City } from '../../../models/city';
-import { ActivatedRoute } from '@angular/router';
-import { CityService } from '../../../services/city/city.service';
 import { MockdataService } from '../../../services/mock/mockdata.service';
-import {PointService} from "../../../services/point/point.service";
 import {Point} from "../../../models/point";
-import {AuthService} from "../../../services/auth/auth.service";
+import {UiService} from "../../../services/facades/ui/ui.service";
+import {ApiService} from "../../../services/facades/api/api.service";
 
 @Component({
   selector: 'app-points-of-interest',
@@ -13,12 +11,11 @@ import {AuthService} from "../../../services/auth/auth.service";
   styleUrls: ['./points-of-interest.component.scss']
 })
 export class PointsOfInterestComponent {
-	@Input() cityId?: number;
 	city?: City
 	points?: Point[]
 
-	constructor(private route: ActivatedRoute, private authService: AuthService, private cityService: CityService, private pointService: PointService) {
-		this.route.params.subscribe(params => {
+	constructor(private ui: UiService, private api: ApiService) {
+		this.ui.route.params.subscribe(params => {
 			const cityId = params["id"];
 			this.city = MockdataService.getCityMock(cityId);
 			this.points = MockdataService.getAllPointMocksOfCity(cityId)!;
@@ -28,19 +25,19 @@ export class PointsOfInterestComponent {
 	}
 
 	getCityDetail(id: number) : void {
-		this.cityService.getCityById(id).subscribe((city) => {
+		this.api.city.getCityById(id).subscribe((city) => {
 			this.city = city;
 		})
 	}
 
 	getCityPoints(id: number) : void {
-		this.pointService.getPointsOfCity(id).subscribe((points) => {
+		this.api.point.getPointsOfCity(id).subscribe((points) => {
 			this.points = points;
 		})
 	}
 
 	get authenticated(): boolean {
-		return this.authService.authenticated;
+		return this.api.auth.authenticated;
 	}
 
 	get physicalPoints() : Point[] {

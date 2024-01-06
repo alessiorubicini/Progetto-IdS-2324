@@ -8,6 +8,8 @@ import {CityService} from "../../../services/city/city.service";
 import {Point} from "../../../models/point";
 import {PointService} from "../../../services/point/point.service";
 import {UserInfo} from "../../../models/user-info";
+import {UiService} from "../../../services/facades/ui/ui.service";
+import {ApiService} from "../../../services/facades/api/api.service";
 
 @Component({
   selector: 'app-content-detail',
@@ -20,12 +22,12 @@ export class ContentDetailComponent {
 	content?: Content
 	user?: UserInfo
 
-	constructor(private route: ActivatedRoute, private contentService: ContentService, private cityService: CityService, private pointService: PointService) {
-		this.route.params.subscribe(params => {
+	constructor(private ui: UiService, private api: ApiService) {
+		this.ui.route.params.subscribe(params => {
 			const contentId = params["contentId"];
 			const pointId = params["pointId"];
 			const cityId = params["id"];
-			this.content = MockdataService.getContentMock();
+			this.content = MockdataService.getContentMock(contentId);
 			this.city = MockdataService.getCityMock(cityId);
 			this.point = MockdataService.getPointMock(pointId);
 			this.user = MockdataService.getUserMock(this.content.authorId);
@@ -36,21 +38,20 @@ export class ContentDetailComponent {
 	}
 
 	getContentDetail(id: number) : void {
-		this.contentService.getContentDetails(id).subscribe((content) => {
+		this.api.content.getContentDetails(id).subscribe((content) => {
 			this.content = content;
 		})
 	}
 
 	getCityDetail(id: number) {
-		this.cityService.getCityById(id).subscribe((city) => {
+		this.api.city.getCityById(id).subscribe((city) => {
 			this.city = city;
 		})
 	}
 
 	getPointDetail(id: number) {
-		this.pointService.getPointDetails(id).subscribe((point) => {
+		this.api.point.getPointDetails(id).subscribe((point) => {
 			this.point = point;
 		})
 	}
-
 }

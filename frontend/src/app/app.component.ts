@@ -1,8 +1,6 @@
 import {Component} from '@angular/core';
-import {Router} from '@angular/router';
-import {AuthService} from "./services/auth/auth.service";
-import {ToastrService} from 'ngx-toastr';
-import {Title} from "@angular/platform-browser";
+import {ApiService} from "./services/facades/api/api.service";
+import {UiService} from "./services/facades/ui/ui.service";
 
 @Component({
 	selector: 'app-root',
@@ -12,23 +10,23 @@ import {Title} from "@angular/platform-browser";
 export class AppComponent {
 	title = 'OpenCity';
 
-	constructor(private router: Router, private authService: AuthService, private toastrService: ToastrService, private titleService: Title) {
-		this.titleService.setTitle("OpenCity");
+	constructor(private api: ApiService, private ui: UiService) {
+		this.ui.title.setTitle("OpenCity");
 	}
 
 	public logout() {
-		this.authService.logout();
-		this.toastrService.success("Successfully logged out!", "Warning", {
+		this.api.auth.logout();
+		this.ui.toastr.success("Successfully logged out!", "Warning", {
 			timeOut: 3000,
 			positionClass: 'toast-bottom-right'
 		})
 	}
 
 	get authenticated(): boolean {
-		return this.authService.authenticated;
+		return this.api.auth.authenticated;
 	}
 
 	get userId(): number{
-		return this.authService.getUserInfo()?.id!;
+		return this.api.auth.getUserInfo()?.id!;
 	}
 }

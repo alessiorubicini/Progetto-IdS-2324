@@ -3,6 +3,8 @@ import {AuthService} from "../../services/auth/auth.service";
 import {UserInfo} from "../../models/user-info";
 import {ActivatedRoute} from "@angular/router";
 import {MockdataService} from "../../services/mock/mockdata.service";
+import {UiService} from "../../services/facades/ui/ui.service";
+import {ApiService} from "../../services/facades/api/api.service";
 
 @Component({
   selector: 'app-user-profile',
@@ -14,25 +16,25 @@ export class UserProfileComponent {
 	userId? : number;
 	activeTab: string = 'contents';
 
-	constructor(private route: ActivatedRoute, private authService: AuthService) {
-		this.route.params.subscribe(params => {
+	constructor(private ui: UiService, private api: ApiService) {
+		this.ui.route.params.subscribe(params => {
 			const userId = params["id"];
 			this.userId = userId;
-			if(userId == authService.getUserInfo()?.id) {
-				this.user = this.authService.getUserInfo()!;
+			if(userId == api.auth.getUserInfo()?.id) {
+				this.user = api.auth.getUserInfo()!;
 			} else {
-				//this.user = this.userService.getUserInfo(userId);
+				//this.user = this.api.user.getUserInfo(userId);
 			}
 			this.user = MockdataService.getUserMock(userId);
 		});
 	}
 
 	get authenticated(): boolean {
-		return this.authService.authenticated;
+		return this.api.auth.authenticated;
 	}
 
 	get isUserProfile() : boolean {
-		return this.userId == this.authService.getUserInfo()?.id;
+		return this.userId == this.api.auth.getUserInfo()?.id;
 	}
 
 	setActiveTab(tab: string): void {

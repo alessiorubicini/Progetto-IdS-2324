@@ -1,13 +1,10 @@
 import { Component } from '@angular/core';
 import {Point} from "../../../models/point";
 import {Content} from "../../../models/content";
-import {ActivatedRoute} from "@angular/router";
-import {ContentService} from "../../../services/content/content.service";
-import {PointService} from "../../../services/point/point.service";
 import {MockdataService} from "../../../services/mock/mockdata.service";
 import {City} from "../../../models/city";
-import {CityService} from "../../../services/city/city.service";
-import {AuthService} from "../../../services/auth/auth.service";
+import {UiService} from "../../../services/facades/ui/ui.service";
+import {ApiService} from "../../../services/facades/api/api.service";
 
 @Component({
   selector: 'app-point-detail',
@@ -19,8 +16,8 @@ export class PointDetailComponent {
 	point?: Point;
 	contents?: Content[];
 
-	constructor(private route: ActivatedRoute, private authService: AuthService, private cityService: CityService, private contentService: ContentService, private pointService: PointService) {
-		this.route.params.subscribe(params => {
+	constructor(private ui: UiService, private api: ApiService) {
+		this.ui.route.params.subscribe(params => {
 			const cityId = params["id"];
 			const pointId = params["pointId"];
 			this.city = MockdataService.getCityMock(cityId);
@@ -33,24 +30,24 @@ export class PointDetailComponent {
 	}
 
 	getCityDetail(id: number) {
-		this.cityService.getCityById(id).subscribe((city) => {
+		this.api.city.getCityById(id).subscribe((city) => {
 			this.city = city;
 		})
 	}
 
 	getPointDetail(id: number) {
-		this.pointService.getPointDetails(id).subscribe((point) => {
+		this.api.point.getPointDetails(id).subscribe((point) => {
 			this.point = point;
 		})
 	}
 
 	getPointContents(id: number) {
-		this.contentService.getContentsOfPoint(id).subscribe((contents) => {
+		this.api.content.getContentsOfPoint(id).subscribe((contents) => {
 			this.contents = contents;
 		})
 	}
 
 	get authenticated(): boolean {
-		return this.authService.authenticated;
+		return this.api.auth.authenticated;
 	}
 }

@@ -1,18 +1,28 @@
 <!-- areas-list.component.html -->
 <div class="container">
-	<div class="row mb-5">
-		<div class="col-lg-4 mb-4" *ngFor="let area of areas; let i = index">
-			<div class="card">
-				<img src="{{area.imageUrl}}" class="card-img-top fixed-height-image">
-				<div class="card-body">
-					<h5 class="card-title">{{area.name}}</h5>
-					<p class="card-text truncate-text">{{area.description}}</p>
-					<a [routerLink]="['points', area.id]" class="card-link">Learn more</a>
+
+	<ng-container *ngIf="!city">
+		<div class="alert alert-danger" role="alert">
+			Error 404: that city does not exist.
+		</div>
+	</ng-container>
+
+	<ng-container *ngIf="city">
+		<div class="row mb-5">
+			<div class="col-lg-4 mb-4" *ngFor="let area of areas; let i = index">
+				<div class="card">
+					<img src="{{area.imageUrl}}" class="card-img-top fixed-height-image">
+					<div class="card-body">
+						<h5 class="card-title">{{area.name}}</h5>
+						<p class="card-text truncate-text">{{area.description}}</p>
+						<a [routerLink]="['points', area.id]" class="card-link">Learn more</a>
+					</div>
 				</div>
 			</div>
+			<div *ngIf="!city || areas?.length == 0">
+				<p>No areas available.</p>
+			</div>
 		</div>
-		<div *ngIf="!city || areas?.length == 0">
-			<p>No areas available.</p>
-		</div>
-	</div>
+	</ng-container>
+
 </div>

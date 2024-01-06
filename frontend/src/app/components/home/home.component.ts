@@ -1,9 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { City } from '../../models/city';
-import { CityService } from '../../services/city/city.service';
-import { Router } from '@angular/router';
 import { MockdataService } from '../../services/mock/mockdata.service';
-
+import {ApiService} from "../../services/facades/api/api.service";
 
 @Component({
 	selector: 'app-home',
@@ -17,22 +15,22 @@ export class HomeComponent {
 	searchQuery: string = '';
     citiesFiltered: City[] = [];
 
-	constructor(private cityService: CityService, private router: Router) {
+	constructor(private api: ApiService) {
 		this.cities = MockdataService.getAllCityMocks();
 		//this.getAllCities()
 	}
 
 	private getAllCities() : void {
-		this.cityService.getAllCities()
-		.subscribe({
-			next: (result) => {
-				console.log('Cities fetched successfully: ', result);
-			},
-			error: (error) => {
-				console.error('Fetch failed:', error);
-			},
-			complete: () => { }
-		});
+		this.api.city.getAllCities()
+			.subscribe({
+				next: (result) => {
+					console.log('Cities fetched successfully: ', result);
+				},
+				error: (error) => {
+					console.error('Fetch failed:', error);
+				},
+				complete: () => { }
+			});
 	}
 
 	public onSearch(event: any) {
