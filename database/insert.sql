@@ -22,7 +22,7 @@ VALUES
 
 INSERT INTO Point (id, name, description, longitude, latitude, altitude, imageUrl, cityId)
 VALUES
-    (6, 'ChIP', 'The Chemistry Interdisciplinary Project (ChIP) is a new research center at the University of Camerino. The center’s design is inspired by the shape of an integrated circuit chip and is constructed using innovative techniques to ensure safety in the event of an earthquake.', 43.141148, 13.069556, 661, 'https://media.licdn.com/dms/image/C4D1BAQGwCjmEyT3SeQ/company-background_10000/0/1647002794380/chip_unicam_cover?e=2147483647&v=beta&t=zeFwzvOmhAjJhPUMuYTfpuD8YXbbvHQukE5z3aKfxH8', 2)
+    (6, 'ChIP', 'The Chemistry Interdisciplinary Project (ChIP) is a new research center at the University of Camerino. The center’s design is inspired by the shape of an integrated circuit chip and is constructed using innovative techniques to ensure safety in the event of an earthquake.', 43.141148, 13.069556, 661, 'https://media.licdn.com/dms/image/C4D1BAQGwCjmEyT3SeQ/company-background_10000/0/1647002794380/chip_unicam_cover?e=2147483647&v=beta&t=zeFwzvOmhAjJhPUMuYTfpuD8YXbbvHQukE5z3aKfxH8', 2);
 
 INSERT INTO Content (id, title, description, publicationDate, status, mediaUrl, authorId, pointId)
 VALUES
