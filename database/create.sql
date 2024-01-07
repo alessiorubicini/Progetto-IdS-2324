@@ -59,7 +59,7 @@ CREATE TABLE Contest(
 	description VARCHAR(200),
 	publicationDate DATETIME NOT NULL,
 	closingDate DATETIME NOT NULL,
-	animatorId INTEGER NOT NULL REFERENCES User.id,
+	authorId INTEGER NOT NULL REFERENCES User.id,
 	cityId INTEGER NOT NULL REFERENCES City.id ,
 	winnerId INTEGER REFERENCES User.id
 );

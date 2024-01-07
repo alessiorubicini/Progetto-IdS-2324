@@ -28,7 +28,7 @@ INSERT INTO Content (id, title, description, publicationDate, status, mediaUrl, 
 VALUES
     (1, 'Convegno di astrofisica', 'A beautiful sunset view', '2023-01-15 18:30:00', 'Published', 'https://www.unicam.it/sites/default/files/eventi/2021/10/loc/scuola_Urbani_10marzo2021.jpeg', 1, 6);
 
-INSERT INTO Contest (id, title, description, publicationDate, closingDate, animatorId, cityId)
+INSERT INTO Contest (id, title, description, publicationDate, closingDate, authorId, cityId)
 VALUES
     (1, 'Christmas Markets', 'Capture the beauty of your city', '2023-12-15 15:00:00', '2023-12-22 00:00:00', 1, 2),
     (2, 'Art Contest', 'Express your creativity', '2023-07-26 11:00:00', '2023-08-14 18:00:00', 1, 3);
