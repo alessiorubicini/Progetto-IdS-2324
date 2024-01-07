@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { CityService } from 'src/app/services/city/city.service';
 import { MockdataService } from 'src/app/services/mock/mockdata.service';
 import { PointService } from 'src/app/services/point/point.service';
+import {ApiService} from "../../../services/facades/api/api.service";
 
 @Component({
   selector: 'app-contest-list',
@@ -14,26 +15,29 @@ import { PointService } from 'src/app/services/point/point.service';
   styleUrls: ['./contest-list.component.scss']
 })
 export class ContestListComponent {
-  
-	@Input() cityId?: number;
 	city?: City
-	points?: Point[]
+	contests?: Contest[]
 
-	constructor(private route: ActivatedRoute, private authService: AuthService, private cityService: CityService, private pointService: PointService) {
+	constructor(private route: ActivatedRoute, private api: ApiService) {
 		this.route.params.subscribe(params => {
 			const cityId = params["id"];
 			this.city = MockdataService.getCityMock(cityId);
-			//this.points = MockdataService.getAllPointMocksOfCity(cityId)!;
+			this.contests = MockdataService.getAllContestsMocks();
 			//this.getCityDetail();
-			//this.getCityPoints()
+			//this.getCityContests();
 		})
 	}
 
 	getCityDetail(id: number) : void {
-		this.cityService.getCityById(id).subscribe((city) => {
+		this.api.city.getCityById(id).subscribe((city) => {
 			this.city = city;
 		})
 	}
 
-	
+	getCityContests(id: number) : void {
+		this.api.contest.getContestOfCity(id).subscribe((contests) => {
+			this.contests = contests;
+		})
+	}
+
 }

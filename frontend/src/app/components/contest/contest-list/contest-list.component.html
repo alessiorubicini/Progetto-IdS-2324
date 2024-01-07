@@ -1,35 +1,38 @@
 
-<div class="points-of-interest">
-    
-    <div class="row mt-3">
-        <div class="col-md-6">
-            <div class="card">
-                <img src="https://www.viveresenigallia.it/upload/2021_12/733509_Cfakepath732955PHOTO202112041715501std.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Christmas markets</h5>
-                    <p class="card-truncate-text">The market takes place on Thursday</p>
-                    <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-                    <a [routerLink]="['/city', city?.id, 'contest-detail']" class="card-link">View contest</a>
-                </div>
-            </div>
-            
-            <div class="d-grid gap-2 mt-4">
-				<button class="btn btn-outline-primary btn-lg" type="button"  [routerLink]="['/city', city?.id, 'create-contest']">Suggest a new contest</button>
+<div class="container">
+
+	<ng-container *ngIf="!city">
+		<div class="alert alert-danger" role="alert">
+			Error 404: that city does not exist.
+		</div>
+	</ng-container>
+
+	<ng-container *ngIf="city && contests">
+		<div class="row">
+			<div class="col-lg-4 mb-4" *ngFor="let contest of contests; let i = index">
+
+				<div class="card">
+					<img src="https://www.viveresenigallia.it/upload/2021_12/733509_Cfakepath732955PHOTO202112041715501std.jpg" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">{{ contest.title }}</h5>
+						<p class="card-truncate-text">{{ contest.description }}</p>
+						<p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+						<a [routerLink]="['/city', city.id, 'contests', contest.id]" class="card-link">View contest</a>
+					</div>
+				</div>
+				<div *ngIf="!city || contests.length == 0">
+					<p>No areas available.</p>
+				</div>
+
 			</div>
-        </div>
- 
-        <div class="col-md-6">
-            <div class="card">
-                <img src="https://www.viveresenigallia.it/upload/2019_08/515298_Cfakepathfollasummerjamboree2015.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Summer Jamboree</h5>
-                    <p class="card-truncate-text">The hottest rockin' holiday on earth</p>
-                    <p class="card-text"><small class="text-body-secondary">14 Dicembre 2023 - Manca ancora 1g al termine</small></p>
-                    <a [routerLink]="[]" class="card-link">View contest</a>
-                </div>
-            </div>
-        </div>
-    </div>
+		</div>
+
+		<div class="col-lg-4 ">
+			<button class="btn btn-outline-primary btn-lg" type="button" [routerLink]="['/city', city.id, 'create-contest']">Suggest a new contest</button>
+		</div>
+
+	</ng-container>
+
 </div>
 
 

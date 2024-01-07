@@ -33,12 +33,12 @@ export class HomeComponent {
 			});
 	}
 
-	public onSearch(event: any) {
-		this.searchQuery = event.target.value;
-        this.searching = this.searchQuery.length > 0;
-        this.citiesFiltered = this.cities.filter(city =>
-            city.name.toLowerCase().startsWith(this.searchQuery.toLowerCase())
-        );
+	get allCities() : City[] | undefined {
+		if(this.searching) {
+			return this.cities.filter(c => c.name.toLowerCase().startsWith(this.searchQuery.toLowerCase()));
+		} else {
+			return this.cities;
+		}
 	}
 
 }

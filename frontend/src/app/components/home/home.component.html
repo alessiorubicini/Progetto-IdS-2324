@@ -4,11 +4,11 @@
 		<p class="lead">Your digital guide to local treasures! Explore, contribute, and discover the richness of your community. Uncover cultural, sports, and other gems, all geolocated for an immersive experience. Together, let's make our city vibrant and connected!</p>
 
 		<div class="input-group mb-3">
-			<input type="text" class="form-control" placeholder="Search city" (input)="onSearch($event)">
+			<input type="text" class="form-control" placeholder="Search city" [(ngModel)]="searchQuery" (focusin)="searching = true" (focusout)="searching = false">
 		</div>
 
-		<ul class="list-group" *ngIf="searching && citiesFiltered.length > 0">
-			<li class="list-group-item" *ngFor="let city of citiesFiltered">
+		<ul class="list-group" *ngIf="searching && searchQuery">
+			<li class="list-group-item" *ngFor="let city of allCities">
 				<a [routerLink]="['/city', city.id]">{{ city.name }}</a>
 			</li>
 		</ul>

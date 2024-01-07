@@ -3,6 +3,7 @@ import {AuthService} from "../../auth/auth.service";
 import {CityService} from "../../city/city.service";
 import {PointService} from "../../point/point.service";
 import {ContentService} from "../../content/content.service";
+import {ContestService} from "../../contest/contest.service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,5 +12,5 @@ import {ContentService} from "../../content/content.service";
 export class ApiService {
 
   constructor(public auth: AuthService, public city: CityService,
-			  public point: PointService, public content: ContentService) { }
+			  public point: PointService, public content: ContentService, public contest: ContestService) { }
 }
