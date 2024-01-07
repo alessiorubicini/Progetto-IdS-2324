@@ -41,7 +41,7 @@ export class CreateContentComponent {
 	createContent() : void {
 		if(this.form.valid) {
 			const content: Content = this.getContentFromForm();
-			// Send content to APIs
+			// TODO: Send content to APIs
 		}
 	}
 
