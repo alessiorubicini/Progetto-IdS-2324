@@ -29,6 +29,15 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/users/").permitAll()
+                        .requestMatchers("/users/roles").permitAll()
+                        .requestMatchers("/city/").permitAll()
+                        .requestMatchers("/city/{id}").permitAll()
+                        .requestMatchers("/city/{id}/**").permitAll()
+                        .requestMatchers("/point/{id}").permitAll()
+                        .requestMatchers("/contest/{id}").permitAll()
+                        .requestMatchers("/content/{id}").permitAll()
+                        .requestMatchers("/{userId}/contents").permitAll()
                         .anyRequest().authenticated()
                 );
 

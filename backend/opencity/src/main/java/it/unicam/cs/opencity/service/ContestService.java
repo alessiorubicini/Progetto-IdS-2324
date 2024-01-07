@@ -1,21 +1,27 @@
 package it.unicam.cs.opencity.service;
 
 
+import it.unicam.cs.opencity.entity.Content;
 import it.unicam.cs.opencity.entity.Contest;
 import it.unicam.cs.opencity.entity.User;
+import it.unicam.cs.opencity.repository.ContentRepository;
 import it.unicam.cs.opencity.repository.ContestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ContestService {
     private final ContestRepository contestRepository;
     private final UserService userService;
+    private final ContentRepository contentRepository;
 
     @Autowired
-    public ContestService(ContestRepository contestRepository, UserService userService) {
+    public ContestService(ContestRepository contestRepository, UserService userService, ContentRepository contentRepository) {
         this.contestRepository = contestRepository;
         this.userService = userService;
+        this.contentRepository = contentRepository;
     }
 
     public boolean suggestContest(Contest contest) {
@@ -34,6 +40,10 @@ public class ContestService {
        return false;
     }
 
+    public List<Content> getProposedContents(Integer contestId)
+    {
+        return contentRepository.findByContestId(contestId);
+    }
     public Contest getContestDetails(Integer contestId) {
         return contestRepository.findById(contestId).orElse(null);
     }
