@@ -27,13 +27,13 @@ public class CityController {
         return ResponseEntity.ok(cityService.getCityDetails(id));
     }
     @GetMapping("/{id}/contests")
-    public ResponseEntity<Object> getCityContests(@PathVariable("id") String id) {
-        return ResponseEntity.ok(cityService.getCityContests(Integer.parseInt(id)));
+    public ResponseEntity<Object> getCityContests(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(cityService.getCityContests(id));
     }
 
     @GetMapping("/{id}/points")
-    public ResponseEntity<Object> getCityPoints(@PathVariable("id") String id) {
-        return ResponseEntity.ok(cityService.getCityPoints(Integer.parseInt(id)));
+    public ResponseEntity<Object> getCityPoints(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(cityService.getCityPoints(id));
     }
 
     @PostMapping("/signup")

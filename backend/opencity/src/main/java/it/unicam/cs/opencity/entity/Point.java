@@ -10,13 +10,13 @@ public class Point {
     private Integer id;
     private String name;
     private String description;
-    private float longitude;
-    private float latitude;
-    private float altitude;
+    private Float longitude;
+    private Float latitude;
+    private Float altitude;
     private String imageUrl;
     private Integer cityId;
 
-    public Point(String name, String description, float longitude, float latitude, float altitude, String imageUrl, Integer cityId) {
+    public Point(String name, String description, Float longitude, Float latitude, Float altitude, String imageUrl, Integer cityId) {
         this.name = name;
         this.description = description;
         this.longitude = longitude;
@@ -48,27 +48,27 @@ public class Point {
         this.description = description;
     }
 
-    public float getLongitude() {
+    public Float getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(float longitude) {
+    public void setLongitude(Float longitude) {
         this.longitude = longitude;
     }
 
-    public float getLatitude() {
+    public Float getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(float latitude) {
+    public void setLatitude(Float latitude) {
         this.latitude = latitude;
     }
 
-    public float getAltitude() {
+    public Float getAltitude() {
         return altitude;
     }
 
-    public void setAltitude(float altitude) {
+    public void setAltitude(Float altitude) {
         this.altitude = altitude;
     }
 

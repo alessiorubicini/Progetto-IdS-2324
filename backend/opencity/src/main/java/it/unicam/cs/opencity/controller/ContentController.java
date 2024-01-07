@@ -48,7 +48,7 @@ public class ContentController {
     public ResponseEntity<List<Content>> getContentsOfUser(@PathVariable Integer userId) {
         List<Content> contents = contentService.getContentsOfUser(userId);
         if(contents != null)
-            return new ResponseEntity<>(contents, HttpStatus.CREATED);
+            return new ResponseEntity<>(contents, HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -56,7 +56,7 @@ public class ContentController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteContent(@PathVariable Integer id){
         if(contentService.removeContent(id))
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            return new ResponseEntity<>(HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
