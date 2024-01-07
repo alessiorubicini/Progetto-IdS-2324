@@ -1,11 +1,9 @@
 package it.unicam.cs.opencity.service;
 
 import it.unicam.cs.opencity.entity.City;
-import it.unicam.cs.opencity.entity.Content;
 import it.unicam.cs.opencity.entity.Contest;
 import it.unicam.cs.opencity.entity.Point;
 import it.unicam.cs.opencity.repository.CityRepository;
-import it.unicam.cs.opencity.repository.ContentRepository;
 import it.unicam.cs.opencity.repository.ContestRepository;
 import it.unicam.cs.opencity.repository.PointRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +17,12 @@ public class CityService {
 
     private final CityRepository cityRepository;
     private final PointRepository pointRepository;
-    private final ContentRepository contentRepository;
     private final ContestRepository contestRepository;
 
     @Autowired
-    public CityService(CityRepository cityRepository, PointRepository pointRepository, ContentRepository contentRepository, ContestRepository contestRepository) {
+    public CityService(CityRepository cityRepository, PointRepository pointRepository, ContestRepository contestRepository) {
         this.cityRepository = cityRepository;
         this.pointRepository = pointRepository;
-        this.contentRepository = contentRepository;
         this.contestRepository = contestRepository;
     }
 
@@ -39,12 +35,10 @@ public class CityService {
     }
 
     public List<Contest> getCityContests(Integer id) {
-        Optional<City> city = this.cityRepository.findById(id);
         return contestRepository.findByCityId(id);
     }
 
     public List<Point> getCityPoints(Integer id) {
-        Optional<City> city = this.cityRepository.findById(id);
         return pointRepository.findByCityId(id);
     }
 

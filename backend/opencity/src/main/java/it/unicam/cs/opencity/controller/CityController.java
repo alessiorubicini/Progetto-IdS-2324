@@ -2,7 +2,6 @@ package it.unicam.cs.opencity.controller;
 
 import it.unicam.cs.opencity.entity.City;
 import it.unicam.cs.opencity.service.CityService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

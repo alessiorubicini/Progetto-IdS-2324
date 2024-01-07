@@ -4,7 +4,6 @@ package it.unicam.cs.opencity.service;
 import it.unicam.cs.opencity.entity.Contest;
 import it.unicam.cs.opencity.entity.User;
 import it.unicam.cs.opencity.repository.ContestRepository;
-import it.unicam.cs.opencity.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
