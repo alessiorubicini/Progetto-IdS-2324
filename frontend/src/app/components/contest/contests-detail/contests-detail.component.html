@@ -18,13 +18,13 @@
 		</nav>
 
 		<h2>{{ contest.title }}</h2>
-		<h6>Published on {{ contest.publicationDate.getDate() }}.{{contest.publicationDate.getMonth()+1}}.{{contest.publicationDate.getFullYear()}} by <a [routerLink]="['/user', author.id]">{{author.username}}</a></h6>
+		<h6>Published on {{ contest.publicationDate.getDate() }}.{{contest.publicationDate.getMonth()+1}}.{{contest.publicationDate.getFullYear()}} by <a [routerLink]="['/user', author.id]"> <i class="bi bi-person"></i>{{author.username}}</a></h6>
 
 		<div class="row mt-3">
 			<div class="col-sm-6">
 				<ul class="list-group">
-					<li class="list-group-item"><p>{{ contest!.description }}</p></li>
-					<li class="list-group-item">Closing date: {{ contest.closingDate.getDate() }}.{{contest.closingDate.getMonth()+1}}.{{contest.closingDate.getFullYear()}}</li>
+					<li class="list-group-item"> <i class="bi bi-card-text"></i> {{ contest!.description }}</li>
+					<li class="list-group-item"> <i class="bi bi-calendar-x"></i> Closing date: {{ contest.closingDate.getDate() }}.{{contest.closingDate.getMonth()+1}}.{{contest.closingDate.getFullYear()}}</li>
 				</ul>
 
 				<div class="countdown" data-mdb-countdown-init="2024-01-01T12:00:00Z,2024-12-31T23:59:59Z" data-mdb-countdown-on-finish="function() { alert('Il conto alla rovescia è terminato!');}">
@@ -47,7 +47,7 @@
 						<img src="{{ content.mediaUrl }}" class="card-img-top" alt="...">
 						<div class="card-body">
 							<h5 class="card-title">{{ content.title }}</h5>
-							<p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+							<p class="card-text"><small class="text-body-secondary"> Published {{ content.publicationDate.getDate() }}.{{content.publicationDate.getMonth()+1}}.{{content.publicationDate.getFullYear()}}</small></p>
 							<a class="card-link" [routerLink]="['../../', 'points', content.pointId, 'contents', content.id]">View content</a>
 						</div>
 					</div>
