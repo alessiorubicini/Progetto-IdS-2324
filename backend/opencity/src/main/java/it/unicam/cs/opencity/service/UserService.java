@@ -35,7 +35,7 @@ public class UserService implements UserDetailsService {
     }
 
     public UserDTO convertToDTO(User user){
-        return new UserDTO(user.getId(), user.getUsername(), participationRepository.findByIdUserId(user.getId()));
+        return new UserDTO(user.getId(), user.getName(),user.getSurname(), user.getEmail(), user.getUsername(), participationRepository.findByIdUserId(user.getId()));
     }
 
     public void addUser(User user) {
