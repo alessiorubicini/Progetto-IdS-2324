@@ -1,22 +1,28 @@
 package it.unicam.cs.opencity.controller;
 
+import it.unicam.cs.opencity.entity.Content;
 import  it.unicam.cs.opencity.entity.Point;
+import it.unicam.cs.opencity.service.ContentService;
 import it.unicam.cs.opencity.service.PointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/point")
 public class PointController {
+
     private final PointService pointService;
+    private final ContentService contentService;
 
     @Autowired
-    public PointController(PointService pointService) {
+    public PointController(PointService pointService, ContentService contentService) {
         this.pointService = pointService;
+        this.contentService = contentService;
     }
 
     @PostMapping("/")
@@ -41,6 +47,11 @@ public class PointController {
         if(pointService.removePoint(id))
             return new ResponseEntity<>(HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/{id}/contents")
+    public ResponseEntity<List<Content>> getContentsOfPoint(@PathVariable Integer id) {
+        return new ResponseEntity<>(contentService.getContentOfPoint(id), HttpStatus.OK);
     }
 
 }

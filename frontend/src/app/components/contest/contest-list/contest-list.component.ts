@@ -18,7 +18,7 @@ export class ContestListComponent {
 	city?: City
 	contests?: Contest[]
 
-	constructor(private route: ActivatedRoute, private api: ApiService) {
+	constructor(private route: ActivatedRoute, public api: ApiService) {
 		this.route.params.subscribe(params => {
 			const cityId = params["id"];
 			//this.city = MockdataService.getCityMock(cityId);

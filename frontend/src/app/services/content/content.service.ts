@@ -12,10 +12,6 @@ export class ContentService {
 
 	constructor(private httpClient: HttpClient) { }
 
-	public getContentsOfPoint(id: number): Observable<Content[]> {
-		return this.httpClient.get<Content[]>(`${environment.apiUrl}/point/${id}/contents`);
-	}
-
 	public getContentDetails(id: number): Observable<Content> {
 		return this.httpClient.get<Content>(`${environment.apiUrl}/content/${id}`);
 	}

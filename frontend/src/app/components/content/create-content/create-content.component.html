@@ -27,11 +27,12 @@
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
 					<li class="breadcrumb-item"><a [routerLink]="['/city', city.id]">{{ city.name }}</a></li>
+					<li class="breadcrumb-item"><a [routerLink]="['../']">{{ point.name }}</a></li>
 					<li class="breadcrumb-item active">Create Content</li>
 				</ol>
 			</nav>
 
-			<h2>Create content for {{ city.name }}</h2>
+			<h2>Create content for {{ point.name }}</h2>
 
 			<form [formGroup]="form">
 				<div class="form-group mb-4">
@@ -46,7 +47,10 @@
 
 				<div class="form-group mb-3">
 					<label class="form-label" for="media-url">Media URL </label>
-					<input type="text" class="form-control" id="media-url" formControlName="mediaUrl" placeholder= "Enter the url of the image" required>
+					<div class="input-group mb-3" id="image-url">
+						<span class="input-group-text"><i class="bi bi-link-45deg"></i></span>
+						<input type="text" class="form-control" id="media-url" formControlName="mediaUrl" placeholder= "Enter the url of the image" required>
+					</div>
 				</div>
 
 				<div class="form-group mb-4" *ngIf="availableContests.length != 0">

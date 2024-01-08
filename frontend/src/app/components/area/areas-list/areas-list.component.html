@@ -7,7 +7,7 @@
 		</div>
 	</ng-container>
 
-	<ng-container *ngIf="city">
+	<ng-container *ngIf="city && areas">
 		<div class="row mb-5">
 			<div class="col-lg-4 mb-4" *ngFor="let area of areas; let i = index">
 				<div class="card">
@@ -22,7 +22,17 @@
 			<div *ngIf="!city || areas?.length == 0">
 				<p>No areas available.</p>
 			</div>
+
+			<ng-container *ngIf="api.auth.authenticated">
+				<div class="d-grid gap-2">
+					<button class="btn btn-outline-primary btn-lg" type="button" [routerLink]="['/city', city.id, 'create-area']"><i class="bi bi-plus"></i> Create a new area</button>
+				</div>
+			</ng-container>
 		</div>
+
+
 	</ng-container>
+
+
 
 </div>

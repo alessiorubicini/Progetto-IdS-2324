@@ -22,8 +22,7 @@ export class PointDetailComponent {
 			const pointId = params["pointId"];
 			this.getCityDetail(cityId);
 			this.getPointDetail(pointId);
-			//this.getPointContents(pointId);
-			// TODO: waiting for route in APIs
+			this.getContentsOfPoint(pointId);
 		})
 	}
 
@@ -39,8 +38,8 @@ export class PointDetailComponent {
 		})
 	}
 
-	getPointContents(id: number) {
-		this.api.content.getContentsOfPoint(id).subscribe((contents) => {
+	getContentsOfPoint(id: number) {
+		this.api.point.getContentsOfPoint(id).subscribe((contents) => {
 			this.contents = contents;
 		})
 	}

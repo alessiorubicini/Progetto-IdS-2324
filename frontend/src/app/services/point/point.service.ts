@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Point } from 'src/app/models/point';
+import {Content} from "../../models/content";
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,9 @@ export class PointService {
 
 	public addPoint(point: Point) : Observable<any> {
 		return this.httpClient.post(`${environment.apiUrl}/point/`, point);
+	}
+
+	public getContentsOfPoint(id: number): Observable<Content[]> {
+		return this.httpClient.get<Content[]>(`${environment.apiUrl}/point/${id}/contents`);
 	}
 }

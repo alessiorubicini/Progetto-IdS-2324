@@ -5,7 +5,7 @@ import {City} from '../../../models/city';
 import {ApiService} from "../../../services/facades/api/api.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Point} from "../../../models/point";
-import {catchError, tap, throwError} from "rxjs";
+import {catchError, Observable, tap, throwError} from "rxjs";
 import {HttpResponse} from "@angular/common/http";
 
 @Component({
@@ -28,23 +28,23 @@ export class CreatePoiComponent {
 			longitude: new FormControl('', [Validators.required]),
 			latitude: new FormControl('', [Validators.required]),
 			altitude: new FormControl('', [Validators.required]),
-			imageUrl: new FormControl('', [Validators.required])
+			imageUrl: new FormControl('', [Validators.required, Validators.pattern('https?://.+')])
 		});
+
 	}
 
 	createPoint(): void {
 		if (this.form.valid) {
 			const point: Point = this.getPointFromForm();
-			this.api.point.addPoint(point).pipe(tap((response: HttpResponse<any>) => {
-					if (response.status === 200) {
-						this.router.navigate(['../']);
-					}
-				}),
-				catchError(error => {
-					console.error('Signup failed. Error:', error);
-					return throwError(() => error);
-				})
-			);
+			console.log("Created point: " + point)
+			this.api.point.addPoint(point).subscribe((response) => {
+				console.log(response)
+				if (response.status === 200) {
+					this.router.navigate(['../']);
+				}
+			})
+		} else {
+			console.log("Form not valid")
 		}
 	}
 
@@ -69,5 +69,7 @@ export class CreatePoiComponent {
 			this.city = city;
 		})
 	}
+
+
 
 }

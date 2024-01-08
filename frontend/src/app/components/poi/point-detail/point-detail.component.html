@@ -37,8 +37,8 @@
 				<!-- List of contents for the point -->
 				<div class="mt-4">
 					<h5>Contents</h5>
-					<div *ngIf="authenticated">
-						<button class="btn btn-outline-primary btn-lg" type="button" [routerLink]="['../../', 'create-content']">Create content</button>
+					<div class="d-grid gap-2" *ngIf="authenticated">
+						<button class="btn btn-outline-primary btn-md mb-2" type="button" [routerLink]="['create-content']"><i class="bi bi-plus"></i> Create content</button>
 					</div>
 
 					<ng-container *ngIf="point && contents">
@@ -46,7 +46,7 @@
 							<a [routerLink]="['contents', content?.id]" class="list-group-item list-group-item-action" aria-current="true">
 								<div class="d-flex w-100 justify-content-between">
 									<h5 class="mb-1">{{ content.title }}</h5>
-									<small>{{ content.publicationDate.getDate() }} / {{content.publicationDate.getMonth()+1}} / {{content.publicationDate.getFullYear()}}</small>
+									<small>{{ content.publicationDate }}</small>
 								</div>
 								<small>{{ content.description }}</small>
 							</a>

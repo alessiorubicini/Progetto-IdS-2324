@@ -18,11 +18,11 @@
 			<div class="col-lg-4 mb-4" *ngFor="let contest of contests; let i = index">
 
 				<div class="card">
-					<img src="https://www.viveresenigallia.it/upload/2021_12/733509_Cfakepath732955PHOTO202112041715501std.jpg" class="card-img-top" alt="...">
+
 					<div class="card-body">
 						<h5 class="card-title">{{ contest.title }}</h5>
 						<p class="card-truncate-text">{{ contest.description }}</p>
-						<p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+						<p class="card-text"><small class="text-body-secondary">Closes on {{ contest.closingDate }}</small></p>
 						<a [routerLink]="['/city', city.id, 'contests', contest.id]" class="card-link">View contest</a>
 					</div>
 				</div>
@@ -33,9 +33,11 @@
 			</div>
 		</div>
 
-		<div class="col-lg-4 ">
-			<button class="btn btn-outline-primary btn-lg" type="button" [routerLink]="['/city', city.id, 'create-contest']">Suggest a new contest</button>
-		</div>
+		<ng-container *ngIf="api.auth.authenticated">
+			<div class="d-grid gap-2">
+				<button class="btn btn-outline-primary btn-lg" type="button" [routerLink]="['/city', city.id, 'create-contest']"><i class="bi bi-plus"></i> Suggest a new contest</button>
+			</div>
+		</ng-container>
 
 	</ng-container>
 

@@ -35,6 +35,7 @@ public class SecurityConfig {
                         .requestMatchers("/city/{id}").permitAll()
                         .requestMatchers("/city/{id}/**").permitAll()
                         .requestMatchers("/point/{id}").permitAll()
+                        .requestMatchers("/point/{id}/contents").permitAll()
                         .requestMatchers("/contest/{id}").permitAll()
                         .requestMatchers("/contest/{id}/contents").permitAll()
                         .requestMatchers("/content/{id}").permitAll()

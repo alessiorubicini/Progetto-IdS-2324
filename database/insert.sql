@@ -26,7 +26,7 @@ VALUES
 
 INSERT INTO Content (id, title, description, publicationDate, status, mediaUrl, authorId, pointId)
 VALUES
-    (1, 'Convegno di astrofisica', 'A beautiful sunset view', '2023-01-15 18:30:00', 'Published', 'https://www.unicam.it/sites/default/files/eventi/2021/10/loc/scuola_Urbani_10marzo2021.jpeg', 1, 6);
+    (1, 'Convegno di astrofisica', 'Explore the cosmos with leading astrophysicists at our cutting-edge conference, unraveling the mysteries of the universe. Join us for an enlightening journey into the depths of space and time.', '2023-01-15 18:30:00', 'Published', 'https://www.unicam.it/sites/default/files/eventi/2021/10/loc/scuola_Urbani_10marzo2021.jpeg', 1, 6);
 
 INSERT INTO Contest (id, title, description, publicationDate, closingDate, authorId, cityId)
 VALUES

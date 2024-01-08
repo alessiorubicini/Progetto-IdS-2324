@@ -28,6 +28,10 @@ export class AppComponent {
 	}
 
 	get userId(): number{
-		return this.api.auth.getUserInfo()?.id!;
+		return this.api.auth.getUserInfo()!.id!;
+	}
+
+	get username() : string {
+		return this.api.auth.getUserInfo()!.username;
 	}
 }

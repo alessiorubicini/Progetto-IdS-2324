@@ -1,6 +1,5 @@
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
 import {City} from "../../../models/city";
-import {MockdataService} from "../../../services/mock/mockdata.service";
 import {Point} from "../../../models/point";
 import {ApiService} from "../../../services/facades/api/api.service";
 import {ActivatedRoute} from "@angular/router";
@@ -14,11 +13,9 @@ export class AreasListComponent {
 	city?: City
 	areas?: Point[]
 
-	constructor(private route: ActivatedRoute, private api: ApiService) {
+	constructor(private route: ActivatedRoute, public api: ApiService) {
 		this.route.params.subscribe(params => {
 			const id = params["id"];
-			//this.city = MockdataService.getCityMock(id);
-			//this.areas = MockdataService.getAllPointMocksOfCity(id)?.filter(p => !p.longitude)!;
 			this.getCityDetail(id);
 			this.getCityPoints(id)
 		})
@@ -32,7 +29,7 @@ export class AreasListComponent {
 
 	getCityPoints(id: number) : void {
 		this.api.point.getPointsOfCity(id).subscribe((points) => {
-			this.areas = points;
+			this.areas = points.filter(a => !a.latitude && !a.longitude);
 		})
 	}
 }

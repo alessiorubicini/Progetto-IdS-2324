@@ -48,10 +48,6 @@ public class ContentController {
     public ResponseEntity<List<Content>> getContentsOfUser(@PathVariable Integer userId) {
         return new ResponseEntity<>(contentService.getContentsOfUser(userId), HttpStatus.OK);
     }
-    @GetMapping("/{pointId}/points")
-    public ResponseEntity<List<Content>> getContentsOfPoint(@PathVariable Integer pointId) {
-        return new ResponseEntity<>(contentService.getContentOfPoint(pointId), HttpStatus.OK);
-    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteContent(@PathVariable Integer id){

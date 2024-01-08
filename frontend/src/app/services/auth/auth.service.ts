@@ -31,7 +31,7 @@ export class AuthService {
 						this.storeToken(authToken);
 					}
 					const userInfo = JSON.stringify(response.body);
-					localStorage.setItem("user_info", userInfo);
+					localStorage.setItem("user-info", userInfo);
 					this.authenticated = true;
 				}),
 				catchError(error => {
@@ -64,8 +64,8 @@ export class AuthService {
 
 	public getUserInfo() : UserInfo | null {
 		const userInfo = localStorage.getItem("user-info");
-		if(userInfo) return JSON.parse(userInfo);
-		return null;
+		return JSON.parse(userInfo!);
+
 	}
 
 	private storeToken(token: string): void {

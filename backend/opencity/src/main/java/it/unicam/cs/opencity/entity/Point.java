@@ -10,8 +10,11 @@ public class Point {
     private Integer id;
     private String name;
     private String description;
+    @Column(nullable = true)
     private Float longitude;
+    @Column(nullable = true)
     private Float latitude;
+    @Column(nullable = true)
     private Float altitude;
     private String imageUrl;
     private Integer cityId;
