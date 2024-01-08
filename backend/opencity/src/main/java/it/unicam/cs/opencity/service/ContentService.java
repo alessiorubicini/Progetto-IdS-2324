@@ -30,6 +30,8 @@ public class ContentService {
         return contentRepository.findByAuthorId(id);
     }
 
+    public List<Content> getContentOfPoint(Integer id){return contentRepository.findByPointId(id);}
+
     public boolean uploadContent(Content content){
         contentRepository.save(content);
         return true;
@@ -43,6 +45,9 @@ public class ContentService {
         else
             return false;
     }
+
+
+
 
     public boolean updateContent(Content newContent){
         contentRepository.save(newContent);

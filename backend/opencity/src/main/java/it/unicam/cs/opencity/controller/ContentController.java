@@ -46,11 +46,11 @@ public class ContentController {
 
     @GetMapping("/{userId}/contents")
     public ResponseEntity<List<Content>> getContentsOfUser(@PathVariable Integer userId) {
-        List<Content> contents = contentService.getContentsOfUser(userId);
-        if(contents != null)
-            return new ResponseEntity<>(contents, HttpStatus.OK);
-        else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(contentService.getContentsOfUser(userId), HttpStatus.OK);
+    }
+    @GetMapping("/{pointId}/points")
+    public ResponseEntity<List<Content>> getContentsOfPoint(@PathVariable Integer pointId) {
+        return new ResponseEntity<>(contentService.getContentOfPoint(pointId), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

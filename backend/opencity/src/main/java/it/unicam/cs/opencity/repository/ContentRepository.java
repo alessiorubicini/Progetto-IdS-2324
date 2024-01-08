@@ -10,4 +10,5 @@ import java.util.List;
 public interface ContentRepository extends JpaRepository<Content, Integer>{
     List<Content> findByAuthorId(Integer authorId);
     List<Content> findByContestId(Integer contestId);
+    List<Content> findByPointId(Integer pointId);
 }

@@ -32,10 +32,10 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getUserDetails(@PathVariable("id") String id) {
-        Optional<User> user = userService.getUserDetails(Integer.parseInt(id));
+    public ResponseEntity<Object> getUserDetails(@PathVariable("id") Integer id) {
+        Optional<User> user = userService.getUserDetails(id);
         if(user.isPresent()) {
-            return ResponseEntity.ok(user.get());
+            return ResponseEntity.ok(this.userService.convertToDTO(user.get()));
         } else {
             return ResponseEntity.status(404).body("User not found");
         }
