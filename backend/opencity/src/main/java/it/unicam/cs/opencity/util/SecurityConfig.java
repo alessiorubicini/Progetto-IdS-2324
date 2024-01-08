@@ -39,7 +39,8 @@ public class SecurityConfig {
                         .requestMatchers("/contest/{id}").permitAll()
                         .requestMatchers("/contest/{id}/contents").permitAll()
                         .requestMatchers("/content/{id}").permitAll()
-                        .requestMatchers("/{userId}/contents").permitAll()
+                        .requestMatchers("/content/{pointId}/points").permitAll()
+                        .requestMatchers("/content/{userId}/contents").permitAll()
                         .anyRequest().authenticated()
                 );
 
