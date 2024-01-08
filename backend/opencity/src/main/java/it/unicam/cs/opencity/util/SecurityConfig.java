@@ -29,7 +29,6 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/users/").permitAll()
                         .requestMatchers("/users/{id}").permitAll()
                         .requestMatchers("/users/roles").permitAll()
                         .requestMatchers("/city/").permitAll()
