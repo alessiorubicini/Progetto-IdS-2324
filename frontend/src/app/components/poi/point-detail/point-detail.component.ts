@@ -20,12 +20,10 @@ export class PointDetailComponent {
 		this.route.params.subscribe(params => {
 			const cityId = params["id"];
 			const pointId = params["pointId"];
-			this.city = MockdataService.getCityMock(cityId);
-			this.point = MockdataService.getPointMock(pointId);
-			this.contents = MockdataService.getContentsMocksOfPoint(pointId);
-			//this.getCityDetail(cityId);
-			//this.getPointDetail(cityId);
+			this.getCityDetail(cityId);
+			this.getPointDetail(pointId);
 			//this.getPointContents(pointId);
+			// TODO: waiting for route in APIs
 		})
 	}
 

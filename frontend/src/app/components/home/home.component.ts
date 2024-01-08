@@ -9,33 +9,19 @@ import {ApiService} from "../../services/facades/api/api.service";
 	styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-
-	cities: City[];
+	cities?: City[];
 	searching : Boolean = false;
 	searchQuery: string = '';
-    citiesFiltered: City[] = [];
 
 	constructor(private api: ApiService) {
-		this.cities = MockdataService.getAllCityMocks();
-		//this.getAllCities()
-	}
-
-	private getAllCities() : void {
-		this.api.city.getAllCities()
-			.subscribe({
-				next: (result) => {
-					console.log('Cities fetched successfully: ', result);
-				},
-				error: (error) => {
-					console.error('Fetch failed:', error);
-				},
-				complete: () => { }
-			});
+		this.api.city.getAllCities().subscribe((cities) => {
+			this.cities = cities;
+		})
 	}
 
 	get allCities() : City[] | undefined {
 		if(this.searching) {
-			return this.cities.filter(c => c.name.toLowerCase().startsWith(this.searchQuery.toLowerCase()));
+			return this.cities!.filter(c => c.name.toLowerCase().startsWith(this.searchQuery.toLowerCase()));
 		} else {
 			return this.cities;
 		}

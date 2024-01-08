@@ -23,19 +23,14 @@ export class ContentDetailComponent {
 			const contentId = params["contentId"];
 			const pointId = params["pointId"];
 			const cityId = params["id"];
-			this.content = MockdataService.getContentMock(contentId);
-			this.city = MockdataService.getCityMock(cityId);
-			this.point = MockdataService.getPointMock(pointId);
-			this.user = MockdataService.getUserMock(this.content.authorId);
-			//this.getCityDetail(cityId);
-			//this.getContentDetail(contentId);
-			//this.getPointDetail(pointId)
-		})
-	}
+			//this.content = MockdataService.getContentMock(contentId);
+			//this.city = MockdataService.getCityMock(cityId);
+			//this.point = MockdataService.getPointMock(pointId);
+			//this.user = MockdataService.getUserMock(this.content.authorId);
+			this.getCityDetail(cityId);
+			this.getPointDetail(pointId);
+			this.getContentDetail(contentId);
 
-	getContentDetail(id: number) : void {
-		this.api.content.getContentDetails(id).subscribe((content) => {
-			this.content = content;
 		})
 	}
 
@@ -48,6 +43,21 @@ export class ContentDetailComponent {
 	getPointDetail(id: number) {
 		this.api.point.getPointDetails(id).subscribe((point) => {
 			this.point = point;
+		})
+	}
+
+	getContentDetail(id: number) : void {
+		this.api.content.getContentDetails(id).subscribe((content) => {
+			this.content = content;
+			if(this.content) {
+				this.getUserDetail(this.content!.authorId);
+			}
+		})
+	}
+
+	getUserDetail(id: number) {
+		this.api.user.getUserDetails(id).subscribe((user) => {
+			this.user = user;
 		})
 	}
 }

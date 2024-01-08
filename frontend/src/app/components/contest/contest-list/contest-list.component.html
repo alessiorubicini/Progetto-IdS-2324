@@ -7,6 +7,12 @@
 		</div>
 	</ng-container>
 
+	<ng-container *ngIf="!contests">
+		<div class="spinner-border" role="status">
+			<span class="visually-hidden">Loading...</span>
+		</div>
+	</ng-container>
+
 	<ng-container *ngIf="city && contests">
 		<div class="row">
 			<div class="col-lg-4 mb-4" *ngFor="let contest of contests; let i = index">

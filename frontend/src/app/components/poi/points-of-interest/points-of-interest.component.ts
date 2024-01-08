@@ -17,14 +17,12 @@ export class PointsOfInterestComponent {
 	constructor(private route: ActivatedRoute, private api: ApiService) {
 		this.route.params.subscribe(params => {
 			const cityId = params["id"];
-			this.city = MockdataService.getCityMock(cityId);
-			this.points = MockdataService.getAllPointMocksOfCity(cityId)!;
-			//this.getCityDetail();
-			//this.getCityPoints()
+			this.getCityDetail(cityId);
+			this.getCityPoints(cityId);
 		})
 	}
 
-	getCityDetail(id: number) : void {
+	private getCityDetail(id: number) : void {
 		this.api.city.getCityById(id).subscribe((city) => {
 			this.city = city;
 		})

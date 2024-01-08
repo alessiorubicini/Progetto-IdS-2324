@@ -18,7 +18,7 @@
 		</nav>
 
 		<h2>{{ content.title }}</h2>
-		<h6>Published on {{ content.publicationDate.getDate() }}.{{content.publicationDate.getMonth()+1}}.{{content.publicationDate.getFullYear()}} by <a [routerLink]="['/user', user?.id]">{{this.user?.username}}</a> </h6>
+		<h6>Publised by {{ content.publicationDate }} by <a [routerLink]="['/user', user?.id]">{{this.user?.username}}</a></h6>
 
 		<div class="row">
 			<div class="col-sm-6">

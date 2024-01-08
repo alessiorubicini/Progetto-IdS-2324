@@ -21,10 +21,15 @@ export class UserProfileComponent {
 			if(userId == api.auth.getUserInfo()?.id) {
 				this.user = api.auth.getUserInfo()!;
 			} else {
-				//this.user = this.api.user.getUserInfo(userId);
+				this.getUserDetails(userId);
 			}
-			this.user = MockdataService.getUserMock(userId);
 		});
+	}
+
+	private getUserDetails(id: number) {
+		this.api.user.getUserDetails(id).subscribe((user) => {
+			this.user = user;
+		})
 	}
 
 	get authenticated(): boolean {

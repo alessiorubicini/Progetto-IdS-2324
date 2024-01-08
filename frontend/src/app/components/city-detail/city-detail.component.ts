@@ -16,8 +16,7 @@ export class CityDetailComponent {
 	constructor(private route: ActivatedRoute, private api: ApiService) {
 		this.route.params.subscribe(params => {
 			const cityId = params["id"];
-			this.city = MockdataService.getCityMock(cityId);
-			//this.getCityDetail(cityId);
+			this.getCityDetail(cityId);
 		})
 	}
 

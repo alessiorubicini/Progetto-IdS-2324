@@ -17,18 +17,22 @@ export class AreasListComponent {
 	constructor(private route: ActivatedRoute, private api: ApiService) {
 		this.route.params.subscribe(params => {
 			const id = params["id"];
-			this.city = MockdataService.getCityMock(id);
-			this.areas = MockdataService.getAllPointMocksOfCity(id)?.filter(p => !p.longitude)!;
-			//this.getCityDetail();
+			//this.city = MockdataService.getCityMock(id);
+			//this.areas = MockdataService.getAllPointMocksOfCity(id)?.filter(p => !p.longitude)!;
+			this.getCityDetail(id);
+			this.getCityPoints(id)
 		})
 	}
 
-	getCityDetail() : void {
-		this.route.params.subscribe(params => {
-			const cityId = params["id"];
-			this.api.city.getCityById(cityId).subscribe((city) => {
-				this.city = city;
-			})
+	getCityDetail(id: number) : void {
+		this.api.city.getCityById(id).subscribe((city) => {
+			this.city = city;
+		})
+	}
+
+	getCityPoints(id: number) : void {
+		this.api.point.getPointsOfCity(id).subscribe((points) => {
+			this.areas = points;
 		})
 	}
 }

@@ -19,7 +19,7 @@ export class ContestService {
 	}
 
 	public getContestDetails(id: number): Observable<Contest> {
-		return this.httpClient.get<Contest>(`${environment.apiUrl}/city/${id}/contests`);
+		return this.httpClient.get<Contest>(`${environment.apiUrl}/contest/${id}`);
 	}
 
 	public getProposedContents(id: number): Observable<Content[]> {

@@ -20,8 +20,6 @@ export class ContestsDetailComponent {
 	contest?: Contest
 	author?: UserInfo
 	proposedContents?: Content[]
-
-	contentsFiltered?: Content[]
 	searching : Boolean = false;
 	searchQuery: string = '';
 
@@ -29,12 +27,9 @@ export class ContestsDetailComponent {
 		this.route.params.subscribe(params => {
 			const cityId = params["id"];
 			const contestId = params["contestId"]
-			this.city = MockdataService.getCityMock(cityId);
-			this.contest = MockdataService.getContestMock(contestId);
-			this.author = MockdataService.getUserMock(1);
-			this.proposedContents = MockdataService.getAllContentsMocks();
-			//this.getCityDetail(cityId);
-			//this.getContentDetail(contentId);
+			this.getCityDetail(cityId);
+			this.getContestDetail(contestId);
+			this.getProposedContents(contestId);
 		})
 	}
 
@@ -47,6 +42,15 @@ export class ContestsDetailComponent {
 	getContestDetail(id: number){
 		this.api.contest.getContestDetails(id).subscribe((contest) => {
 			this.contest = contest;
+			if(this.contest) {
+				this.getUserDetail(this.contest!.authorId);
+			}
+		})
+	}
+
+	getUserDetail(id: number) {
+		this.api.user.getUserDetails(id).subscribe((user) => {
+			this.author = user;
 		})
 	}
 

@@ -20,8 +20,7 @@ export class CreatePoiComponent {
 	constructor(private route: ActivatedRoute, private router: Router, public api: ApiService, private fb: FormBuilder) {
 		this.route.params.subscribe(params => {
 			const cityId = params["id"];
-			//this.getCityDetail(cityId);
-			this.city = MockdataService.getCityMock(cityId);
+			this.getCityDetail(cityId);
 		});
 		this.form = fb.group({
 			name: new FormControl('', [Validators.required]),

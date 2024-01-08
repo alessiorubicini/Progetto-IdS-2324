@@ -3,21 +3,29 @@
 		<h2>OpenCity</h2>
 		<p class="lead">Your digital guide to local treasures! Explore, contribute, and discover the richness of your community. Uncover cultural, sports, and other gems, all geolocated for an immersive experience. Together, let's make our city vibrant and connected!</p>
 
-		<div class="input-group mb-3">
-			<input type="text" class="form-control" placeholder="Search city" [(ngModel)]="searchQuery" (focusin)="searching = true" (focusout)="searching = false">
-		</div>
+		<ng-container *ngIf="!cities">
+			<div class="spinner-border" role="status">
+				<span class="visually-hidden">Loading...</span>
+			</div>
+		</ng-container>
 
-		<ul class="list-group" *ngIf="searching && searchQuery">
-			<li class="list-group-item" *ngFor="let city of allCities">
-				<a [routerLink]="['/city', city.id]">{{ city.name }}</a>
-			</li>
-		</ul>
+		<ng-container *ngIf="cities">
+			<div class="input-group mb-3">
+				<input type="text" class="form-control" placeholder="Search city" [(ngModel)]="searchQuery" (focusin)="searching = true" (focusout)="searching = false">
+			</div>
 
-		<app-osm-map
-			[centerCoordinates]="[43.221068, 12.474085]"
-			[zoomLevel]="7"
-			[items]="this.cities"
-		></app-osm-map>
+			<ul class="list-group" *ngIf="searching && searchQuery">
+				<li class="list-group-item" *ngFor="let city of allCities">
+					<a [routerLink]="['/city', city.id]">{{ city.name }}</a>
+				</li>
+			</ul>
+
+			<app-osm-map
+				[centerCoordinates]="[43.221068, 12.474085]"
+				[zoomLevel]="7"
+				[items]="this.cities"
+			></app-osm-map>
+		</ng-container>
 
 	</div>
 </div>

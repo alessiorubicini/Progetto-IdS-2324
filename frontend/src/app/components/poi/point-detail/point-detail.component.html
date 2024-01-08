@@ -1,5 +1,12 @@
 <div class="container mt-5">
 
+	<ng-container *ngIf="!city">
+		<div class="alert alert-danger" role="alert">
+			Error 404: that city does not exist.
+		</div>
+		<a [routerLink]="['../../']">Back to the city</a>
+	</ng-container>
+
 	<ng-container *ngIf="!point">
 		<div class="alert alert-danger" role="alert">
 			Error 404: that point does not exist.

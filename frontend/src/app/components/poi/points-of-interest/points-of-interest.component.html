@@ -13,13 +13,21 @@
 			</div>
 		</div>
 
-		<app-osm-map
-			[centerCoordinates]="[city!.longitude, city!.latitude]"
-			[zoomLevel]="14"
-			[items]="this.physicalPoints"
-			[isForCity]="false"
-			[cityId]="city!.id"
-		></app-osm-map>
+		<ng-container *ngIf="!points">
+			<div class="spinner-border" role="status">
+				<span class="visually-hidden">Loading...</span>
+			</div>
+		</ng-container>
+
+		<ng-container *ngIf="points">
+			<app-osm-map
+				[centerCoordinates]="[city!.longitude, city!.latitude]"
+				[zoomLevel]="14"
+				[items]="this.physicalPoints"
+				[isForCity]="false"
+				[cityId]="city!.id"
+			></app-osm-map>
+		</ng-container>
 	</ng-container>
 
 </div>

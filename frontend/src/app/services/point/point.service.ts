@@ -16,7 +16,7 @@ export class PointService {
 	}
 
 	public getPointDetails(id: number) : Observable<Point> {
-		return this.httpClient.get<Point>(`${environment.apiUrl}/city/${id}/points`);
+		return this.httpClient.get<Point>(`${environment.apiUrl}/point/${id}`);
 	}
 
 	public addPoint(point: Point) : Observable<any> {
