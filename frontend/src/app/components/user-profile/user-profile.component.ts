@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import {UserInfo} from "../../models/user-info";
 import {ActivatedRoute} from "@angular/router";
-import {MockdataService} from "../../services/mock/mockdata.service";
 import {ApiService} from "../../services/facades/api/api.service";
 
 @Component({

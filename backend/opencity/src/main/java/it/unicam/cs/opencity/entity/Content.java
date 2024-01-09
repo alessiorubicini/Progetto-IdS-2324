@@ -17,6 +17,7 @@ public class Content {
     private Integer authorId;
     private Integer pointId;
     private String mediaUrl;
+    @Column(nullable = true)
     private Integer contestId;
 
     public Content(String title, String description, Date publicationDate, ContentStatus status, Integer authorId, Integer pointId, String mediaUrl, Integer contestId) {

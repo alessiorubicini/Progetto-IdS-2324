@@ -1,12 +1,9 @@
 import {Component} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {City} from 'src/app/models/city';
-import {MockdataService} from 'src/app/services/mock/mockdata.service';
 import {ApiService} from "../../../services/facades/api/api.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {Point} from "../../../models/point";
 import {Contest} from "../../../models/contest";
-import {Content} from "../../../models/content";
 
 @Component({
 	selector: 'app-create-contest',
@@ -18,11 +15,10 @@ export class CreateContestComponent {
 	city?: City;
 	form: FormGroup;
 
-	constructor(private route: ActivatedRoute, public api: ApiService, private fb: FormBuilder) {
+	constructor(private route: ActivatedRoute, private router: Router, public api: ApiService, private fb: FormBuilder) {
 		this.route.params.subscribe(params => {
 			const id = params["id"];
-			this.city = MockdataService.getCityMock(id);
-			//this.getCityDetail();
+			this.getCityDetail(id);
 		});
 		this.form = this.fb.group({
 			title: new FormControl('', [Validators.required]),
@@ -31,19 +27,25 @@ export class CreateContestComponent {
 		});
 	}
 
-	getCityDetail(): void {
-		this.route.params.subscribe(params => {
-			const cityId = params["id"];
-			this.api.city.getCityById(cityId).subscribe((city) => {
-				this.city = city;
-			})
+	getCityDetail(id: number): void {
+		this.api.city.getCityById(id).subscribe((city) => {
+			this.city = city;
 		})
 	}
 
 	createContest(): void {
 		if(this.form.valid) {
 			const contest: Contest = this.getContestFromForm();
-			// TODO: Send content to APIs
+			this.api.contest.suggestContest(contest).subscribe(
+				(data) => {
+					if (data.status === 200) {
+						this.router.navigate(['../']);
+					}
+				},
+				(error) => {
+					console.error('Error:', error);
+					console.log('Status:', error.status);
+				})
 		}
 	}
 

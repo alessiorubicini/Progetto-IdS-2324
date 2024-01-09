@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import {Content} from "../../../models/content";
 import {ActivatedRoute} from "@angular/router";
-import {MockdataService} from "../../../services/mock/mockdata.service";
 import {City} from "../../../models/city";
 import {Point} from "../../../models/point";
 import {UserInfo} from "../../../models/user-info";
@@ -18,19 +17,14 @@ export class ContentDetailComponent {
 	content?: Content
 	user?: UserInfo
 
-	constructor(private route: ActivatedRoute, private api: ApiService) {
+	constructor(private route: ActivatedRoute, public api: ApiService) {
 		this.route.params.subscribe(params => {
 			const contentId = params["contentId"];
 			const pointId = params["pointId"];
 			const cityId = params["id"];
-			//this.content = MockdataService.getContentMock(contentId);
-			//this.city = MockdataService.getCityMock(cityId);
-			//this.point = MockdataService.getPointMock(pointId);
-			//this.user = MockdataService.getUserMock(this.content.authorId);
 			this.getCityDetail(cityId);
 			this.getPointDetail(pointId);
 			this.getContentDetail(contentId);
-
 		})
 	}
 
@@ -59,5 +53,13 @@ export class ContentDetailComponent {
 		this.api.user.getUserDetails(id).subscribe((user) => {
 			this.user = user;
 		})
+	}
+
+	deleteContent() {
+		this.api.content.deleteContent(this.content!.id!);
+	}
+
+	addAsFavorite() {
+		this.api.content.addFavorite(this.content!.id!);
 	}
 }

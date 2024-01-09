@@ -28,7 +28,7 @@ export class AreasListComponent {
 	}
 
 	getCityPoints(id: number) : void {
-		this.api.point.getPointsOfCity(id).subscribe((points) => {
+		this.api.city.getPointsOfCity(id).subscribe((points) => {
 			this.areas = points.filter(a => !a.latitude && !a.longitude);
 		})
 	}

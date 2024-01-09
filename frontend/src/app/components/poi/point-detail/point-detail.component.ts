@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import {Point} from "../../../models/point";
 import {Content} from "../../../models/content";
-import {MockdataService} from "../../../services/mock/mockdata.service";
 import {City} from "../../../models/city";
 import {ApiService} from "../../../services/facades/api/api.service";
 import {ActivatedRoute} from "@angular/router";
@@ -16,7 +15,7 @@ export class PointDetailComponent {
 	point?: Point;
 	contents?: Content[];
 
-	constructor(private route: ActivatedRoute, private api: ApiService) {
+	constructor(private route: ActivatedRoute, public api: ApiService) {
 		this.route.params.subscribe(params => {
 			const cityId = params["id"];
 			const pointId = params["pointId"];
@@ -44,7 +43,7 @@ export class PointDetailComponent {
 		})
 	}
 
-	get authenticated(): boolean {
-		return this.api.auth.authenticated;
+	removePoint() {
+		this.api.point.removePoint(this.point!.id!);
 	}
 }

@@ -25,8 +25,11 @@
 				<p>{{ content.description }}</p>
 
 				<div class="btn-group">
-					<button type="button" class="btn btn-outline-primary">Salva nei preferiti <i class="bi bi-bookmark-heart"></i></button>
-					<button type="button" class="btn btn-outline-danger">Segnala <i class="bi bi-exclamation-octagon-fill"></i></button>
+					<button type="button" class="btn btn-outline-primary" (click)="addAsFavorite()">Add as favorite <i class="bi bi-bookmark-heart"></i></button>
+					<button type="button" class="btn btn-outline-danger">Report <i class="bi bi-exclamation-octagon-fill"></i></button>
+					<ng-container *ngIf="api.auth.authenticated">
+						<button type="button" class="btn btn-outline-danger" (click)="deleteContent()">Delete <i class="bi bi-trash"></i></button>
+					</ng-container>
 				</div>
 
 			</div>

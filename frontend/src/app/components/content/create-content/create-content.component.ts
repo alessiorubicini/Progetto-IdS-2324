@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { City } from '../../../models/city';
-import { MockdataService } from '../../../services/mock/mockdata.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ApiService} from "../../../services/facades/api/api.service";
 import {Content} from "../../../models/content";
@@ -18,18 +17,15 @@ export class CreateContentComponent {
 	city?: City;
 	point?: Point
 	form: FormGroup;
-	availableContests: Contest[] = [];
+	availableContests?: Contest[];
 
 	constructor(private route: ActivatedRoute, public api: ApiService, private fb: FormBuilder) {
 		this.route.params.subscribe(params => {
 			const id = params["id"];
 			const pointId = params["pointId"];
-			this.city = MockdataService.getCityMock(id);
-			this.point = MockdataService.getPointMock(pointId);
-			this.availableContests = MockdataService.getAllContestsMocks();
-			//this.getCityDetail();
-			//this.getPointDetail();
-			//this.getAvailableContests();
+			this.getCityDetail(id);
+			this.getPointDetail(pointId);
+			this.getAvailableContests();
 		})
 		this.form = fb.group({
 			title: new FormControl('', [Validators.required]),
@@ -62,12 +58,9 @@ export class CreateContentComponent {
 		}
 	}
 
-	private getCityDetail() : void {
-		this.route.params.subscribe(params => {
-			const cityId = params["id"];
-			this.api.city.getCityById(cityId).subscribe((city) => {
-				this.city = city;
-			})
+	private getCityDetail(id: number) : void {
+		this.api.city.getCityById(id).subscribe((city) => {
+			this.city = city;
 		})
 	}
 

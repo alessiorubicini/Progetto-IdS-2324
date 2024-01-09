@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router'
 import {City} from '../../../models/city';
-import {MockdataService} from '../../../services/mock/mockdata.service';
 import {ApiService} from "../../../services/facades/api/api.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Point} from "../../../models/point";
@@ -20,8 +19,7 @@ export class CreateAreaComponent {
 	constructor(private route: ActivatedRoute, private router: Router, public api: ApiService, private fb: FormBuilder) {
 		this.route.params.subscribe(params => {
 			const id = params["id"];
-			//this.getCityDetail();
-			this.city = MockdataService.getCityMock(id);
+			this.getCityDetail(id);
 		})
 		this.form = this.fb.group({
 			name: new FormControl('', [Validators.required]),
@@ -30,12 +28,9 @@ export class CreateAreaComponent {
 		});
 	}
 
-	getCityDetail(): void {
-		this.route.params.subscribe(params => {
-			const cityId = params["id"];
-			this.api.city.getCityById(cityId).subscribe((city) => {
-				this.city = city;
-			})
+	getCityDetail(id: number): void {
+		this.api.city.getCityById(id).subscribe((city) => {
+			this.city = city;
 		})
 	}
 
@@ -61,7 +56,7 @@ export class CreateAreaComponent {
 			name: this.form.get('name')?.value,
 			description: this.form.get('description')?.value,
 			imageUrl: this.form.get('imageUrl')?.value,
-			cityId: this.city?.id!
+			cityId: this.city!.id!
 		};
 	}
 

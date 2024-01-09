@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { City } from '../../models/city';
-import { MockdataService } from '../../services/mock/mockdata.service';
 import {ApiService} from "../../services/facades/api/api.service";
 
 @Component({

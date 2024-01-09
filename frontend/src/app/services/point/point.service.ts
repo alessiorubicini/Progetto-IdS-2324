@@ -12,16 +12,16 @@ export class PointService {
 
 	constructor(private httpClient: HttpClient) { }
 
-	public getPointsOfCity(id: number) : Observable<Point[]> {
-		return this.httpClient.get<Point[]>(`${environment.apiUrl}/city/${id}/points`);
+	public addPoint(point: Point) : Observable<any> {
+		return this.httpClient.post(`${environment.apiUrl}/point/`, point);
 	}
 
 	public getPointDetails(id: number) : Observable<Point> {
 		return this.httpClient.get<Point>(`${environment.apiUrl}/point/${id}`);
 	}
 
-	public addPoint(point: Point) : Observable<any> {
-		return this.httpClient.post(`${environment.apiUrl}/point/`, point);
+	public removePoint(id: number): Observable<any> {
+		return this.httpClient.delete(`${environment.apiUrl}/point/${id}`);
 	}
 
 	public getContentsOfPoint(id: number): Observable<Content[]> {

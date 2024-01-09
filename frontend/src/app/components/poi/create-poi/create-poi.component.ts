@@ -1,12 +1,9 @@
 import {Component, Input} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {MockdataService} from '../../../services/mock/mockdata.service';
 import {City} from '../../../models/city';
 import {ApiService} from "../../../services/facades/api/api.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Point} from "../../../models/point";
-import {catchError, Observable, tap, throwError} from "rxjs";
-import {HttpResponse} from "@angular/common/http";
 
 @Component({
 	selector: 'app-create-poi',
@@ -37,12 +34,16 @@ export class CreatePoiComponent {
 		if (this.form.valid) {
 			const point: Point = this.getPointFromForm();
 			console.log("Created point: " + point)
-			this.api.point.addPoint(point).subscribe((response) => {
-				console.log(response)
-				if (response.status === 200) {
-					this.router.navigate(['../']);
-				}
-			})
+			this.api.point.addPoint(point).subscribe(
+				(data) => {
+					if (data.status === 200) {
+						this.router.navigate(['../']);
+					}
+				},
+				(error) => {
+					console.error('Error:', error);
+					console.log('Status:', error.status);
+				})
 		} else {
 			console.log("Form not valid")
 		}

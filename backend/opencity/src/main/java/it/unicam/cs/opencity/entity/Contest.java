@@ -15,6 +15,7 @@ public class Contest {
     private Date closingDate;
     private Integer authorId;
     private Integer cityId;
+    @Column(nullable = true)
     private Integer winnerId;
 
     public Contest(String title, String description, Date publicationDate, Date closingDate, Integer authorId, Integer cityId, Integer winnerId) {

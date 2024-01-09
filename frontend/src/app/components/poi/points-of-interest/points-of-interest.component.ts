@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { City } from '../../../models/city';
-import { MockdataService } from '../../../services/mock/mockdata.service';
 import {Point} from "../../../models/point";
 import {ApiService} from "../../../services/facades/api/api.service";
 import {ActivatedRoute} from "@angular/router";
@@ -29,7 +28,7 @@ export class PointsOfInterestComponent {
 	}
 
 	getCityPoints(id: number) : void {
-		this.api.point.getPointsOfCity(id).subscribe((points) => {
+		this.api.city.getPointsOfCity(id).subscribe((points) => {
 			this.points = points;
 		})
 	}

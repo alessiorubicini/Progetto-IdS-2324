@@ -11,7 +11,10 @@ import {Content} from "../../models/content";
 })
 export class ContestService {
 
-	constructor(private httpClient: HttpClient) {
+	constructor(private httpClient: HttpClient) { }
+
+	public suggestContest(contest: Contest): Observable<any> {
+		return this.httpClient.post(`${environment.apiUrl}/contest/suggest`, contest);
 	}
 
 	public getContestOfCity(id: number): Observable<Contest[]> {
