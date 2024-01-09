@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { City } from 'src/app/models/city';
 import {Point} from "../../models/point";
+import {Contest} from "../../models/contest";
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,10 @@ export class CityService {
 
 	public getPointsOfCity(id: number) : Observable<Point[]> {
 		return this.httpClient.get<Point[]>(`${environment.apiUrl}/city/${id}/points`);
+	}
+
+	public getContestsOfCity(id: number) : Observable<Contest[]> {
+		return this.httpClient.get<Contest[]>(`${environment.apiUrl}/city/${id}/contests`);
 	}
 }
 

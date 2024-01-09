@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {ApiService} from "./services/facades/api/api.service";
 import {ToastrService} from "ngx-toastr";
 import {Title} from "@angular/platform-browser";
+import { Meta } from '@angular/platform-browser';
 
 @Component({
 	selector: 'app-root',
@@ -11,8 +12,10 @@ import {Title} from "@angular/platform-browser";
 export class AppComponent {
 	title = 'OpenCity';
 
-	constructor(private api: ApiService, public toastr: ToastrService, public titleService: Title) {
+	constructor(private api: ApiService, public toastr: ToastrService, public titleService: Title, private meta: Meta) {
 		this.titleService.setTitle("OpenCity");
+		this.meta.addTag({ name: 'theme-color', content: '#D9EAFB', media: '(prefers-color-scheme: light)' });
+		this.meta.addTag({ name: 'theme-color', content: '#D9EAFB', media: '(prefers-color-scheme: dark)' });
 	}
 
 	public logout() {

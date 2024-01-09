@@ -4,6 +4,8 @@ import {City} from '../../../models/city';
 import {ApiService} from "../../../services/facades/api/api.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Point} from "../../../models/point";
+import {catchError, tap} from "rxjs";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
 	selector: 'app-create-poi',
@@ -14,7 +16,7 @@ export class CreatePoiComponent {
 	city?: City;
 	form: FormGroup;
 
-	constructor(private route: ActivatedRoute, private router: Router, public api: ApiService, private fb: FormBuilder) {
+	constructor(private route: ActivatedRoute, private router: Router, public api: ApiService, private fb: FormBuilder, public toastr: ToastrService) {
 		this.route.params.subscribe(params => {
 			const cityId = params["id"];
 			this.getCityDetail(cityId);
@@ -33,17 +35,16 @@ export class CreatePoiComponent {
 	createPoint(): void {
 		if (this.form.valid) {
 			const point: Point = this.getPointFromForm();
-			console.log("Created point: " + point)
-			this.api.point.addPoint(point).subscribe(
-				(data) => {
-					if (data.status === 200) {
-						this.router.navigate(['../']);
+			this.api.point.addPoint(point)
+				.subscribe({
+					next: (data) => {
+						this.toastr.success('', 'Point created successfully');
+						this.router.navigate(['city', this.city?.id]);
+					},
+					error: (error) => {
+						this.toastr.error(error, 'Error while creating point');
 					}
-				},
-				(error) => {
-					console.error('Error:', error);
-					console.log('Status:', error.status);
-				})
+				});
 		} else {
 			console.log("Form not valid")
 		}

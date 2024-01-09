@@ -3,7 +3,9 @@ import {Point} from "../../../models/point";
 import {Content} from "../../../models/content";
 import {City} from "../../../models/city";
 import {ApiService} from "../../../services/facades/api/api.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {FormBuilder} from "@angular/forms";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-point-detail',
@@ -15,7 +17,7 @@ export class PointDetailComponent {
 	point?: Point;
 	contents?: Content[];
 
-	constructor(private route: ActivatedRoute, public api: ApiService) {
+	constructor(private route: ActivatedRoute, private router: Router, public api: ApiService, private fb: FormBuilder, public toastr: ToastrService) {
 		this.route.params.subscribe(params => {
 			const cityId = params["id"];
 			const pointId = params["pointId"];
@@ -44,6 +46,14 @@ export class PointDetailComponent {
 	}
 
 	removePoint() {
-		this.api.point.removePoint(this.point!.id!);
+		this.api.point.removePoint(this.point!.id!).subscribe({
+			next: (data) => {
+				this.toastr.success('', 'Point deleted successfully');
+				this.router.navigate(['city', this.city?.id]);
+			},
+			error: (error) => {
+				this.toastr.error(error, 'Error while deleting point');
+			}
+		});;
 	}
 }

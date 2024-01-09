@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import {Content} from "../../../models/content";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {City} from "../../../models/city";
 import {Point} from "../../../models/point";
 import {UserInfo} from "../../../models/user-info";
 import {ApiService} from "../../../services/facades/api/api.service";
+import {ToastrService} from "ngx-toastr";
+import {catchError, tap} from "rxjs";
 
 @Component({
   selector: 'app-content-detail',
@@ -17,7 +19,7 @@ export class ContentDetailComponent {
 	content?: Content
 	user?: UserInfo
 
-	constructor(private route: ActivatedRoute, public api: ApiService) {
+	constructor(private route: ActivatedRoute, private router: Router, public api: ApiService, public toastr: ToastrService) {
 		this.route.params.subscribe(params => {
 			const contentId = params["contentId"];
 			const pointId = params["pointId"];
@@ -56,10 +58,27 @@ export class ContentDetailComponent {
 	}
 
 	deleteContent() {
-		this.api.content.deleteContent(this.content!.id!);
+		this.api.content.deleteContent(this.content!.id!)
+			.subscribe({
+				next: (data) => {
+					this.toastr.success('', 'Content deleted successfully');
+					this.router.navigate(['city', this.city?.id, 'points', this.point?.id]);
+				},
+				error: (error) => {
+					this.toastr.error(error, 'Error while creating content');
+					throw error;
+				}
+			});
 	}
 
 	addAsFavorite() {
-		this.api.content.addFavorite(this.content!.id!);
+		this.api.content.addFavorite(this.content!.id!).pipe(tap(data => {
+				this.toastr.success('', 'Content added to your favorites');
+			}),
+			catchError(error => {
+				this.toastr.error(error, 'Error while adding content to favorites');
+				throw error;
+			})
+		);
 	}
 }

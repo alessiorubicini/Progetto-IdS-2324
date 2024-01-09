@@ -71,12 +71,12 @@
 
 				<div class="form-group mb-4">
 					<label class="form-label" for="contest">Do you want to join a contest in {{ city.name }}? </label>
-					<div class="d-flex align-items-center">
+					<div class="d-flex align-items-center" *ngIf="!availableContests">
 						<strong role="status">Loading contests...</strong>
 						<div class="spinner-border ms-auto" aria-hidden="true"></div>
 					</div>
 					<select class="form-select" id="contest" formControlName="contestId" *ngIf="availableContests">
-						<option *ngFor="let contest of availableContests" [value]="contest.id">{{ contest.title }}</option>
+						<option *ngFor="let contest of availableContests" [value]="contest.id">{{ contest.title }} (closes on {{ contest.closingDate }})</option>
 					</select>
 				</div>
 

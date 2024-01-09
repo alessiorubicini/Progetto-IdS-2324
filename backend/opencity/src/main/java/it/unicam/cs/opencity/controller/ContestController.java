@@ -1,15 +1,11 @@
 package it.unicam.cs.opencity.controller;
 
-import it.unicam.cs.opencity.entity.Content;
 import it.unicam.cs.opencity.entity.Contest;
 import it.unicam.cs.opencity.service.ContestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/contest")
