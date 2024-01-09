@@ -4,6 +4,7 @@ import {City} from 'src/app/models/city';
 import {ApiService} from "../../../services/facades/api/api.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Contest} from "../../../models/contest";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
 	selector: 'app-create-contest',
@@ -15,7 +16,7 @@ export class CreateContestComponent {
 	city?: City;
 	form: FormGroup;
 
-	constructor(private route: ActivatedRoute, private router: Router, public api: ApiService, private fb: FormBuilder) {
+	constructor(private route: ActivatedRoute, private router: Router, public api: ApiService, private fb: FormBuilder, public toastr: ToastrService) {
 		this.route.params.subscribe(params => {
 			const id = params["id"];
 			this.getCityDetail(id);
@@ -23,7 +24,7 @@ export class CreateContestComponent {
 		this.form = this.fb.group({
 			title: new FormControl('', [Validators.required]),
 			description: new FormControl('', [Validators.required, Validators.maxLength(180)]),
-			endDate: new FormControl('', [Validators.required])
+			closingDate: new FormControl('', [Validators.required])
 		});
 	}
 
@@ -36,23 +37,22 @@ export class CreateContestComponent {
 	createContest(): void {
 		if(this.form.valid) {
 			const contest: Contest = this.getContestFromForm();
-			this.api.contest.suggestContest(contest).subscribe(
-				(data) => {
-					if (data.status === 200) {
-						this.router.navigate(['../']);
-					}
+			this.api.contest.suggestContest(contest).subscribe({
+				next: (data) => {
+					this.toastr.success('', 'Contest created successfully');
+					this.router.navigate(['city', this.city?.id]);
 				},
-				(error) => {
-					console.error('Error:', error);
-					console.log('Status:', error.status);
-				})
+				error: (error) => {
+					this.toastr.error(error.message(), 'Error while creating contest');
+				}
+			});
 		}
 	}
 
 	private getContestFromForm(): Contest {
 		if (!this.form.valid) throw new Error('Form data is not valid');
 		return {
-			title: this.form.get('name')?.value,
+			title: this.form.get('title')?.value,
 			description: this.form.get('description')?.value,
 			publicationDate: new Date(),
 			closingDate: this.form.get('closingDate')?.value,

@@ -29,4 +29,8 @@ export class ContestService {
 		return this.httpClient.get<Content[]>(`${environment.apiUrl}/contest/${id}/contents`);
 	}
 
+	public deleteContest(id: number): Observable<any> {
+		return this.httpClient.delete(`${environment.apiUrl}/contest/${id}`);
+	}
+
 }

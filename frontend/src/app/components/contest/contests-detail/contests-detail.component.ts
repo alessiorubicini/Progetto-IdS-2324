@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { City } from 'src/app/models/city';
 import { Contest } from 'src/app/models/contest';
 import {ApiService} from "../../../services/facades/api/api.service";
 import {Content} from "../../../models/content";
 import {UserInfo} from "../../../models/user-info";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-contests-detail',
@@ -19,7 +20,7 @@ export class ContestsDetailComponent {
 	searching : Boolean = false;
 	searchQuery: string = '';
 
-	constructor(private route: ActivatedRoute, private api: ApiService) {
+	constructor(private route: ActivatedRoute, public api: ApiService, private router: Router, public toastr: ToastrService) {
 		this.route.params.subscribe(params => {
 			const cityId = params["id"];
 			const contestId = params["contestId"]
@@ -62,6 +63,20 @@ export class ContestsDetailComponent {
 		} else {
 			return this.proposedContents;
 		}
+	}
+
+	deleteContest() {
+		this.api.contest.deleteContest(this.contest!.id!).subscribe({
+			next: (data) => {
+				this.toastr.success('', 'Contest created successfully');
+				this.router.navigate(['city', this.city?.id]);
+			},
+			error: (error) => {
+				console.error('Error:', error);
+				console.log('Status:', error.status);
+				this.toastr.error(error, 'Error while creating contest');
+			}
+		});
 	}
 
 }
