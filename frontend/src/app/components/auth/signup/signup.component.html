@@ -23,12 +23,19 @@
 
 				<div class="form-group mb-3">
 					<label class="form-label" for="username">Username</label>
-					<input type="text" class="form-control" id="username" formControlName="username" placeholder="Enter your username">
+					<div class="input-group">
+						<span class="input-group-text" id="basic-addon1">@</span>
+						<input type="text" class="form-control" id="username" formControlName="username" placeholder="Enter your username">
+					</div>
 				</div>
 
 				<div class="form-group mb-3">
 					<label class="form-label" for="email">Email</label>
-					<input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter your email address">
+					<div class="input-group">
+						<span class="input-group-text" id="basic-addon1"><i class="bi bi-envelope"></i> </span>
+						<input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter your email address">
+					</div>
+
 				</div>
 
 				<div class="form-group mb-3">
@@ -43,6 +50,7 @@
 					<div class="form-group mb-3">
 						<label for="password1" class="form-label">Password</label>
 						<div class="input-group">
+							<span class="input-group-text" id="basic-addon1"><i class="bi bi-key-fill"></i> </span>
 							<input type="{{ passwordVisible ? 'text' : 'password' }}" class="form-control" formControlName="password1" id="password1" placeholder="Enter your password">
 							<button class="input-group-text" (click)="passwordVisible = !passwordVisible">
 								<i [class]="passwordVisible ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'"></i>
@@ -57,6 +65,7 @@
 					<div class="mb-3">
 						<label for="password2" class="form-label">Confirm password</label>
 						<div class="input-group">
+							<span class="input-group-text" id="basic-addon1"><i class="bi bi-key-fill"></i> </span>
 							<input type="{{ passwordVisible ? 'text' : 'password' }}" class="form-control" formControlName="password2" id="password2" placeholder="Confirm your password">
 							<button class="input-group-text" (click)="passwordVisible = !passwordVisible">
 								<i [class]="passwordVisible ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'"></i>
