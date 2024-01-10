@@ -49,5 +49,13 @@ public class ContestController {
     public ResponseEntity<Object> getProposedContents(@PathVariable Integer id){
         return new ResponseEntity<>(contestService.getProposedContents(id), HttpStatus.OK);
     }
-    
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteContest(@PathVariable Integer id){
+        if(this.contestService.deleteContest(id))
+            return new ResponseEntity<>(HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
 }

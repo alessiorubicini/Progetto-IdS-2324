@@ -15,12 +15,12 @@ public class ContributorPublisher extends ContentPublisher{
 
     @Override
     public void sendContent() {
-
+        
     }
 
     @Override
     public void notifyResponsible(Integer cityId) {
-        String notificationMessage = "New publication: ";
+        String notificationMessage = "New publication: maragnao";
         String destination = "/send-messages/city/" + cityId;
         notificationComponent.sendNotification(destination, notificationMessage);
     }

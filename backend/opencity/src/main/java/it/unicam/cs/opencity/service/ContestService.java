@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class ContestService {
@@ -38,6 +39,16 @@ public class ContestService {
             return true;
         }
        return false;
+    }
+
+    public boolean deleteContest(Integer contestId){
+        try{
+            contestRepository.delete(contestRepository.findById(contestId).get());
+            return true;
+        }
+        catch(NoSuchElementException e) {
+            return false;
+        }
     }
 
     public List<Content> getProposedContents(Integer contestId)
