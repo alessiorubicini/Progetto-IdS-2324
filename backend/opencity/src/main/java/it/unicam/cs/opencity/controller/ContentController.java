@@ -27,9 +27,9 @@ public class ContentController {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
-    @PostMapping("/upload")
-    public ResponseEntity<Content> uploadContent(@RequestBody Content content) {
-        if(contentService.uploadContent(content))
+    @PostMapping("/upload/{cityId}")
+    public ResponseEntity<Content> uploadContent(@RequestBody Content content, @PathVariable Integer cityId) {
+        if(contentService.uploadContent(content, cityId))
             return new ResponseEntity<>(content, HttpStatus.CREATED);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

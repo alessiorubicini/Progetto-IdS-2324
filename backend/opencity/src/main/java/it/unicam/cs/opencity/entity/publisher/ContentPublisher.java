@@ -6,15 +6,17 @@ import org.springframework.web.util.HtmlUtils;
 // This class is responsible of content publication
 public abstract class ContentPublisher {
 
+    protected Integer cityId;
     /**
      * This method calls the step methods in a specific order.
      * @param content the content to publish
-     * @param userId the id of the user who made the request
+     * @param cityId the id of the city
      */
-    public void publish(Content content, Integer userId) {
+    public void publish(Content content, Integer cityId) {
+        this.cityId = cityId;
         this.sanitizeContent(content);
-        this.sendContent();
-        //this.notifyResponsible();
+        this.sendContent(content);
+        this.notifyResponsible();
     }
 
     /**
@@ -28,9 +30,9 @@ public abstract class ContentPublisher {
         content.setMediaUrl(HtmlUtils.htmlEscape(content.getMediaUrl()));
     }
 
-    public abstract void sendContent();
+    public abstract void sendContent(Content content);
 
-    public abstract void notifyResponsible(Integer cityId);
+    public abstract void notifyResponsible();
 
 }
 //https://media.wired.co.uk/photos/606dadf3938ecee6e930efe0/master/w_1600%2Cc_limit/Doge_01.jpg

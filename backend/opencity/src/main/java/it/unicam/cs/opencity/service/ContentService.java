@@ -2,6 +2,7 @@ package it.unicam.cs.opencity.service;
 
 import it.unicam.cs.opencity.entity.Content;
 import it.unicam.cs.opencity.entity.Favorite;
+import it.unicam.cs.opencity.entity.publisher.ContentPublisher;
 import it.unicam.cs.opencity.repository.ContentRepository;
 import it.unicam.cs.opencity.repository.FavoriteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +16,13 @@ public class ContentService {
 
     private final ContentRepository contentRepository;
     private final FavoriteRepository favoriteRepository;
+    private final ContentPublisher contentPublisher;
 
     @Autowired
-    public ContentService(ContentRepository contentRepository, FavoriteRepository favoriteRepository) {
+    public ContentService(ContentRepository contentRepository, FavoriteRepository favoriteRepository, ContentPublisher contentPublisher) {
         this.contentRepository = contentRepository;
         this.favoriteRepository = favoriteRepository;
+        this.contentPublisher = contentPublisher;
     }
 
     public Optional<Content> getContentDetails(Integer id){
@@ -32,8 +35,8 @@ public class ContentService {
 
     public List<Content> getContentOfPoint(Integer id){return contentRepository.findByPointId(id);}
 
-    public boolean uploadContent(Content content){
-        contentRepository.save(content);
+    public boolean uploadContent(Content content, Integer cityId){
+        contentPublisher.publish(content, cityId);
         return true;
     }
 
