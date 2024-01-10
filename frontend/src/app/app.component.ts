@@ -13,14 +13,16 @@ import {catchError, forkJoin, Subject, Subscription, takeUntil} from "rxjs";
 })
 export class AppComponent {
 	title = 'OpenCity';
-	private ngUnsubscribe = new Subject();
+	//private ngUnsubscribe = new Subject();
 	connections: Subscription[] = [];
 
-	constructor(private api: ApiService, public toastr: ToastrService, public titleService: Title, private meta: Meta, private webSocketService: WebSocketService) {
+	//, private webSocketService: WebSocketService
+	constructor(private api: ApiService, public toastr: ToastrService, public titleService: Title, private meta: Meta) {
 		this.titleService.setTitle("OpenCity");
 		this.meta.addTag({ name: 'theme-color', content: '#D9EAFB', media: '(prefers-color-scheme: light)' });
 		this.meta.addTag({ name: 'theme-color', content: '#D9EAFB', media: '(prefers-color-scheme: dark)' });
 
+		/*
 		for (let participation of api.roles.getAllUserRoles()) {
 			console.log("Role: "+ participation.role.title)
 			if(participation.role.title === 'Curator' || participation.role.title == 'City Manager') {
@@ -37,7 +39,7 @@ export class AppComponent {
 						})
 				);
 			}
-		}
+		}*/
 
 		forkJoin(this.connections).subscribe(() => {
 			console.log('All web sockets connected.');
