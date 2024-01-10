@@ -40,7 +40,7 @@ export class CreateContentComponent {
 	createContent(): void {
 		if (this.form.valid) {
 			const content: Content = this.getContentFromForm();
-			this.api.content.uploadContent(content).subscribe({
+			this.api.content.uploadContent(content, this.city?.id!).subscribe({
 				next: (data) => {
 					this.toastr.success('', 'Content created successfully');
 					this.router.navigate(['city', this.city?.id, 'points', this.point?.id]);

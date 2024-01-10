@@ -65,7 +65,6 @@ export class AuthService {
 	public getUserInfo() : UserInfo | null {
 		const userInfo = localStorage.getItem("user-info");
 		return JSON.parse(userInfo!);
-
 	}
 
 	private storeToken(token: string): void {

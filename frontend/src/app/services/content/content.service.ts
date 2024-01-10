@@ -12,8 +12,8 @@ export class ContentService {
 
 	constructor(private httpClient: HttpClient) { }
 
-	public uploadContent(content: Content): Observable<any> {
-		return this.httpClient.post(`${environment.apiUrl}/content/upload`, content);
+	public uploadContent(content: Content, cityId: number): Observable<any> {
+		return this.httpClient.post(`${environment.apiUrl}/content/upload/${cityId}`, content);
 	}
 
 	public getContentDetails(id: number): Observable<Content> {
