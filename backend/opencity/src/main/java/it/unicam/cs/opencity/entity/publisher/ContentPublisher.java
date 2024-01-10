@@ -14,9 +14,9 @@ public abstract class ContentPublisher {
      */
     public void publish(Content content, Integer cityId) {
         this.cityId = cityId;
-        this.sanitizeContent(content);
-        this.sendContent(content);
-        this.notifyResponsible();
+        sanitizeContent(content);
+        sendContent(content);
+        notifyResponsible();
     }
 
     /**

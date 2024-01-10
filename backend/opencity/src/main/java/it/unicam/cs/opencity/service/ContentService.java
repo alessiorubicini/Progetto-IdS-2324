@@ -1,13 +1,16 @@
 package it.unicam.cs.opencity.service;
 
-import it.unicam.cs.opencity.entity.Content;
-import it.unicam.cs.opencity.entity.Favorite;
+import it.unicam.cs.opencity.entity.*;
+import it.unicam.cs.opencity.entity.publisher.AuthorizedContributorPublisher;
 import it.unicam.cs.opencity.entity.publisher.ContentPublisher;
+import it.unicam.cs.opencity.entity.publisher.ContributorPublisher;
 import it.unicam.cs.opencity.repository.ContentRepository;
 import it.unicam.cs.opencity.repository.FavoriteRepository;
+import it.unicam.cs.opencity.repository.ParticipationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.List;
 
@@ -16,13 +19,17 @@ public class ContentService {
 
     private final ContentRepository contentRepository;
     private final FavoriteRepository favoriteRepository;
-    private final ContentPublisher contentPublisher;
+    private final ParticipationRepository participationRepository;
+    private final ContributorPublisher contributorPublisher;
+    private final AuthorizedContributorPublisher authorizedcontributorPublisher;
 
     @Autowired
-    public ContentService(ContentRepository contentRepository, FavoriteRepository favoriteRepository, ContentPublisher contentPublisher) {
+    public ContentService(ContentRepository contentRepository, FavoriteRepository favoriteRepository, ParticipationRepository participationRepository, ContributorPublisher contributorPublisher, AuthorizedContributorPublisher authorizedcontributorPublisher) {
         this.contentRepository = contentRepository;
         this.favoriteRepository = favoriteRepository;
-        this.contentPublisher = contentPublisher;
+        this.participationRepository = participationRepository;
+        this.contributorPublisher = contributorPublisher;
+        this.authorizedcontributorPublisher = authorizedcontributorPublisher;
     }
 
     public Optional<Content> getContentDetails(Integer id){
@@ -36,7 +43,15 @@ public class ContentService {
     public List<Content> getContentOfPoint(Integer id){return contentRepository.findByPointId(id);}
 
     public boolean uploadContent(Content content, Integer cityId){
-        contentPublisher.publish(content, cityId);
+        Integer userId = content.getAuthorId();
+        Participation participation = participationRepository.findByIdUserIdAndIdCityId(userId, cityId).get(0);
+        ParticipationId participationId = participation.getId();
+        Role role = participationId.getRole();
+
+        if(Objects.equals(role.getTitle(), "Contributor"))
+            this.contributorPublisher.publish(content, cityId);
+        else if(Objects.equals(role.getTitle(), "Authorized Contributor"))
+            this.authorizedcontributorPublisher.publish(content, cityId);
         return true;
     }
 

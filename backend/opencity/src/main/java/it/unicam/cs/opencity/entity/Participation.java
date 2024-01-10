@@ -9,4 +9,8 @@ public class Participation {
     @EmbeddedId
     private ParticipationId id;
 
+
+    public ParticipationId getId() {
+        return id;
+    }
 }
