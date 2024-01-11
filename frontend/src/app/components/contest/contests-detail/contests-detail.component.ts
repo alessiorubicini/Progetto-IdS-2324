@@ -68,13 +68,13 @@ export class ContestsDetailComponent {
 	deleteContest() {
 		this.api.contest.deleteContest(this.contest!.id!).subscribe({
 			next: (data) => {
-				this.toastr.success('', 'Contest created successfully');
+				this.toastr.success('', 'Contest deleted successfully');
 				this.router.navigate(['city', this.city?.id]);
 			},
 			error: (error) => {
 				console.error('Error:', error);
 				console.log('Status:', error.status);
-				this.toastr.error(error, 'Error while creating contest');
+				this.toastr.error(error, 'Error while deleting contest');
 			}
 		});
 	}

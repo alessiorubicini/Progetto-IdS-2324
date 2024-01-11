@@ -4,7 +4,7 @@ import {ToastrService} from "ngx-toastr";
 import {Title} from "@angular/platform-browser";
 import { Meta } from '@angular/platform-browser';
 import {WebSocketService} from "./services/websocket/web-socket.service";
-import {catchError, forkJoin, Subject, Subscription, takeUntil} from "rxjs";
+import {Subscription} from "rxjs";
 import { Message } from '@stomp/stompjs';
 
 @Component({
@@ -20,18 +20,18 @@ export class AppComponent implements OnInit, OnDestroy {
 		this.titleService.setTitle("OpenCity");
 		this.meta.addTag({ name: 'theme-color', content: '#D9EAFB', media: '(prefers-color-scheme: light)' });
 		this.meta.addTag({ name: 'theme-color', content: '#D9EAFB', media: '(prefers-color-scheme: dark)' });
-
 	}
 
 	ngOnInit() {
-		for (let participation of this.api.roles.getAllUserRoles()) {
-			console.log("Role: "+ participation.role.title)
-			if(participation.role.title === 'Curator' || participation.role.title == 'City Manager') {
-				this.connections.push(this.webSocketService
-					.watch(`/messages/city/${participation.city.id}`)
-					.subscribe((message: Message) => {
-						this.toastr.show(message.body, 'Message from server');
-					}));
+		if(this.api.auth.authenticated) {
+			for (let participation of this.api.roles.getAllUserRoles()) {
+				if(participation.role.title === 'Curator' || participation.role.title == 'City Manager') {
+					this.connections.push(this.webSocketService
+						.watch(`/messages/city/${participation.city.id}`)
+						.subscribe((message: Message) => {
+							this.toastr.show(message.body, 'Message from server');
+						}));
+				}
 			}
 		}
 	}

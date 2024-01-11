@@ -12,7 +12,6 @@ export class RolesService {
 
 	public getUserInfo() : UserInfo | null {
 		const userInfo = localStorage.getItem("user-info");
-		console.log("USER INFO::::: " + userInfo)
 		return JSON.parse(userInfo!);
 	}
 

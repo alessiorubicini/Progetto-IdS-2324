@@ -25,7 +25,6 @@ import {ContestListComponent} from './components/contest/contest-list/contest-li
 import {PointDetailComponent} from './components/poi/point-detail/point-detail.component';
 import {CreateAreaComponent} from './components/area/create-area/create-area.component';
 import {ContentDetailComponent} from './components/content/content-detail/content-detail.component';
-import {ContentListComponent} from './components/content/content-list/content-list.component';
 import {AreasListComponent} from './components/area/areas-list/areas-list.component';
 import {ToastrModule} from 'ngx-toastr';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
@@ -51,7 +50,6 @@ import {WebSocketServiceFactory} from "./services/websocket/websocket.service.fa
 		PointDetailComponent,
 		CreateAreaComponent,
 		ContentDetailComponent,
-		ContentListComponent,
 		AreasListComponent,
   UserProfileComponent,
 	],

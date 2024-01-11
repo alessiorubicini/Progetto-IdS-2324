@@ -25,7 +25,7 @@
 
 		<h2>{{ point.name }}</h2>
 
-		<div class="row" id="point-details">
+		<div class="row mt-3">
 			<div class="col-sm-6">
 				<p>{{ point.description }}</p>
 
@@ -35,36 +35,36 @@
 						<button type="button" class="btn btn-outline-danger" (click)="removePoint()">Delete <i class="bi bi-trash"></i></button>
 					</ng-container>
 				</div>
-
-				<!-- List of contents for the point -->
-				<div class="mt-4">
-					<h5>Contents</h5>
-					<div class="d-grid gap-2" *ngIf="api.auth.authenticated">
-						<button class="btn btn-outline-primary btn-md mb-2" type="button" [routerLink]="['create-content']"><i class="bi bi-plus"></i> Create content</button>
-					</div>
-
-					<ng-container *ngIf="point && contents">
-						<div *ngFor="let content of contents" class="list-group">
-							<a [routerLink]="['contents', content?.id]" class="list-group-item list-group-item-action" aria-current="true">
-								<div class="d-flex w-100 justify-content-between">
-									<h5 class="mb-1">{{ content.title }}</h5>
-									<small>{{ content.publicationDate }}</small>
-								</div>
-								<small>{{ content.description }}</small>
-							</a>
-						</div>
-					</ng-container>
-
-					<div *ngIf="!contents || contents.length == 0">
-						<p>No contents available for this point.</p>
-					</div>
-
-				</div>
-
 			</div>
-			<div class="col-sm-6">
+			<div class="col-sm-6 ">
 				<img class="point-image img-fluid" src="{{ point.imageUrl }}">
+			</div>
+		</div>
 
+		<div class="row">
+			<h3>Contents</h3>
+			<div class="col-12" *ngIf="contents">
+				<div class="row mt-3">
+					<div class="row">
+						<div class="col-lg-4 mb-4" *ngFor="let content of contents; let i = index">
+
+							<div class="card">
+								<img src="{{ content.mediaUrl }}" class="card-img-top" alt="...">
+								<div class="card-body">
+									<h5 class="card-title">{{ content.title }}</h5>
+									<p class="card-truncate-text">{{ content.description }}</p>
+									<p class="card-text"><small class="text-body-secondary">Published on {{ content.publicationDate }}</small></p>
+									<a [routerLink]="['contents', content.id]" class="card-link">Learn more</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-12">
 				<div class="row mt-3" *ngIf="point.longitude && point.latitude">
 					<app-osm-map
 						[centerCoordinates]="[point.longitude, point.latitude]"
@@ -75,6 +75,8 @@
 				</div>
 			</div>
 		</div>
+
+
 	</ng-container>
 
 </div>
