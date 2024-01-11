@@ -12,11 +12,12 @@ export class RolesService {
 
 	public getUserInfo() : UserInfo | null {
 		const userInfo = localStorage.getItem("user-info");
+		console.log("USER INFO::::: " + userInfo)
 		return JSON.parse(userInfo!);
 	}
 
 	public getAllUserRoles() : Participation[] {
-		return this.getUserInfo()!.roles;
+		return this.getUserInfo()!.participations;
 	}
 
 	public userRoleForCity(id: number) : Role | undefined {

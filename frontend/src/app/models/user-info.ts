@@ -7,5 +7,5 @@ export interface UserInfo {
 	username: string;
 	fiscalCode: string;
 	email: string;
-	roles: Participation[];
+	participations	: Participation[];
 }

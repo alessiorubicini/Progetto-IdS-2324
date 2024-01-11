@@ -20,11 +20,14 @@ public class MessageController {
         String notificationMessage = "Server: " + message;
         String destination = "/messages";
         notificationService.sendNotification(destination, notificationMessage);
+        System.out.println("Message sent to " + destination + ": " + notificationMessage);
     }
 
     @MessageMapping("/send-message/city/{cityId}")
     @SendTo("/messages/city/{cityId}")
     public String sendMessageToCity(@DestinationVariable String cityId, String message) {
-        return "Server (City " + cityId + "): " + message;
+        String resultMessage = "Server (City " + cityId + "): " + message;
+        System.out.println(resultMessage);
+        return resultMessage;
     }
 }

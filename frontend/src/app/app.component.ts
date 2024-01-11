@@ -1,60 +1,46 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ApiService} from "./services/facades/api/api.service";
 import {ToastrService} from "ngx-toastr";
 import {Title} from "@angular/platform-browser";
 import { Meta } from '@angular/platform-browser';
 import {WebSocketService} from "./services/websocket/web-socket.service";
 import {catchError, forkJoin, Subject, Subscription, takeUntil} from "rxjs";
+import { Message } from '@stomp/stompjs';
 
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
 	title = 'OpenCity';
-	//private ngUnsubscribe = new Subject();
 	connections: Subscription[] = [];
 
-	//, private webSocketService: WebSocketService
-	constructor(private api: ApiService, public toastr: ToastrService, public titleService: Title, private meta: Meta) {
+	constructor(private api: ApiService, public toastr: ToastrService, public titleService: Title, private meta: Meta, private webSocketService: WebSocketService) {
 		this.titleService.setTitle("OpenCity");
 		this.meta.addTag({ name: 'theme-color', content: '#D9EAFB', media: '(prefers-color-scheme: light)' });
 		this.meta.addTag({ name: 'theme-color', content: '#D9EAFB', media: '(prefers-color-scheme: dark)' });
 
-		/*
-		for (let participation of api.roles.getAllUserRoles()) {
-			console.log("Role: "+ participation.role.title)
-			if(participation.role.title === 'Curator' || participation.role.title == 'City Manager') {
-				this.connections.push(
-					this.webSocketService
-						.connect(participation.city.id!)
-						.pipe(takeUntil(this.ngUnsubscribe),
-							catchError((error) => {
-								console.error('WebSocket connection error:', error);
-								throw error;
-							}))
-						.subscribe((message: any) => {
-							this.webSocketService.handleReceivedMessage(message.body);
-						})
-				);
-			}
-		}*/
-
-		forkJoin(this.connections).subscribe(() => {
-			console.log('All web sockets connected.');
-		});
-
-		/*this.webSocketService.getMessageSubject()
-			.pipe(takeUntil(this.ngUnsubscribe))
-			.subscribe((message: string) => {
-				// Handle the message in your component if needed
-				console.log('Received message in component:', message);
-			});
-
-		 */
 	}
 
+	ngOnInit() {
+		for (let participation of this.api.roles.getAllUserRoles()) {
+			console.log("Role: "+ participation.role.title)
+			if(participation.role.title === 'Curator' || participation.role.title == 'City Manager') {
+				this.connections.push(this.webSocketService
+					.watch(`/messages/city/${participation.city.id}`)
+					.subscribe((message: Message) => {
+						this.toastr.show(message.body, 'Message from server');
+					}));
+			}
+		}
+	}
+
+	ngOnDestroy() {
+		for(let conn of this.connections) {
+			conn.unsubscribe();
+		}
+	}
 
 	public logout() {
 		this.api.auth.logout();

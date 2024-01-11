@@ -81,6 +81,6 @@ export class AuthService {
 
 	public userRoleForCity(id: number) : Role | undefined {
 		const info = this.getUserInfo();
-		return info?.roles.find(r => r.city.id == id)?.role;
+		return info?.participations.find(r => r.city.id == id)?.role;
 	}
 }

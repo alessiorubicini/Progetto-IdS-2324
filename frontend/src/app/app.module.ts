@@ -30,6 +30,8 @@ import {AreasListComponent} from './components/area/areas-list/areas-list.compon
 import {ToastrModule} from 'ngx-toastr';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import {HeaderInterceptor} from "./services/interceptors/header-interceptor";
+import {WebSocketService} from "./services/websocket/web-socket.service";
+import {WebSocketServiceFactory} from "./services/websocket/websocket.service.factory";
 
 @NgModule({
 	declarations: [
@@ -75,7 +77,10 @@ import {HeaderInterceptor} from "./services/interceptors/header-interceptor";
 		provide: HTTP_INTERCEPTORS,
 		useClass: HeaderInterceptor,
 		multi: true
-	}],
+	}, {
+		provide: WebSocketService,
+		useFactory: WebSocketServiceFactory,
+	},],
 	bootstrap: [AppComponent],
 	exports: [RouterModule]
 })

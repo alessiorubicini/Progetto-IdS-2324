@@ -63,7 +63,7 @@
 				<div class="tab-pane" id="roles" [ngClass]="{ 'active':activeTab === 'roles'}">
 					<h5>Your roles</h5>
 					<ng-container *ngIf="user">
-						<div *ngFor="let role of user.roles" class="list-group">
+						<div *ngFor="let role of user.participations" class="list-group">
 							<li class="list-group-item">
 								<nav aria-label="breadcrumb">
 									<ol class="breadcrumb">

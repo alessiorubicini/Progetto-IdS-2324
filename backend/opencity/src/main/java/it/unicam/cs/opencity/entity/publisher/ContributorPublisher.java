@@ -19,7 +19,6 @@ public class ContributorPublisher extends ContentPublisher{
         this.contentRepository = contentRepository;
     }
 
-
     @Override
     public void sendContent(Content content) {
         content.setStatus(ContentStatus.Pending);

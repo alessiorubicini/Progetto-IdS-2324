@@ -26,8 +26,8 @@ export class MockdataService {
 
 	public static getAllUsersMocks() : UserInfo[] {
 		return [
-			{ id: 1, email: "johndoe@gmail.com", name: "John", surname: "Doe", username: "JohnDoe", fiscalCode: "JDGWMJ87A23F364O", roles: [] },
-			{ id: 2, email: "simone@gmail.com", name: "Simone", surname: "Morello", username: "Simon_Morel", fiscalCode: "SMMRWMJ87A23F364O", roles: []}
+			{ id: 1, email: "johndoe@gmail.com", name: "John", surname: "Doe", username: "JohnDoe", fiscalCode: "JDGWMJ87A23F364O", participations: [] },
+			{ id: 2, email: "simone@gmail.com", name: "Simone", surname: "Morello", username: "Simon_Morel", fiscalCode: "SMMRWMJ87A23F364O", participations: []}
 		]
 	}
 
