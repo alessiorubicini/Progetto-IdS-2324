@@ -9,7 +9,6 @@ import {ApiService} from "../../services/facades/api/api.service";
 })
 export class HomeComponent {
 	cities?: City[];
-	searching : Boolean = false;
 	searchQuery: string = '';
 
 	constructor(private api: ApiService) {
@@ -19,7 +18,7 @@ export class HomeComponent {
 	}
 
 	get allCities() : City[] | undefined {
-		if(this.searching) {
+		if(this.searchQuery) {
 			return this.cities!.filter(c => c.name.toLowerCase().startsWith(this.searchQuery.toLowerCase()));
 		} else {
 			return this.cities;

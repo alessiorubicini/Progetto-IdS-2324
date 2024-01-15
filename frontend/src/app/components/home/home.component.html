@@ -11,10 +11,10 @@
 
 		<ng-container *ngIf="cities">
 			<div class="input-group mb-3">
-				<input type="text" class="form-control" placeholder="Search city" [(ngModel)]="searchQuery" (focusin)="searching = true" (focusout)="searching = false">
+				<input type="text" class="form-control" placeholder="Search city" [(ngModel)]="searchQuery">
 			</div>
 
-			<ul class="list-group" *ngIf="searching && searchQuery">
+			<ul class="list-group" *ngIf="searchQuery">
 				<li class="list-group-item" *ngFor="let city of allCities">
 					<a [routerLink]="['/city', city.id]">{{ city.name }}</a>
 				</li>
