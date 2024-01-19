@@ -41,6 +41,23 @@ public class UserController {
         }
     }
 
+    @PostMapping("/addRole")
+    public ResponseEntity<Object> addRoleToUser(@RequestHeader MultiValueMap<String, String> headers, @RequestParam Integer cityId, @RequestParam Integer roleId){
+        String token = headers.get("authorization").get(0).substring(7);
+        Integer idUser = Integer.parseInt(jwtTokenProvider.extractId(token));
+
+        if(roleId >= 7 || roleId < 0)
+            return ResponseEntity.status(404).body("Role not found");
+
+        if(userService.getUserDetails(idUser).isPresent()) {
+            this.userService.addRoleToUser(roleId, idUser, cityId);
+            return ResponseEntity.ok("Role successfully added");
+        } else {
+            return ResponseEntity.status(404).body("User not found");
+        }
+    }
+
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> removeUser(@PathVariable("id") String id, @RequestHeader MultiValueMap<String, String> headers) {
         if(hasPermission(headers, id)) {

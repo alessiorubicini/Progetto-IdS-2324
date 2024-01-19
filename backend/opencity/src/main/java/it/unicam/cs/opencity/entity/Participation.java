@@ -9,6 +9,9 @@ public class Participation {
     @EmbeddedId
     private ParticipationId id;
 
+    public void setId(ParticipationId id){
+        this.id = id;
+    }
 
     public ParticipationId getId() {
         return id;
