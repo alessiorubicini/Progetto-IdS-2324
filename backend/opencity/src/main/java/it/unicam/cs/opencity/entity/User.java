@@ -1,6 +1,8 @@
 package it.unicam.cs.opencity.entity;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,6 +20,21 @@ public class User {
     private String email;
     private String password;
 
+    @OneToMany(mappedBy = "id.userId")
+    private ArrayList<Participation> participations;
+
+//    @OneToMany(mappedBy = "id.userId")
+//    private ArrayList<Favorite> favorites;
+
+    @ManyToMany
+    @JoinTable(
+            name = "favorite",
+            joinColumns = @JoinColumn(name = "userId"),
+            inverseJoinColumns = @JoinColumn(name = "contentId")
+    )
+    private ArrayList<Content> favorites;
+
+
     public User(String name, String surname, String username, String fiscalCode, String email, String password) {
         this.name = name;
         this.surname = surname;
@@ -25,6 +42,8 @@ public class User {
         this.fiscalCode = fiscalCode;
         this.email = email;
         this.password = password;
+        this.participations = new ArrayList<>();
+        this.favorites = new ArrayList<>();
     }
 
     public User() { }
@@ -80,4 +99,28 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public void addRole(City city, Role role)
+    {
+        ParticipationId participationId = new ParticipationId();
+        participationId.setUserId(this.id);
+        participationId.setCity(city);
+        participationId.setRole(role);
+
+        Participation participation = new Participation();
+        participation.setId(participationId);
+
+        participations.add(participation);
+    }
+
+    public void addFavorite(Content content){
+//        FavoriteId favoriteId = new FavoriteId();
+//        favoriteId.setContent(content);
+//        favoriteId.setUserId(this.id);
+//
+//        Favorite favorite = new Favorite();
+//        favorite.setId(favoriteId);
+        favorites.add(content);
+    }
+
 }

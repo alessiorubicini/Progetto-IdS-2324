@@ -2,6 +2,8 @@ package it.unicam.cs.opencity.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+
 @Entity
 @Table(name = "Point")
 public class Point {
@@ -19,6 +21,11 @@ public class Point {
     private String imageUrl;
     private Integer cityId;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pointId")
+    private ArrayList<Content> contenuti;
+
+
     public Point(String name, String description, Float longitude, Float latitude, Float altitude, String imageUrl, Integer cityId) {
         this.name = name;
         this.description = description;
@@ -27,6 +34,7 @@ public class Point {
         this.altitude = altitude;
         this.imageUrl = imageUrl;
         this.cityId = cityId;
+        this.contenuti = new ArrayList<>();
     }
 
     public Point() { }
@@ -90,4 +98,21 @@ public class Point {
     public void setCityId(Integer cityId) {
         this.cityId = cityId;
     }
+
+    public void addContent(Content content){
+        this.contenuti.add(content);
+    }
+
+    public void removeContent(Content content) {
+        this.contenuti.remove(content);
+    }
+
+    public ArrayList<Content> getAllContent(){
+        return contenuti;
+    }
+
+    public Content getContent(Integer id){
+        return this.contenuti.get(id);
+    }
+
 }

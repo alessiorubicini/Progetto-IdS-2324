@@ -67,18 +67,19 @@ public class ContentController {
 
     @PostMapping("/{id}/favorite")
     public ResponseEntity<Object> addFavorite(@RequestHeader MultiValueMap<String, String> headers, @PathVariable Integer id){
-        String token = headers.get("authorization").get(0).substring(7);
-        Integer idUser = Integer.parseInt(jwtTokenProvider.extractId(token));
-
-        FavoriteId favoriteId = new FavoriteId();
-        favoriteId.setUserId(idUser);
-        favoriteId.setContent(id);
-
-        Favorite favorite = new Favorite();
-        favorite.setId(favoriteId);
-        if(contentService.addFavorite(favorite))
-            return new ResponseEntity<>(favorite, HttpStatus.CREATED);
-        else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        String token = headers.get("authorization").get(0).substring(7);
+//        Integer idUser = Integer.parseInt(jwtTokenProvider.extractId(token));
+//
+//        FavoriteId favoriteId = new FavoriteId();
+//        favoriteId.setUserId(idUser);
+//        favoriteId.setContent(id);
+//
+//        Favorite favorite = new Favorite();
+//        favorite.setId(favoriteId);
+//        if(contentService.addFavorite(favorite))
+//            return new ResponseEntity<>(favorite, HttpStatus.CREATED);
+//        else
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return ResponseEntity.ok("cicipiciapaciapa");
     }
 }

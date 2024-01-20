@@ -2,6 +2,7 @@ package it.unicam.cs.opencity.entity;
 
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 import java.io.Serializable;
 
@@ -11,8 +12,9 @@ public class FavoriteId implements Serializable {
     @JoinColumn(name = "userId")
     private Integer userId;
 
+    @ManyToOne
     @JoinColumn(name = "contentId")
-    private Integer contentId;
+    private Content content;
 
     public Integer getUserId() {
         return userId;
@@ -22,12 +24,12 @@ public class FavoriteId implements Serializable {
         this.userId = userId;
     }
 
-    public Integer getContent() {
-        return contentId;
+    public Content getContent() {
+        return content;
     }
 
-    public void setContent(Integer contentId) {
-        this.contentId = contentId;
+    public void setContent(Content content) {
+        this.content = content;
     }
 
 }

@@ -64,9 +64,6 @@ public class ContentService {
             return false;
     }
 
-
-
-
     public boolean updateContent(Content newContent){
         contentRepository.save(newContent);
         return true;
@@ -76,4 +73,11 @@ public class ContentService {
         favoriteRepository.save(favorite);
         return true;
     }
+
+    public boolean removeFavorite(Favorite favorite)
+    {
+        favoriteRepository.delete(favorite);
+        return true;
+    }
+
 }

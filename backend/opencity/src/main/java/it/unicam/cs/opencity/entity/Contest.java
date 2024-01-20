@@ -2,6 +2,8 @@ package it.unicam.cs.opencity.entity;
 
 import jakarta.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Contest")
@@ -18,6 +20,10 @@ public class Contest {
     @Column(nullable = true)
     private Integer winnerId;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "contestId")
+    private ArrayList<Content> contenuti;
+
     public Contest(String title, String description, Date publicationDate, Date closingDate, Integer authorId, Integer cityId, Integer winnerId) {
         this.title = title;
         this.description = description;
@@ -26,6 +32,7 @@ public class Contest {
         this.authorId = authorId;
         this.cityId = cityId;
         this.winnerId = winnerId;
+        this.contenuti = new ArrayList<>();
     }
 
     public Contest() { }
@@ -90,5 +97,12 @@ public class Contest {
         this.winnerId = winnerId;
     }
 
+    public void addContent(Content content){
+        this.contenuti.add(content);
+    }
+
+    public void removeContent(Content content) {
+        this.contenuti.remove(content);
+    }
 
 }
