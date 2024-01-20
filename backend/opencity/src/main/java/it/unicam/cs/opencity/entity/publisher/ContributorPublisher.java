@@ -1,8 +1,10 @@
 package it.unicam.cs.opencity.entity.publisher;
 
+import it.unicam.cs.opencity.entity.City;
 import it.unicam.cs.opencity.entity.Content;
 import it.unicam.cs.opencity.entity.ContentStatus;
-import it.unicam.cs.opencity.repository.ContentRepository;
+import it.unicam.cs.opencity.entity.Point;
+import it.unicam.cs.opencity.repository.CityRepository;
 import it.unicam.cs.opencity.util.NotificationComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,18 +13,23 @@ import org.springframework.stereotype.Component;
 public class ContributorPublisher extends ContentPublisher{
 
     private final NotificationComponent notificationComponent;
-    private final ContentRepository contentRepository;
+    private final CityRepository cityRepository;
 
     @Autowired
-    public ContributorPublisher(NotificationComponent notificationComponent, ContentRepository contentRepository) {
+    public ContributorPublisher(NotificationComponent notificationComponent, CityRepository cityRepository) {
         this.notificationComponent = notificationComponent;
-        this.contentRepository = contentRepository;
+        this.cityRepository = cityRepository;
     }
 
     @Override
-    public void sendContent(Content content) {
+    public void sendContent(Content content, Integer pointId, Integer cityId) {
         content.setStatus(ContentStatus.Pending);
-        this.contentRepository.save(content);
+        if (cityRepository.findById(cityId).isPresent()) {
+            City city = cityRepository.findById(cityId).get();
+            Point point = city.getPoint(pointId);
+            point.addContent(content);
+            cityRepository.save(city);
+        }
     }
 
     @Override

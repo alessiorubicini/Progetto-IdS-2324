@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/point")
 public class PointController {
 
     private final PointService pointService;
@@ -25,19 +24,20 @@ public class PointController {
         this.contentService = contentService;
     }
 
-    @PostMapping("/")
-    public ResponseEntity<Point> addPoint(@RequestBody Point point) {
-        if(pointService.addPoint(point))
-            return new ResponseEntity<>(point, HttpStatus.CREATED);
-        else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @GetMapping("/city/{id}/points")
+    public ResponseEntity<Object> getPointsOfCity(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(pointService.getPointsOfCity(id));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Object> getPointDetails(@PathVariable("id") Integer id){
-        Optional<Point> point = pointService.getPointDetails(id);
-        if(point.isPresent())
-            return new ResponseEntity<>(point, HttpStatus.OK);
+    @GetMapping("/city/{id}/points/{pointId}")
+    public ResponseEntity<Object> getPointDetails(@PathVariable("id") Integer id, @PathVariable("pointId") Integer pointId){
+        return ResponseEntity.ok(pointService.getPointDetails(id, pointId));
+    }
+
+    @PostMapping("/city/{id}/points")
+    public ResponseEntity<Point> addPoint(@PathVariable("id") Integer id, @RequestBody Point point) {
+        if(pointService.addPoint(point, id))
+            return new ResponseEntity<>(point, HttpStatus.CREATED);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

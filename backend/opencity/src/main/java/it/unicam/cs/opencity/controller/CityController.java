@@ -21,19 +21,9 @@ public class CityController {
         return ResponseEntity.ok(cityService.getAllCities());
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Object> getCityDetails(@PathVariable("id") Integer id){
         return ResponseEntity.ok(cityService.getCityDetails(id));
-    }
-
-    @GetMapping("/{id}/contests")
-    public ResponseEntity<Object> getCityContests(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(cityService.getCityContests(id));
-    }
-
-    @GetMapping("/{id}/points")
-    public ResponseEntity<Object> getCityPoints(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(cityService.getCityPoints(id));
     }
 
 }

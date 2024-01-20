@@ -15,18 +15,16 @@ public class Content {
     @Enumerated(EnumType.STRING)
     private ContentStatus status;
     private Integer authorId;
-    private Integer pointId;
     private String mediaUrl;
     @Column(nullable = true)
     private Integer contestId;
 
-    public Content(String title, String description, Date publicationDate, ContentStatus status, Integer authorId, Integer pointId, String mediaUrl, Integer contestId) {
+    public Content(String title, String description, Date publicationDate, ContentStatus status, Integer authorId, String mediaUrl, Integer contestId) {
         this.title = title;
         this.description = description;
         this.publicationDate = publicationDate;
         this.status = status;
         this.authorId = authorId;
-        this.pointId = pointId;
         this.mediaUrl = mediaUrl;
         this.contestId = contestId;
     }
@@ -75,14 +73,6 @@ public class Content {
 
     public void setAuthorId(Integer authorId) {
         this.authorId = authorId;
-    }
-
-    public Integer getPointId() {
-        return pointId;
-    }
-
-    public void setPointId(Integer pointId) {
-        this.pointId = pointId;
     }
 
     public String getMediaUrl() {

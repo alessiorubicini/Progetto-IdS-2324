@@ -2,8 +2,6 @@ package it.unicam.cs.opencity.controller;
 
 
 import it.unicam.cs.opencity.entity.Content;
-import it.unicam.cs.opencity.entity.Favorite;
-import it.unicam.cs.opencity.entity.FavoriteId;
 import it.unicam.cs.opencity.service.ContentService;
 import it.unicam.cs.opencity.util.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +27,7 @@ public class ContentController {
 
     @PostMapping("/upload/{cityId}")
     public ResponseEntity<Content> uploadContent(@RequestBody Content content, @PathVariable Integer cityId) {
-        if(contentService.uploadContent(content, cityId))
+        if(contentService.addContent(content, cityId))
             return new ResponseEntity<>(content, HttpStatus.CREATED);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -51,7 +49,7 @@ public class ContentController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteContent(@PathVariable Integer id){
-        if(contentService.removeContent(id))
+        if(contentService.deleteContent(id))
             return new ResponseEntity<>(HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

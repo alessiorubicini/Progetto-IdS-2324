@@ -12,10 +12,10 @@ public abstract class ContentPublisher {
      * @param content the content to publish
      * @param cityId the id of the city
      */
-    public void publish(Content content, Integer cityId) {
+    public void publish(Content content, Integer pointId, Integer cityId) {
         this.cityId = cityId;
         sanitizeContent(content);
-        sendContent(content);
+        sendContent(content, pointId, cityId);
         notifyResponsible();
     }
 
@@ -30,7 +30,7 @@ public abstract class ContentPublisher {
         content.setMediaUrl(HtmlUtils.htmlEscape(content.getMediaUrl()));
     }
 
-    public abstract void sendContent(Content content);
+    public abstract void sendContent(Content content, Integer pointId, Integer cityId);
 
     public abstract void notifyResponsible();
 

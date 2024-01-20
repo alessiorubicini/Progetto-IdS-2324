@@ -19,22 +19,19 @@ public class Point {
     @Column(nullable = true)
     private Float altitude;
     private String imageUrl;
-    private Integer cityId;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "pointId")
-    private ArrayList<Content> contenuti;
+    private ArrayList<Content> contents;
 
-
-    public Point(String name, String description, Float longitude, Float latitude, Float altitude, String imageUrl, Integer cityId) {
+    public Point(String name, String description, Float longitude, Float latitude, Float altitude, String imageUrl) {
         this.name = name;
         this.description = description;
         this.longitude = longitude;
         this.latitude = latitude;
         this.altitude = altitude;
         this.imageUrl = imageUrl;
-        this.cityId = cityId;
-        this.contenuti = new ArrayList<>();
+        this.contents = new ArrayList<>();
     }
 
     public Point() { }
@@ -91,28 +88,20 @@ public class Point {
         this.imageUrl = imageUrl;
     }
 
-    public Integer getCityId() {
-        return cityId;
-    }
-
-    public void setCityId(Integer cityId) {
-        this.cityId = cityId;
-    }
-
     public void addContent(Content content){
-        this.contenuti.add(content);
+        this.contents.add(content);
     }
 
-    public void removeContent(Content content) {
-        this.contenuti.remove(content);
+    public void removeContent(Integer id) {
+        this.contents.removeIf(c -> c.getId().equals(id));
     }
 
-    public ArrayList<Content> getAllContent(){
-        return contenuti;
+    public ArrayList<Content> getAllContents(){
+        return contents;
     }
 
     public Content getContent(Integer id){
-        return this.contenuti.get(id);
+        return this.contents.get(id);
     }
 
 }

@@ -16,7 +16,6 @@ public class Contest {
     private Date publicationDate;
     private Date closingDate;
     private Integer authorId;
-    private Integer cityId;
     @Column(nullable = true)
     private Integer winnerId;
 
@@ -24,13 +23,12 @@ public class Contest {
     @JoinColumn(name = "contestId")
     private ArrayList<Content> contenuti;
 
-    public Contest(String title, String description, Date publicationDate, Date closingDate, Integer authorId, Integer cityId, Integer winnerId) {
+    public Contest(String title, String description, Date publicationDate, Date closingDate, Integer authorId, Integer winnerId) {
         this.title = title;
         this.description = description;
         this.publicationDate = publicationDate;
         this.closingDate = closingDate;
         this.authorId = authorId;
-        this.cityId = cityId;
         this.winnerId = winnerId;
         this.contenuti = new ArrayList<>();
     }
@@ -79,14 +77,6 @@ public class Contest {
 
     public void setAuthorId(Integer authorId) {
         this.authorId = authorId;
-    }
-
-    public Integer getCityId() {
-        return cityId;
-    }
-
-    public void setCityId(Integer cityId) {
-        this.cityId = cityId;
     }
 
     public Integer getWinnerId() {

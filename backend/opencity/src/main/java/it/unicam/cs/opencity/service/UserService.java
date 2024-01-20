@@ -2,6 +2,7 @@ package it.unicam.cs.opencity.service;
 
 import it.unicam.cs.opencity.entity.Participation;
 import it.unicam.cs.opencity.entity.ParticipationId;
+import it.unicam.cs.opencity.entity.Role;
 import it.unicam.cs.opencity.entity.User;
 import it.unicam.cs.opencity.repository.ParticipationRepository;
 import it.unicam.cs.opencity.repository.RoleRepository;
@@ -14,6 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -72,6 +74,10 @@ public class UserService implements UserDetailsService {
 
     public User getUserDetails(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    public List<Role> getAvailableRoles(){
+        return roleRepository.findAll();
     }
 
     /**

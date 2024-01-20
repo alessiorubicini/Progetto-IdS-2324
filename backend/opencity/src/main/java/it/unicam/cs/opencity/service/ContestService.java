@@ -1,9 +1,8 @@
 package it.unicam.cs.opencity.service;
 
 
-import it.unicam.cs.opencity.entity.Content;
-import it.unicam.cs.opencity.entity.Contest;
-import it.unicam.cs.opencity.entity.User;
+import it.unicam.cs.opencity.entity.*;
+import it.unicam.cs.opencity.repository.CityRepository;
 import it.unicam.cs.opencity.repository.ContentRepository;
 import it.unicam.cs.opencity.repository.ContestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,20 +13,45 @@ import java.util.NoSuchElementException;
 
 @Service
 public class ContestService {
+
     private final ContestRepository contestRepository;
+    private final CityRepository cityRepository;
     private final UserService userService;
-    private final ContentRepository contentRepository;
 
     @Autowired
-    public ContestService(ContestRepository contestRepository, UserService userService, ContentRepository contentRepository) {
+    public ContestService(ContestRepository contestRepository, CityRepository cityRepository, UserService userService) {
         this.contestRepository = contestRepository;
+        this.cityRepository = cityRepository;
         this.userService = userService;
-        this.contentRepository = contentRepository;
     }
 
-    public boolean suggestContest(Contest contest) {
-        contestRepository.save(contest);
-        return true;
+    public List<Contest> getContestsOfCity(Integer cityId) {
+        if (cityRepository.findById(cityId).isPresent()) {
+            City city = cityRepository.findById(cityId).get();
+            return city.getAllContests();
+        } else {
+            return null;
+        }
+    }
+
+    public Contest getContestDetails(Integer contestId, Integer cityId) {
+        if (cityRepository.findById(cityId).isPresent()) {
+            City city = cityRepository.findById(cityId).get();
+            return city.getContest(contestId);
+        } else {
+            return null;
+        }
+    }
+
+    public boolean addContest(Contest contest, Integer cityId) {
+        if (cityRepository.findById(cityId).isPresent()) {
+            City city = cityRepository.findById(cityId).get();
+            city.addContest(contest);
+            cityRepository.save(city);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public boolean proclaimWinner(Integer contestId, Integer userId) {
@@ -38,24 +62,18 @@ public class ContestService {
             contestRepository.save(contest);
             return true;
         }
-       return false;
+        return false;
     }
 
-    public boolean deleteContest(Integer contestId){
-        try{
-            contestRepository.delete(contestRepository.findById(contestId).get());
+    public boolean deleteContest(Integer contestId, Integer cityId) {
+        if (cityRepository.findById(cityId).isPresent()) {
+            City city = cityRepository.findById(cityId).get();
+            city.removeContest(contestId);
+            cityRepository.save(city);
             return true;
-        }
-        catch(NoSuchElementException e) {
+        } else {
             return false;
         }
     }
 
-    public List<Content> getProposedContents(Integer contestId)
-    {
-        return contentRepository.findByContestId(contestId);
-    }
-    public Contest getContestDetails(Integer contestId) {
-        return contestRepository.findById(contestId).orElse(null);
-    }
 }

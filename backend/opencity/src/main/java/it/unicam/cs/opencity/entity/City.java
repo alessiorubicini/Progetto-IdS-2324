@@ -90,7 +90,7 @@ public class City {
         this.longitude = longitude;
     }
 
-    public ArrayList<Contest> getAllContest(){
+    public ArrayList<Contest> getAllContests(){
         return contests;
     }
 
@@ -98,8 +98,8 @@ public class City {
         this.contests.add(contest);
     }
 
-    public void removeContest(Contest contest) {
-        this.contests.remove(contest);
+    public void removeContest(Integer id) {
+        this.contests.removeIf(c -> c.getId().equals(id));
     }
 
     public Contest getContest(Integer id){
@@ -114,20 +114,22 @@ public class City {
         this.points.add(point);
     }
 
-    public void removePoint(Point point) { this.points.remove(point); }
+    public void removePoint(Integer id) {
+        this.points.removeIf(p -> p.getId().equals(id));
+    }
 
     public Point getPoint(Integer id) { return this.points.get(id); }
 
-    public void addContent(Content content, Integer idPunto){
-        this.points.get(idPunto).addContent(content);
+    public void addContent(Content content, Integer pointId){
+        this.points.get(pointId).addContent(content);
     }
 
-    public void removeContent(Content content, Integer idPunto){
-        this.points.get(idPunto).removeContent(content);
+    public void removeContent(Integer contentId, Integer pointId){
+        this.points.get(pointId).removeContent(contentId);
     }
 
-    public Content getContent(Integer content, Integer idPunto){
-        return this.points.get(idPunto).getContent(content);
+    public Content getContent(Integer contentId, Integer pointId){
+        return this.points.get(pointId).getContent(contentId);
     }
 
 }

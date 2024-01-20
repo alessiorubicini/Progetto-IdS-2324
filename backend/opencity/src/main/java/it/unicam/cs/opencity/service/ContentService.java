@@ -2,8 +2,8 @@ package it.unicam.cs.opencity.service;
 
 import it.unicam.cs.opencity.entity.*;
 import it.unicam.cs.opencity.entity.publisher.AuthorizedContributorPublisher;
-import it.unicam.cs.opencity.entity.publisher.ContentPublisher;
 import it.unicam.cs.opencity.entity.publisher.ContributorPublisher;
+import it.unicam.cs.opencity.repository.CityRepository;
 import it.unicam.cs.opencity.repository.ContentRepository;
 import it.unicam.cs.opencity.repository.FavoriteRepository;
 import it.unicam.cs.opencity.repository.ParticipationRepository;
@@ -11,62 +11,68 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
-import java.util.Optional;
 import java.util.List;
 
 @Service
 public class ContentService {
 
-    private final ContentRepository contentRepository;
     private final FavoriteRepository favoriteRepository;
+    private final CityRepository cityRepository;
     private final ParticipationRepository participationRepository;
     private final ContributorPublisher contributorPublisher;
     private final AuthorizedContributorPublisher authorizedcontributorPublisher;
 
     @Autowired
-    public ContentService(ContentRepository contentRepository, FavoriteRepository favoriteRepository, ParticipationRepository participationRepository, ContributorPublisher contributorPublisher, AuthorizedContributorPublisher authorizedcontributorPublisher) {
-        this.contentRepository = contentRepository;
+    public ContentService(FavoriteRepository favoriteRepository, CityRepository cityRepository, ParticipationRepository participationRepository, ContributorPublisher contributorPublisher, AuthorizedContributorPublisher authorizedcontributorPublisher) {
         this.favoriteRepository = favoriteRepository;
+        this.cityRepository = cityRepository;
         this.participationRepository = participationRepository;
         this.contributorPublisher = contributorPublisher;
         this.authorizedcontributorPublisher = authorizedcontributorPublisher;
     }
 
-    public Optional<Content> getContentDetails(Integer id){
-        return contentRepository.findById(id);
+    public List<Content> getContentsOfPoint(Integer pointId, Integer cityId) {
+        if (cityRepository.findById(cityId).isPresent()) {
+            City city = cityRepository.findById(cityId).get();
+            Point point = city.getPoint(pointId);
+            return point.getAllContents();
+        } else {
+            return null;
+        }
     }
 
-    public List<Content> getContentsOfUser(Integer id){
-        return contentRepository.findByAuthorId(id);
+    public Content getContentDetails(Integer contentId, Integer pointId, Integer cityId) {
+        if (cityRepository.findById(cityId).isPresent()) {
+            City city = cityRepository.findById(cityId).get();
+            Point point = city.getPoint(pointId);
+            return point.getContent(contentId);
+        } else {
+            return null;
+        }
     }
 
-    public List<Content> getContentOfPoint(Integer id){return contentRepository.findByPointId(id);}
-
-    public boolean uploadContent(Content content, Integer cityId){
+    public boolean addContent(Content content, Integer pointId, Integer cityId) {
         Integer userId = content.getAuthorId();
         Participation participation = participationRepository.findByIdUserIdAndIdCityId(userId, cityId).get(0);
         ParticipationId participationId = participation.getId();
         Role role = participationId.getRole();
 
         if(Objects.equals(role.getTitle(), "Contributor"))
-            this.contributorPublisher.publish(content, cityId);
+            this.contributorPublisher.publish(content, pointId, cityId);
         else if(Objects.equals(role.getTitle(), "Authorized Contributor"))
-            this.authorizedcontributorPublisher.publish(content, cityId);
+            this.authorizedcontributorPublisher.publish(content, pointId, cityId);
         return true;
     }
 
-    public boolean removeContent(Integer id) {
-        if (contentRepository.existsById(id)) {
-            contentRepository.deleteById(id);
+    public boolean deleteContent(Integer contentId, Integer pointId, Integer cityId) {
+        if (cityRepository.findById(cityId).isPresent()) {
+            City city = cityRepository.findById(cityId).get();
+            Point point = city.getPoint(pointId);
+            point.removeContent(contentId);
             return true;
-        }
-        else
+        } else {
             return false;
-    }
-
-    public boolean updateContent(Content newContent){
-        contentRepository.save(newContent);
-        return true;
+        }
     }
 
     public boolean addFavorite(Favorite favorite){

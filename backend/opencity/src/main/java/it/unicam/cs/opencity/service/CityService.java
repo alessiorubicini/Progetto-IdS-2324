@@ -16,14 +16,9 @@ import java.util.Optional;
 public class CityService {
 
     private final CityRepository cityRepository;
-    private final PointRepository pointRepository;
-    private final ContestRepository contestRepository;
-
     @Autowired
-    public CityService(CityRepository cityRepository, PointRepository pointRepository, ContestRepository contestRepository) {
+    public CityService(CityRepository cityRepository) {
         this.cityRepository = cityRepository;
-        this.pointRepository = pointRepository;
-        this.contestRepository = contestRepository;
     }
 
     public Iterable<City> getAllCities() {
@@ -32,14 +27,6 @@ public class CityService {
 
     public Optional<City> getCityDetails(Integer id) {
         return this.cityRepository.findById(id);
-    }
-
-    public List<Contest> getCityContests(Integer id) {
-        return contestRepository.findByCityId(id);
-    }
-
-    public List<Point> getCityPoints(Integer id) {
-        return pointRepository.findByCityId(id);
     }
 
 }
