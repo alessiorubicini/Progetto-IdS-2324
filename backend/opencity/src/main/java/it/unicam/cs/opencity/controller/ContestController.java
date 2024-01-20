@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/contest")
 public class ContestController {
 
     private final ContestService contestService;
@@ -18,41 +17,41 @@ public class ContestController {
         this.contestService = contestService;
     }
 
-    @PostMapping("/suggest")
-    public ResponseEntity<Object> addContest(@RequestBody Contest contest) {
-        if (contestService.suggestContest(contest))
-            return new ResponseEntity<>(contest, HttpStatus.OK);
-        else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
+    @GetMapping("/city/{id}/contests")
+    public ResponseEntity<Object> getContestsOfCity(@PathVariable Integer id) {
+        return ResponseEntity.ok(contestService.getContestsOfCity(id));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Object> proclaimWinner(@PathVariable("id") Integer id, @RequestParam Integer userId){
-        if(contestService.proclaimWinner(id, userId))
+    @GetMapping("/city/{id}/contests/{contestId}")
+    public ResponseEntity<Object> getContestDetail(@PathVariable Integer id, @PathVariable Integer contestId) {
+        Contest contest = contestService.getContestDetails(contestId, id);
+        if(contest != null) {
+            return new ResponseEntity<>(contest, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/city/{id}/contests")
+    public ResponseEntity<Object> addContest(@RequestBody Contest contest, @PathVariable Integer id) {
+        if (contestService.addContest(contest, id)) {
+            return new ResponseEntity<>(contest, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/city/{id}/contests/{contestId}")
+    public ResponseEntity<Object> deleteContest(@PathVariable Integer id, @PathVariable Integer contestId){
+        if(this.contestService.deleteContest(contestId, id))
             return new ResponseEntity<>(HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Object> getContestDetail(@PathVariable Integer id) {
-        Contest contest = contestService.getContestDetails(id);
-        if(contest != null)
-            return new ResponseEntity<>(contest, HttpStatus.OK);
-        else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @GetMapping("/{id}/contents")
-    public ResponseEntity<Object> getProposedContents(@PathVariable Integer id){
-        return new ResponseEntity<>(contestService.getProposedContents(id), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteContest(@PathVariable Integer id){
-        if(this.contestService.deleteContest(id))
+    @PutMapping("/city/{id}/contests/{contestId}/proclaimWinner")
+    public ResponseEntity<Object> proclaimWinner(@PathVariable("id") Integer id, @RequestParam Integer userId){
+        if(contestService.proclaimWinner(id, userId))
             return new ResponseEntity<>(HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

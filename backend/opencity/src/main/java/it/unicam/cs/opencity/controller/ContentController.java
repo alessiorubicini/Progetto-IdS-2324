@@ -3,7 +3,6 @@ package it.unicam.cs.opencity.controller;
 
 import it.unicam.cs.opencity.entity.Content;
 import it.unicam.cs.opencity.service.ContentService;
-import it.unicam.cs.opencity.util.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,71 +12,57 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/content")
 public class ContentController {
 
     private final ContentService contentService;
-    private final JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    public ContentController(ContentService contentService, JwtTokenProvider jwtTokenProvider) {
+    public ContentController(ContentService contentService) {
         this.contentService = contentService;
-        this.jwtTokenProvider = jwtTokenProvider;
     }
 
-    @PostMapping("/upload/{cityId}")
-    public ResponseEntity<Content> uploadContent(@RequestBody Content content, @PathVariable Integer cityId) {
-        if(contentService.addContent(content, cityId))
+    @GetMapping("/city/{id}/points/{pointId}/contents")
+    public ResponseEntity<List<Content>> getContentsOfPoint(@PathVariable Integer id, @PathVariable Integer pointId){
+        return ResponseEntity.ok(contentService.getContentsOfPoint(pointId, id));
+    }
+
+    @GetMapping("/city/{id}/points/{pointId}/contents/{contentId}")
+    public ResponseEntity<Content> getContentDetails(@PathVariable Integer id, @PathVariable Integer pointId, @PathVariable Integer contentId) {
+        return ResponseEntity.ok(contentService.getContentDetails(contentId, pointId, id));
+    }
+
+    @PostMapping("/city/{id}/points/{pointId}/contents")
+    public ResponseEntity<Content> addContent(@RequestBody Content content, @PathVariable Integer id, @PathVariable Integer pointId) {
+        if(contentService.addContent(content, pointId, id))
             return new ResponseEntity<>(content, HttpStatus.CREATED);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Content> getContentDetails(@PathVariable Integer id){
-        Content content = contentService.getContentDetails(id).orElse(null);
-        if(content != null)
-            return new ResponseEntity<>(content, HttpStatus.OK);
-        else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @GetMapping("/{userId}/contents")
-    public ResponseEntity<List<Content>> getContentsOfUser(@PathVariable Integer userId) {
-        return new ResponseEntity<>(contentService.getContentsOfUser(userId), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteContent(@PathVariable Integer id){
-        if(contentService.deleteContent(id))
+    @DeleteMapping("/city/{id}/points/{pointId}/contents/{contentId}")
+    public ResponseEntity<Object> deleteContent(@PathVariable Integer id, @PathVariable Integer pointId, @PathVariable Integer contentId){
+        if(contentService.deleteContent(contentId, pointId, id))
             return new ResponseEntity<>(HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Object> updateContent(@RequestBody Content content){
-        if(contentService.updateContent(content))
-            return new ResponseEntity<>(content, HttpStatus.CREATED);
-        else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
+    // TODO: modificare rotta in "/city/{id}/points/{pointId}/contents/{contentId}/favorite"
     @PostMapping("/{id}/favorite")
     public ResponseEntity<Object> addFavorite(@RequestHeader MultiValueMap<String, String> headers, @PathVariable Integer id){
-//        String token = headers.get("authorization").get(0).substring(7);
-//        Integer idUser = Integer.parseInt(jwtTokenProvider.extractId(token));
-//
-//        FavoriteId favoriteId = new FavoriteId();
-//        favoriteId.setUserId(idUser);
-//        favoriteId.setContent(id);
-//
-//        Favorite favorite = new Favorite();
-//        favorite.setId(favoriteId);
-//        if(contentService.addFavorite(favorite))
-//            return new ResponseEntity<>(favorite, HttpStatus.CREATED);
-//        else
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    //        String token = headers.get("authorization").get(0).substring(7);
+    //        Integer idUser = Integer.parseInt(jwtTokenProvider.extractId(token));
+    //
+    //        FavoriteId favoriteId = new FavoriteId();
+    //        favoriteId.setUserId(idUser);
+    //        favoriteId.setContent(id);
+    //
+    //        Favorite favorite = new Favorite();
+    //        favorite.setId(favoriteId);
+    //        if(contentService.addFavorite(favorite))
+    //            return new ResponseEntity<>(favorite, HttpStatus.CREATED);
+    //        else
+    //            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return ResponseEntity.ok("cicipiciapaciapa");
     }
 }

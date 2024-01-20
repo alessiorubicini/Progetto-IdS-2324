@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class PointController {
@@ -36,22 +35,20 @@ public class PointController {
 
     @PostMapping("/city/{id}/points")
     public ResponseEntity<Point> addPoint(@PathVariable("id") Integer id, @RequestBody Point point) {
-        if(pointService.addPoint(point, id))
+        if(pointService.addPoint(point, id)) {
             return new ResponseEntity<>(point, HttpStatus.CREATED);
-        else
+        } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Object> removePoint(@PathVariable("id") Integer id) {
-        if(pointService.deletePoint(id))
+    @DeleteMapping("/city/{id}/points/{pointId}")
+    public ResponseEntity<Object> deletePoint(@PathVariable("id") Integer id, @PathVariable("pointId") Integer pointId) {
+        if(pointService.deletePoint(pointId, id)) {
             return new ResponseEntity<>(HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @GetMapping("/{id}/contents")
-    public ResponseEntity<List<Content>> getContentsOfPoint(@PathVariable Integer id) {
-        return new ResponseEntity<>(contentService.getContentOfPoint(id), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 }
