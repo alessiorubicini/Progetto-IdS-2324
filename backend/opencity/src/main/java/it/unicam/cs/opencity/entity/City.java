@@ -93,29 +93,39 @@ public class City {
     public ArrayList<Contest> getAllContest(){
         return contests;
     }
+
     public void addContest(Contest contest){
         this.contests.add(contest);
     }
+
     public void removeContest(Contest contest) {
         this.contests.remove(contest);
     }
+
     public Contest getContest(Integer id){
         return this.contests.get(id);
     }
+
     public ArrayList<Point> getAllPoints(){
         return points;
     }
-    public void addPoint(Point point){
+
+    public void addPoint(Point point) {
         this.points.add(point);
     }
-    public void removePoint(Point point){this.points.remove(point);}
-    public Point getPoint(Integer id){return this.points.get(id);}
+
+    public void removePoint(Point point) { this.points.remove(point); }
+
+    public Point getPoint(Integer id) { return this.points.get(id); }
+
     public void addContent(Content content, Integer idPunto){
         this.points.get(idPunto).addContent(content);
     }
+
     public void removeContent(Content content, Integer idPunto){
         this.points.get(idPunto).removeContent(content);
     }
+
     public Content getContent(Integer content, Integer idPunto){
         return this.points.get(idPunto).getContent(content);
     }

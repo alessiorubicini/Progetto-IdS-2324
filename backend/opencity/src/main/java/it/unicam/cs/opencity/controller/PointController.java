@@ -44,7 +44,7 @@ public class PointController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> removePoint(@PathVariable("id") Integer id) {
-        if(pointService.removePoint(id))
+        if(pointService.deletePoint(id))
             return new ResponseEntity<>(HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

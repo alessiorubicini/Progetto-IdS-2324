@@ -42,13 +42,4 @@ public class CityService {
         return pointRepository.findByCityId(id);
     }
 
-    public boolean addCity(City city) {
-        if(this.cityRepository.existsById(city.getId())) {
-            return false;
-        } else {
-            this.cityRepository.save(city);
-            return true;
-        }
-    }
-
 }

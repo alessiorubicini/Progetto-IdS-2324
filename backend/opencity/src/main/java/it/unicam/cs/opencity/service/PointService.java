@@ -12,12 +12,10 @@ public class PointService {
 
     private final PointRepository pointRepository;
 
-
     @Autowired
     public PointService(PointRepository pointRepository) {
         this.pointRepository = pointRepository;
     }
-
 
     public boolean addPoint(Point point) {
         pointRepository.save(point);
@@ -28,7 +26,7 @@ public class PointService {
         return pointRepository.findById(pointId);
     }
 
-    public boolean removePoint(Integer pointId) {
+    public boolean deletePoint(Integer pointId) {
         if(pointRepository.existsById(pointId)) {
             pointRepository.deleteById(pointId);
             return true;
