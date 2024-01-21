@@ -3,7 +3,6 @@ package it.unicam.cs.opencity.service;
 import it.unicam.cs.opencity.entity.City;
 import it.unicam.cs.opencity.entity.Point;
 import it.unicam.cs.opencity.repository.CityRepository;
-import it.unicam.cs.opencity.repository.PointRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

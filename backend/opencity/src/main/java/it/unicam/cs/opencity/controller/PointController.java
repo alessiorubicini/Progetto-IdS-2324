@@ -15,36 +15,34 @@ import java.util.List;
 public class PointController {
 
     private final PointService pointService;
-    private final ContentService contentService;
 
     @Autowired
-    public PointController(PointService pointService, ContentService contentService) {
+    public PointController(PointService pointService) {
         this.pointService = pointService;
-        this.contentService = contentService;
     }
 
-    @GetMapping("/city/{id}/points")
-    public ResponseEntity<Object> getPointsOfCity(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(pointService.getPointsOfCity(id));
+    @GetMapping("/city/{cityId}/points")
+    public ResponseEntity<Object> getPointsOfCity(@PathVariable Integer cityId) {
+        return ResponseEntity.ok(pointService.getPointsOfCity(cityId));
     }
 
-    @GetMapping("/city/{id}/points/{pointId}")
-    public ResponseEntity<Object> getPointDetails(@PathVariable("id") Integer id, @PathVariable("pointId") Integer pointId){
-        return ResponseEntity.ok(pointService.getPointDetails(id, pointId));
+    @GetMapping("/city/{cityId}/points/{pointId}")
+    public ResponseEntity<Object> getPointDetails(@PathVariable Integer cityId, @PathVariable Integer pointId){
+        return ResponseEntity.ok(pointService.getPointDetails(cityId, pointId));
     }
 
-    @PostMapping("/city/{id}/points")
-    public ResponseEntity<Point> addPoint(@PathVariable("id") Integer id, @RequestBody Point point) {
-        if(pointService.addPoint(point, id)) {
+    @PostMapping("/city/{cityId}/points")
+    public ResponseEntity<Point> addPoint(@PathVariable Integer cityId, @RequestBody Point point) {
+        if(pointService.addPoint(point, cityId)) {
             return new ResponseEntity<>(point, HttpStatus.CREATED);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @DeleteMapping("/city/{id}/points/{pointId}")
-    public ResponseEntity<Object> deletePoint(@PathVariable("id") Integer id, @PathVariable("pointId") Integer pointId) {
-        if(pointService.deletePoint(pointId, id)) {
+    @DeleteMapping("/city/{cityId}/points/{pointId}")
+    public ResponseEntity<Object> deletePoint(@PathVariable Integer cityId, @PathVariable Integer pointId) {
+        if(pointService.deletePoint(pointId, cityId)) {
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

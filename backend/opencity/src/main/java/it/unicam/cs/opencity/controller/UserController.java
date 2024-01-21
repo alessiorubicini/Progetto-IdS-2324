@@ -57,7 +57,6 @@ public class UserController {
         }
     }
 
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> removeUser(@PathVariable("id") String id, @RequestHeader MultiValueMap<String, String> headers) {
         if(hasPermission(headers, id)) {
@@ -70,6 +69,7 @@ public class UserController {
             return ResponseEntity.status(403).body("Not authorized to remove this user");
         }
     }
+
     @GetMapping("/roles")
     public ResponseEntity<Object> getRoles() {
         return ResponseEntity.ok(roleService.getRoles());
@@ -80,5 +80,4 @@ public class UserController {
         String id = jwtTokenProvider.extractId(token);
         return id.equals(userId);
     }
-
 }

@@ -5,8 +5,6 @@ import it.unicam.cs.opencity.entity.Content;
 import it.unicam.cs.opencity.entity.ContentStatus;
 import it.unicam.cs.opencity.entity.Point;
 import it.unicam.cs.opencity.repository.CityRepository;
-import it.unicam.cs.opencity.repository.ContentRepository;
-import it.unicam.cs.opencity.service.ContentService;
 import it.unicam.cs.opencity.util.NotificationComponent;
 import org.springframework.stereotype.Component;
 

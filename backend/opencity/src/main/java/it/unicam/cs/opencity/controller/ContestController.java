@@ -17,14 +17,14 @@ public class ContestController {
         this.contestService = contestService;
     }
 
-    @GetMapping("/city/{id}/contests")
-    public ResponseEntity<Object> getContestsOfCity(@PathVariable Integer id) {
-        return ResponseEntity.ok(contestService.getContestsOfCity(id));
+    @GetMapping("/city/{cityId}/contests")
+    public ResponseEntity<Object> getContestsOfCity(@PathVariable Integer cityId) {
+        return ResponseEntity.ok(contestService.getContestsOfCity(cityId));
     }
 
-    @GetMapping("/city/{id}/contests/{contestId}")
-    public ResponseEntity<Object> getContestDetail(@PathVariable Integer id, @PathVariable Integer contestId) {
-        Contest contest = contestService.getContestDetails(contestId, id);
+    @GetMapping("/city/{cityId}/contests/{contestId}")
+    public ResponseEntity<Object> getContestDetail(@PathVariable Integer cityId, @PathVariable Integer contestId) {
+        Contest contest = contestService.getContestDetails(contestId, cityId);
         if(contest != null) {
             return new ResponseEntity<>(contest, HttpStatus.OK);
         } else {
@@ -32,26 +32,26 @@ public class ContestController {
         }
     }
 
-    @PostMapping("/city/{id}/contests")
-    public ResponseEntity<Object> addContest(@RequestBody Contest contest, @PathVariable Integer id) {
-        if (contestService.addContest(contest, id)) {
+    @PostMapping("/city/{cityId}/contests")
+    public ResponseEntity<Object> addContest(@RequestBody Contest contest, @PathVariable Integer cityId) {
+        if (contestService.addContest(contest, cityId)) {
             return new ResponseEntity<>(contest, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @DeleteMapping("/city/{id}/contests/{contestId}")
-    public ResponseEntity<Object> deleteContest(@PathVariable Integer id, @PathVariable Integer contestId){
-        if(this.contestService.deleteContest(contestId, id))
+    @DeleteMapping("/city/{cityId}/contests/{contestId}")
+    public ResponseEntity<Object> deleteContest(@PathVariable Integer cityId, @PathVariable Integer contestId){
+        if(this.contestService.deleteContest(contestId, cityId))
             return new ResponseEntity<>(HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PutMapping("/city/{id}/contests/{contestId}/proclaimWinner")
-    public ResponseEntity<Object> proclaimWinner(@PathVariable("id") Integer id, @RequestParam Integer userId){
-        if(contestService.proclaimWinner(id, userId))
+    @PutMapping("/city/{cityId}/contests/{contestId}/proclaimWinner")
+    public ResponseEntity<Object> proclaimWinner(@PathVariable Integer cityId, @RequestParam Integer userId){
+        if(contestService.proclaimWinner(cityId, userId))
             return new ResponseEntity<>(HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

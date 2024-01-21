@@ -3,13 +3,11 @@ package it.unicam.cs.opencity.service;
 
 import it.unicam.cs.opencity.entity.*;
 import it.unicam.cs.opencity.repository.CityRepository;
-import it.unicam.cs.opencity.repository.ContentRepository;
 import it.unicam.cs.opencity.repository.ContestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class ContestService {

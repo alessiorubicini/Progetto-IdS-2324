@@ -21,27 +21,27 @@ public class ContentController {
         this.contentService = contentService;
     }
 
-    @GetMapping("/city/{id}/points/{pointId}/contents")
-    public ResponseEntity<List<Content>> getContentsOfPoint(@PathVariable Integer id, @PathVariable Integer pointId){
-        return ResponseEntity.ok(contentService.getContentsOfPoint(pointId, id));
+    @GetMapping("/city/{cityId}/points/{pointId}/contents")
+    public ResponseEntity<List<Content>> getContentsOfPoint(@PathVariable Integer cityId, @PathVariable Integer pointId){
+        return ResponseEntity.ok(contentService.getContentsOfPoint(pointId, cityId));
     }
 
-    @GetMapping("/city/{id}/points/{pointId}/contents/{contentId}")
-    public ResponseEntity<Content> getContentDetails(@PathVariable Integer id, @PathVariable Integer pointId, @PathVariable Integer contentId) {
-        return ResponseEntity.ok(contentService.getContentDetails(contentId, pointId, id));
+    @GetMapping("/city/{cityId}/points/{pointId}/contents/{contentId}")
+    public ResponseEntity<Content> getContentDetails(@PathVariable Integer cityId, @PathVariable Integer pointId, @PathVariable Integer contentId) {
+        return ResponseEntity.ok(contentService.getContentDetails(contentId, pointId, cityId));
     }
 
-    @PostMapping("/city/{id}/points/{pointId}/contents")
-    public ResponseEntity<Content> addContent(@RequestBody Content content, @PathVariable Integer id, @PathVariable Integer pointId) {
-        if(contentService.addContent(content, pointId, id))
+    @PostMapping("/city/{cityId}/points/{pointId}/contents")
+    public ResponseEntity<Content> addContent(@RequestBody Content content, @PathVariable Integer cityId, @PathVariable Integer pointId) {
+        if(contentService.addContent(content, pointId, cityId))
             return new ResponseEntity<>(content, HttpStatus.CREATED);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("/city/{id}/points/{pointId}/contents/{contentId}")
-    public ResponseEntity<Object> deleteContent(@PathVariable Integer id, @PathVariable Integer pointId, @PathVariable Integer contentId){
-        if(contentService.deleteContent(contentId, pointId, id))
+    @DeleteMapping("/city/{cityId}/points/{pointId}/contents/{contentId}")
+    public ResponseEntity<Object> deleteContent(@PathVariable Integer cityId, @PathVariable Integer pointId, @PathVariable Integer contentId){
+        if(contentService.deleteContent(contentId, pointId, cityId))
             return new ResponseEntity<>(HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
