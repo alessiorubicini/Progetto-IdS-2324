@@ -35,18 +35,12 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestBody UserCredentials credentials) {
-        System.out.println("gnao 1");
         try {
-            System.out.println("gnao 1.1");
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword()));
-            System.out.println("gnao 2");
             UserDTO userDTO = this.userService.convertToDTO(userService.getUserDetails(credentials.getUsername()));
-            System.out.println("gnao 3");
             String token = jwtTokenProvider.generate(userDTO.getId(), authentication.getName());
-            System.out.println("gnao 4");
             return ResponseEntity.ok().headers(authorizationHeaders(token)).body(userDTO);
         } catch (BadCredentialsException e) {
-            System.out.println("maragnao");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials: " + e.getLocalizedMessage());
         }
     }

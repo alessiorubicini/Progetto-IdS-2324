@@ -3,6 +3,7 @@ package it.unicam.cs.opencity.entity;
 import jakarta.persistence.*;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Contest")
@@ -17,19 +18,21 @@ public class Contest {
     private Integer authorId;
     @Column(nullable = true)
     private Integer winnerId;
+    private Integer cityId;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "contestId")
-    private ArrayList<Content> contenuti;
+    private List<Content> contents;
 
-    public Contest(String title, String description, Date publicationDate, Date closingDate, Integer authorId, Integer winnerId) {
+    public Contest(String title, String description, Date publicationDate, Date closingDate, Integer authorId, Integer winnerId, Integer cityId) {
         this.title = title;
         this.description = description;
         this.publicationDate = publicationDate;
         this.closingDate = closingDate;
         this.authorId = authorId;
         this.winnerId = winnerId;
-        this.contenuti = new ArrayList<>();
+        this.contents = new ArrayList<>();
+        this.cityId = cityId;
     }
 
     public Contest() { }
@@ -87,11 +90,26 @@ public class Contest {
     }
 
     public void addContent(Content content){
-        this.contenuti.add(content);
+        this.contents.add(content);
     }
 
     public void removeContent(Content content) {
-        this.contenuti.remove(content);
+        this.contents.remove(content);
     }
 
+    public Integer getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
+    }
+
+    public List<Content> getContents() {
+        return contents;
+    }
+
+    public void setContents(List<Content> contents) {
+        this.contents = contents;
+    }
 }

@@ -7,6 +7,7 @@ import it.unicam.cs.opencity.repository.CityRepository;
 import it.unicam.cs.opencity.repository.ContentRepository;
 import it.unicam.cs.opencity.repository.FavoriteRepository;
 import it.unicam.cs.opencity.repository.ParticipationRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,14 +19,16 @@ public class ContentService {
 
     private final FavoriteRepository favoriteRepository;
     private final CityRepository cityRepository;
+    private final ContentRepository contentRepository;
     private final ParticipationRepository participationRepository;
     private final ContributorPublisher contributorPublisher;
     private final AuthorizedContributorPublisher authorizedcontributorPublisher;
 
     @Autowired
-    public ContentService(FavoriteRepository favoriteRepository, CityRepository cityRepository, ParticipationRepository participationRepository, ContributorPublisher contributorPublisher, AuthorizedContributorPublisher authorizedcontributorPublisher) {
+    public ContentService(FavoriteRepository favoriteRepository, CityRepository cityRepository, ContentRepository contentRepository, ParticipationRepository participationRepository, ContributorPublisher contributorPublisher, AuthorizedContributorPublisher authorizedcontributorPublisher) {
         this.favoriteRepository = favoriteRepository;
         this.cityRepository = cityRepository;
+        this.contentRepository = contentRepository;
         this.participationRepository = participationRepository;
         this.contributorPublisher = contributorPublisher;
         this.authorizedcontributorPublisher = authorizedcontributorPublisher;
@@ -35,7 +38,7 @@ public class ContentService {
         if (cityRepository.findById(cityId).isPresent()) {
             City city = cityRepository.findById(cityId).get();
             Point point = city.getPoint(pointId);
-            return point.getAllContents();
+            return point.getContents();
         } else {
             return null;
         }
@@ -51,6 +54,7 @@ public class ContentService {
         }
     }
 
+    @Transactional
     public boolean addContent(Content content, Integer pointId, Integer cityId) {
         Integer userId = content.getAuthorId();
         Participation participation = participationRepository.findByIdUserIdAndIdCityId(userId, cityId).get(0);
@@ -64,15 +68,19 @@ public class ContentService {
         return true;
     }
 
+    @Transactional
     public boolean deleteContent(Integer contentId, Integer pointId, Integer cityId) {
-        if (cityRepository.findById(cityId).isPresent()) {
+        this.contentRepository.deleteById(contentId);
+        return true;
+        /*if (cityRepository.findById(cityId).isPresent()) {
             City city = cityRepository.findById(cityId).get();
             Point point = city.getPoint(pointId);
             point.removeContent(contentId);
+            cityRepository.save(city);
             return true;
         } else {
             return false;
-        }
+        }*/
     }
 
     public boolean addFavorite(Favorite favorite){

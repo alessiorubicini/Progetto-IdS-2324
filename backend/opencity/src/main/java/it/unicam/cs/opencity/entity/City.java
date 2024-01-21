@@ -3,6 +3,7 @@ package it.unicam.cs.opencity.entity;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "City")
@@ -18,13 +19,13 @@ public class City {
     private float longitude;
     private float latitude;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "cityId")
-    private ArrayList<Contest> contests;
+    private List<Contest> contests;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "cityId")
-    private ArrayList<Point> points;
+    private List<Point> points;
 
     public City(String cadastralCode, String name, String region, Integer istatCode, float longitude, float latitude) {
         this.cadastralCode = cadastralCode;
@@ -86,11 +87,12 @@ public class City {
     public float getLongitude() {
         return longitude;
     }
+
     public void setLongitude(float longitude) {
         this.longitude = longitude;
     }
 
-    public ArrayList<Contest> getAllContests(){
+    public List<Contest> getContests(){
         return contests;
     }
 
@@ -103,10 +105,13 @@ public class City {
     }
 
     public Contest getContest(Integer id){
-        return this.contests.get(id);
+        for(Contest contest: this.contests) {
+            if(contest.getId().equals(id)) return contest;
+        }
+        return null;
     }
 
-    public ArrayList<Point> getAllPoints(){
+    public List<Point> getPoints(){
         return points;
     }
 
@@ -118,7 +123,12 @@ public class City {
         this.points.removeIf(p -> p.getId().equals(id));
     }
 
-    public Point getPoint(Integer id) { return this.points.get(id); }
+    public Point getPoint(Integer id) {
+        for(Point point: this.points) {
+            if(point.getId().equals(id)) return point;
+        }
+        return null;
+    }
 
     public void addContent(Content content, Integer pointId){
         this.points.get(pointId).addContent(content);
@@ -129,7 +139,7 @@ public class City {
     }
 
     public Content getContent(Integer contentId, Integer pointId){
-        return this.points.get(pointId).getContent(contentId);
+        return this.getPoint(pointId).getContent(contentId);
     }
 
 }

@@ -17,7 +17,7 @@ public class CityController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<Object> getAllCities() {
+    public ResponseEntity<Object> getCities() {
         return ResponseEntity.ok(cityService.getAllCities());
     }
 

@@ -26,7 +26,7 @@ public class ContestService {
     public List<Contest> getContestsOfCity(Integer cityId) {
         if (cityRepository.findById(cityId).isPresent()) {
             City city = cityRepository.findById(cityId).get();
-            return city.getAllContests();
+            return city.getContests();
         } else {
             return null;
         }
@@ -45,6 +45,7 @@ public class ContestService {
         if (cityRepository.findById(cityId).isPresent()) {
             City city = cityRepository.findById(cityId).get();
             city.addContest(contest);
+            contest.setCityId(cityId);
             cityRepository.save(city);
             return true;
         } else {
@@ -64,14 +65,16 @@ public class ContestService {
     }
 
     public boolean deleteContest(Integer contestId, Integer cityId) {
-        if (cityRepository.findById(cityId).isPresent()) {
+        contestRepository.deleteById(contestId);
+        return true;
+        /*if (cityRepository.findById(cityId).isPresent()) {
             City city = cityRepository.findById(cityId).get();
             city.removeContest(contestId);
             cityRepository.save(city);
             return true;
         } else {
             return false;
-        }
+        }*/
     }
 
 }

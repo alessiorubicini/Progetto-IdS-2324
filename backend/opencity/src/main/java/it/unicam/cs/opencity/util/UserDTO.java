@@ -1,8 +1,11 @@
 package it.unicam.cs.opencity.util;
 
 import it.unicam.cs.opencity.entity.Participation;
+import it.unicam.cs.opencity.entity.Role;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UserDTO {
 
@@ -38,14 +41,6 @@ public class UserDTO {
         this.username = username;
     }
 
-    public List<Participation> getParticipations() {
-        return participations;
-    }
-
-    public void setParticipations(List<Participation> participations) {
-        this.participations = participations;
-    }
-
     public String getName() {
         return name;
     }
@@ -68,5 +63,13 @@ public class UserDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Participation> getParticipations() {
+        return participations;
+    }
+
+    public void setParticipations(List<Participation> participations) {
+        this.participations = participations;
     }
 }

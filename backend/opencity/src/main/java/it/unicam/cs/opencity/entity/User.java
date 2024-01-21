@@ -3,6 +3,7 @@ package it.unicam.cs.opencity.entity;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "User")
@@ -20,18 +21,18 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "id.userId")
-    private ArrayList<Participation> participations;
+    private List<Participation> participations;
 
 //    @OneToMany(mappedBy = "id.userId")
 //    private ArrayList<Favorite> favorites;
 
-    @ManyToMany
-    @JoinTable(
-            name = "favorite",
-            joinColumns = @JoinColumn(name = "userId"),
-            inverseJoinColumns = @JoinColumn(name = "contentId")
-    )
-    private ArrayList<Content> favorites;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "favorite",
+//            joinColumns = @JoinColumn(name = "userId"),
+//            inverseJoinColumns = @JoinColumn(name = "contentId")
+//    )
+//    private ArrayList<Content> favorites;
 
 
     public User(String name, String surname, String username, String fiscalCode, String email, String password) {
@@ -42,7 +43,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.participations = new ArrayList<>();
-        this.favorites = new ArrayList<>();
+//        this.favorites = new ArrayList<>();
     }
 
     public User() { }
@@ -99,11 +100,19 @@ public class User {
         this.password = password;
     }
 
-    public void addRole(City city, Role role)
+    public List<Participation> getParticipations() {
+        return participations;
+    }
+
+    public void setParticipations(List<Participation> participations) {
+        this.participations = participations;
+    }
+
+    public void addRole(Integer cityId, Role role)
     {
         ParticipationId participationId = new ParticipationId();
         participationId.setUserId(this.id);
-        participationId.setCity(city);
+        participationId.setCityId(cityId);
         participationId.setRole(role);
 
         Participation participation = new Participation();
@@ -119,7 +128,7 @@ public class User {
 //
 //        Favorite favorite = new Favorite();
 //        favorite.setId(favoriteId);
-        favorites.add(content);
+//        favorites.add(content);
     }
 
 }

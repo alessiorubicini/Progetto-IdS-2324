@@ -3,6 +3,7 @@ package it.unicam.cs.opencity.entity;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Point")
@@ -19,12 +20,13 @@ public class Point {
     @Column(nullable = true)
     private Float altitude;
     private String imageUrl;
+    private Integer cityId;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "pointId")
-    private ArrayList<Content> contents;
+    private List<Content> contents;
 
-    public Point(String name, String description, Float longitude, Float latitude, Float altitude, String imageUrl) {
+    public Point(String name, String description, Float longitude, Float latitude, Float altitude, String imageUrl, Integer cityId) {
         this.name = name;
         this.description = description;
         this.longitude = longitude;
@@ -32,6 +34,7 @@ public class Point {
         this.altitude = altitude;
         this.imageUrl = imageUrl;
         this.contents = new ArrayList<>();
+        this.cityId = cityId;
     }
 
     public Point() { }
@@ -96,12 +99,26 @@ public class Point {
         this.contents.removeIf(c -> c.getId().equals(id));
     }
 
-    public ArrayList<Content> getAllContents(){
+    public List<Content> getContents(){
         return contents;
     }
 
-    public Content getContent(Integer id){
-        return this.contents.get(id);
+    public Content getContent(Integer id) {
+        for(Content content : this.contents) {
+            if(content.getId().equals(id)) return content;
+        }
+        return null;
     }
 
+    public Integer getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
+    }
+
+    public void setContents(List<Content> contents) {
+        this.contents = contents;
+    }
 }

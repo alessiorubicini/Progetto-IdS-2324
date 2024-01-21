@@ -12,9 +12,8 @@ public class ParticipationId implements Serializable {
     @JoinColumn(name = "userId")
     private Integer userId;
 
-    @ManyToOne
     @JoinColumn(name = "cityId")
-    private City city;
+    private Integer cityId;
 
     @ManyToOne
     @JoinColumn(name = "roleId")
@@ -28,12 +27,12 @@ public class ParticipationId implements Serializable {
         this.userId = userId;
     }
 
-    public City getCity() {
-        return city;
+    public Integer getCityId() {
+        return cityId;
     }
 
-    public void setCity(City city) {
-        this.city = city;
+    public void setCityId(Integer city) {
+        this.cityId = city;
     }
 
     public Role getRole() {

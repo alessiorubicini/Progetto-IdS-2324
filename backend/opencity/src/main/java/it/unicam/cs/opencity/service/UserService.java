@@ -44,14 +44,14 @@ public class UserService implements UserDetailsService {
     }
 
     public UserDTO convertToDTO(User user){
-        return new UserDTO(user.getId(), user.getName(),user.getSurname(), user.getEmail(), user.getUsername(), participationRepository.findByIdUserId(user.getId()));
+        return new UserDTO(user.getId(), user.getName(),user.getSurname(), user.getEmail(), user.getUsername(), user.getParticipations());
     }
 
     public void addRoleToUser(Integer roleId, Integer userId, Integer cityId){
 
         ParticipationId participationId = new ParticipationId();
         participationId.setUserId(userId);
-        participationId.setCity(cityService.getCityDetails(cityId).get());
+        participationId.setCityId(cityId);
         participationId.setRole(roleRepository.getReferenceById(roleId));
 
         Participation participation = new Participation();

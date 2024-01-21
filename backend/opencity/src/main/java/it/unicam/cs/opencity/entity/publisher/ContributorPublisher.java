@@ -28,6 +28,7 @@ public class ContributorPublisher extends ContentPublisher{
             City city = cityRepository.findById(cityId).get();
             Point point = city.getPoint(pointId);
             point.addContent(content);
+            point.setCityId(cityId);
             cityRepository.save(city);
         }
     }

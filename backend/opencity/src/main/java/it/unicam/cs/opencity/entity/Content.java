@@ -18,8 +18,9 @@ public class Content {
     private String mediaUrl;
     @Column(nullable = true)
     private Integer contestId;
+    private Integer pointId;
 
-    public Content(String title, String description, Date publicationDate, ContentStatus status, Integer authorId, String mediaUrl, Integer contestId) {
+    public Content(String title, String description, Date publicationDate, ContentStatus status, Integer authorId, String mediaUrl, Integer contestId, Integer pointId) {
         this.title = title;
         this.description = description;
         this.publicationDate = publicationDate;
@@ -27,6 +28,7 @@ public class Content {
         this.authorId = authorId;
         this.mediaUrl = mediaUrl;
         this.contestId = contestId;
+        this.pointId = pointId;
     }
 
     public Content() { }
@@ -89,5 +91,13 @@ public class Content {
 
     public void setContestId(Integer contestId) {
         this.contestId = contestId;
+    }
+
+    public Integer getPointId() {
+        return pointId;
+    }
+
+    public void setPointId(Integer pointId) {
+        this.pointId = pointId;
     }
 }
