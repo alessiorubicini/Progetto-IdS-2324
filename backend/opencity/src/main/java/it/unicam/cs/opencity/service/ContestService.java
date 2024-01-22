@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ContestService {
@@ -24,29 +25,21 @@ public class ContestService {
     }
 
     public List<Contest> getContestsOfCity(Integer cityId) {
-        if (cityRepository.findById(cityId).isPresent()) {
-            City city = cityRepository.findById(cityId).get();
-            return city.getContests();
-        } else {
-            return null;
-        }
+        Optional<City> city = cityRepository.findById(cityId);
+        return city.map(City::getContests).orElse(null);
     }
 
     public Contest getContestDetails(Integer contestId, Integer cityId) {
-        if (cityRepository.findById(cityId).isPresent()) {
-            City city = cityRepository.findById(cityId).get();
-            return city.getContest(contestId);
-        } else {
-            return null;
-        }
+        Optional<City> city = cityRepository.findById(cityId);
+        return city.map(value -> value.getContest(contestId)).orElse(null);
     }
 
     public boolean addContest(Contest contest, Integer cityId) {
-        if (cityRepository.findById(cityId).isPresent()) {
-            City city = cityRepository.findById(cityId).get();
-            city.addContest(contest);
+        Optional<City> city = cityRepository.findById(cityId);
+        if (city.isPresent()) {
+            city.get().addContest(contest);
             contest.setCityId(cityId);
-            cityRepository.save(city);
+            cityRepository.save(city.get());
             return true;
         } else {
             return false;

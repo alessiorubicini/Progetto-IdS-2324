@@ -23,14 +23,12 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final ParticipationRepository participationRepository;
-    private final CityService cityService;
     private final RoleRepository roleRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository, ParticipationRepository participationRepository, CityService cityService, RoleRepository roleRepository) {
+    public UserService(UserRepository userRepository, ParticipationRepository participationRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.participationRepository = participationRepository;
-        this.cityService = cityService;
         this.roleRepository = roleRepository;
     }
 

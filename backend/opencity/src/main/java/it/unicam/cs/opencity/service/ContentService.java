@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ContentService {
@@ -35,9 +36,9 @@ public class ContentService {
     }
 
     public List<Content> getContentsOfPoint(Integer pointId, Integer cityId) {
-        if (cityRepository.findById(cityId).isPresent()) {
-            City city = cityRepository.findById(cityId).get();
-            Point point = city.getPoint(pointId);
+        Optional<City> city = cityRepository.findById(cityId);
+        if (city.isPresent()) {
+            Point point = city.get().getPoint(pointId);
             return point.getContents();
         } else {
             return null;
@@ -45,9 +46,9 @@ public class ContentService {
     }
 
     public Content getContentDetails(Integer contentId, Integer pointId, Integer cityId) {
-        if (cityRepository.findById(cityId).isPresent()) {
-            City city = cityRepository.findById(cityId).get();
-            Point point = city.getPoint(pointId);
+        Optional<City> city = cityRepository.findById(cityId);
+        if (city.isPresent()) {
+            Point point = city.get().getPoint(pointId);
             return point.getContent(contentId);
         } else {
             return null;
