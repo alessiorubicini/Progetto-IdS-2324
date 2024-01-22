@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { City } from '../../models/city';
+import {Component} from '@angular/core';
+import {City} from '../../models/city';
 import {ApiService} from "../../services/facades/api/api.service";
 
 @Component({
@@ -17,8 +17,8 @@ export class HomeComponent {
 		})
 	}
 
-	get allCities() : City[] | undefined {
-		if(this.searchQuery) {
+	get allCities(): City[] | undefined {
+		if (this.searchQuery) {
 			return this.cities!.filter(c => c.name.toLowerCase().startsWith(this.searchQuery.toLowerCase()));
 		} else {
 			return this.cities;

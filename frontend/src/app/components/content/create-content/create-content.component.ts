@@ -17,17 +17,15 @@ import {catchError, tap} from "rxjs";
 })
 export class CreateContentComponent {
 	city?: City;
-	point?: Point
+	pointId?: number;
 	form: FormGroup;
-	availableContests?: Contest[];
 
 	constructor(private route: ActivatedRoute, private router: Router, public api: ApiService, private fb: FormBuilder, public toastr: ToastrService) {
 		this.route.params.subscribe(params => {
 			const id = params["id"];
 			const pointId = params["pointId"];
+			this.pointId = pointId;
 			this.getCityDetail(id);
-			this.getPointDetail(pointId);
-			this.getAvailableContests(id);
 		})
 		this.form = fb.group({
 			title: new FormControl('', [Validators.required]),
@@ -40,10 +38,10 @@ export class CreateContentComponent {
 	createContent(): void {
 		if (this.form.valid) {
 			const content: Content = this.getContentFromForm();
-			this.api.content.uploadContent(content, this.city?.id!).subscribe({
+			this.api.content.addContent(content, this.city?.id!).subscribe({
 				next: (data) => {
 					this.toastr.success('', 'Content created successfully');
-					this.router.navigate(['city', this.city?.id, 'points', this.point?.id]);
+					this.router.navigate(['city', this.city?.id, 'points', this.pointId!]);
 				},
 				error: (error) => {
 					console.error('Error:', error);
@@ -55,14 +53,14 @@ export class CreateContentComponent {
 	}
 
 	getContentFromForm(): Content {
-		if (this.form.valid && this.city && this.point) {
+		if (this.form.valid && this.city && this.pointId) {
 			return {
 				title: this.form.get('title')?.value,
 				description: this.form.get('description')?.value,
 				publicationDate: new Date(),
 				status: ContentStatus.DRAFT,
 				authorId: this.api.auth.getUserInfo()?.id!,
-				pointId: this.point?.id!,
+				pointId: this.pointId!,
 				mediaUrl: this.form.get('mediaUrl')?.value,
 				contestId: this.form.get('contestId')?.value
 			};
@@ -74,18 +72,6 @@ export class CreateContentComponent {
 	private getCityDetail(id: number): void {
 		this.api.city.getCityById(id).subscribe((city) => {
 			this.city = city;
-		})
-	}
-
-	private getPointDetail(id: number) {
-		this.api.point.getPointDetails(id).subscribe((point) => {
-			this.point = point;
-		})
-	}
-
-	private getAvailableContests(id: number) {
-		this.api.city.getContestsOfCity(id).subscribe((contests) => {
-			this.availableContests = contests;
 		})
 	}
 

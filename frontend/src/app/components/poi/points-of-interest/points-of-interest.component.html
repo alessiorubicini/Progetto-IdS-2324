@@ -13,13 +13,13 @@
 			</div>
 		</div>
 
-		<ng-container *ngIf="!points">
+		<ng-container *ngIf="!city.points">
 			<div class="spinner-border" role="status">
 				<span class="visually-hidden">Loading...</span>
 			</div>
 		</ng-container>
 
-		<ng-container *ngIf="points">
+		<ng-container *ngIf="city.points">
 			<app-osm-map
 				[centerCoordinates]="[city!.longitude, city!.latitude]"
 				[zoomLevel]="14"

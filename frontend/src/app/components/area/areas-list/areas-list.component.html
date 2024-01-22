@@ -7,7 +7,7 @@
 		</div>
 	</ng-container>
 
-	<ng-container *ngIf="city && areas">
+	<ng-container *ngIf="city">
 		<div class="row mb-5">
 			<div class="col-lg-4 mb-4" *ngFor="let area of areas; let i = index">
 				<div class="card">
@@ -19,7 +19,7 @@
 					</div>
 				</div>
 			</div>
-			<div *ngIf="!city || areas?.length == 0">
+			<div *ngIf="!city || areas.length == 0">
 				<p>No areas available.</p>
 			</div>
 

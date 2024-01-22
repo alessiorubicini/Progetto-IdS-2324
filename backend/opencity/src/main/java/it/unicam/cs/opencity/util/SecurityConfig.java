@@ -5,6 +5,7 @@ import it.unicam.cs.opencity.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -33,14 +34,11 @@ public class SecurityConfig {
                         .requestMatchers("/users/roles").permitAll()
                         .requestMatchers("/city/").permitAll()
                         .requestMatchers("/city/{id}").permitAll()
-                        .requestMatchers("/city/{id}/**").permitAll()
-                        .requestMatchers("/point/{id}").permitAll()
-                        .requestMatchers("/point/{id}/contents").permitAll()
-                        .requestMatchers("/contest/{id}").permitAll()
-                        .requestMatchers("/contest/{id}/contents").permitAll()
-                        .requestMatchers("/content/{id}").permitAll()
-                        .requestMatchers("/content/{pointId}/points").permitAll()
-                        .requestMatchers("/content/{userId}/contents").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/city/{cityId}/points").permitAll()
+                        .requestMatchers("/city/{cityId}/points/{pointId}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/city/{cityId}/points/{pointId}/contents/{contentId}").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/city/{cityId}/contests").permitAll()
+                        .requestMatchers("/city/{cityId}/contests/{contestId}").permitAll()
                         .anyRequest().authenticated()
                 );
 

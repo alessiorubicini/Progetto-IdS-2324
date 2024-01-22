@@ -21,12 +21,5 @@ export class CityService {
 		return this.httpClient.get<City>(`${environment.apiUrl}/city/${id}`);
 	}
 
-	public getPointsOfCity(id: number) : Observable<Point[]> {
-		return this.httpClient.get<Point[]>(`${environment.apiUrl}/city/${id}/points`);
-	}
-
-	public getContestsOfCity(id: number) : Observable<Contest[]> {
-		return this.httpClient.get<Contest[]>(`${environment.apiUrl}/city/${id}/contests`);
-	}
 }
 

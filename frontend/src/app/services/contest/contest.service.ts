@@ -1,10 +1,8 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Point} from 'leaflet';
 import {Observable} from 'rxjs';
 import {Contest} from 'src/app/models/contest';
 import {environment} from 'src/environments/environment';
-import {Content} from "../../models/content";
 
 @Injectable({
 	providedIn: 'root'
@@ -13,24 +11,24 @@ export class ContestService {
 
 	constructor(private httpClient: HttpClient) { }
 
-	public suggestContest(contest: Contest): Observable<any> {
-		return this.httpClient.post(`${environment.apiUrl}/contest/suggest`, contest);
+	public getContestsOfCity(cityId: number): Observable<Contest[]> {
+		return this.httpClient.get<Contest[]>(`${environment.apiUrl}/city/${cityId}/contests`);
 	}
 
-	public getContestOfCity(id: number): Observable<Contest[]> {
-		return this.httpClient.get<Contest[]>(`${environment.apiUrl}/city/${id}/contests`);
+	public getContestDetails(cityId: number, contestId: number): Observable<Contest> {
+		return this.httpClient.get<Contest>(`${environment.apiUrl}/city/${cityId}/contests/${contestId}`);
 	}
 
-	public getContestDetails(id: number): Observable<Contest> {
-		return this.httpClient.get<Contest>(`${environment.apiUrl}/contest/${id}`);
+	public addContest(contest: Contest): Observable<any> {
+		return this.httpClient.post(`${environment.apiUrl}/city/${contest.cityId}/contests`, contest);
 	}
 
-	public getProposedContents(id: number): Observable<Content[]> {
-		return this.httpClient.get<Content[]>(`${environment.apiUrl}/contest/${id}/contents`);
+	public deleteContest(cityId: number, contestId: number): Observable<any> {
+		return this.httpClient.delete(`${environment.apiUrl}/city/${cityId}/contests/${contestId}`);
 	}
 
-	public deleteContest(id: number): Observable<any> {
-		return this.httpClient.delete(`${environment.apiUrl}/contest/${id}`);
+	public proclaimWinner(cityId: number, contestId: number, userId: number): Observable<any> {
+		return this.httpClient.put(`${environment.apiUrl}/city/${cityId}/contests/${contestId}/proclaimWinner?userId=${userId}`, {})
 	}
 
 }

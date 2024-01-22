@@ -13,47 +13,31 @@ import {ToastrService} from "ngx-toastr";
   styleUrls: ['./point-detail.component.scss']
 })
 export class PointDetailComponent {
-	city?: City
-	point?: Point;
-	contents?: Content[];
+	point?: Point
 
 	constructor(private route: ActivatedRoute, private router: Router, public api: ApiService, private fb: FormBuilder, public toastr: ToastrService) {
 		this.route.params.subscribe(params => {
 			const cityId = params["id"];
 			const pointId = params["pointId"];
-			this.getCityDetail(cityId);
-			this.getPointDetail(pointId);
-			this.getContentsOfPoint(pointId);
+			this.getPointDetail(cityId, pointId);
 		})
 	}
 
-	getCityDetail(id: number) {
-		this.api.city.getCityById(id).subscribe((city) => {
-			this.city = city;
-		})
-	}
-
-	getPointDetail(id: number) {
-		this.api.point.getPointDetails(id).subscribe((point) => {
+	getPointDetail(cityId: number, pointId: number) {
+		this.api.point.getPointDetails(cityId, pointId).subscribe((point) => {
 			this.point = point;
 		})
 	}
 
-	getContentsOfPoint(id: number) {
-		this.api.point.getContentsOfPoint(id).subscribe((contents) => {
-			this.contents = contents;
-		})
-	}
-
-	removePoint() {
-		this.api.point.removePoint(this.point!.id!).subscribe({
+	deletePoint() {
+		this.api.point.deletePoint(this.point?.cityId!, this.point?.id!).subscribe({
 			next: (data) => {
 				this.toastr.success('', 'Point deleted successfully');
-				this.router.navigate(['city', this.city?.id]);
+				this.router.navigate(['city', this.point?.cityId!]);
 			},
 			error: (error) => {
 				this.toastr.error(error, 'Error while deleting point');
 			}
-		});;
+		});
 	}
 }

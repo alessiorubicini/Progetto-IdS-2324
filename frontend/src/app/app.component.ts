@@ -27,7 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
 			for (let participation of this.api.roles.getAllUserRoles()) {
 				if(participation.role.title === 'Curator' || participation.role.title == 'City Manager') {
 					this.connections.push(this.webSocketService
-						.watch(`/messages/city/${participation.city.id}`)
+						.watch(`/messages/city/${participation.cityId}`)
 						.subscribe((message: Message) => {
 							this.toastr.show(message.body, 'Message from server');
 						}));

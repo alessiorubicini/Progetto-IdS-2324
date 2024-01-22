@@ -12,19 +12,20 @@ export class PointService {
 
 	constructor(private httpClient: HttpClient) { }
 
+	public getPointsOfCity(cityId: number) : Observable<Point[]> {
+		return this.httpClient.get<Point[]>(`${environment.apiUrl}/city/${cityId}/points`);
+	}
+
+	public getPointDetails(cityId: number, pointId: number) : Observable<Point> {
+		return this.httpClient.get<Point>(`${environment.apiUrl}/city/${cityId}/points/${pointId}`);
+	}
+
 	public addPoint(point: Point) : Observable<any> {
-		return this.httpClient.post(`${environment.apiUrl}/point/`, point);
+		return this.httpClient.post(`${environment.apiUrl}/city/${point.cityId}/points`, point);
 	}
 
-	public getPointDetails(id: number) : Observable<Point> {
-		return this.httpClient.get<Point>(`${environment.apiUrl}/point/${id}`);
+	public deletePoint(cityId: number, pointId: number): Observable<any> {
+		return this.httpClient.delete(`${environment.apiUrl}/city/${cityId}/points/${pointId}`);
 	}
 
-	public removePoint(id: number): Observable<any> {
-		return this.httpClient.delete(`${environment.apiUrl}/point/${id}`);
-	}
-
-	public getContentsOfPoint(id: number): Observable<Content[]> {
-		return this.httpClient.get<Content[]>(`${environment.apiUrl}/point/${id}/contents`);
-	}
 }

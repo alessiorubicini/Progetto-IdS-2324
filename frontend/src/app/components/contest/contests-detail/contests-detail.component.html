@@ -7,15 +7,7 @@
 		<a [routerLink]="['../../']">Back to the city</a>
 	</ng-container>
 
-	<ng-container *ngIf="city && contest && author">
-
-		<nav aria-label="breadcrumb">
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
-				<li class="breadcrumb-item"><a [routerLink]="['/city', city.id]">{{ city.name }}</a></li>
-				<li class="breadcrumb-item active">{{ contest.title }}</li>
-			</ol>
-		</nav>
+	<ng-container *ngIf="contest && author">
 
 		<h2>{{ contest.title }}</h2>
 		<h6>Published on {{ contest.publicationDate }} by <a [routerLink]="['/user', author.id]">{{author.username}}</a></h6>
@@ -34,7 +26,7 @@
 		</div>
 
 
-		<div *ngIf="proposedContents" class="mt-4">
+		<div *ngIf="contents" class="mt-4">
 
 			<h6>Proposed contents:</h6>
 
@@ -56,10 +48,6 @@
 			</div>
 
 		</div>
-
-		<ng-container *ngIf="!proposedContents">
-			<p class="text-danger">Error while loading proposed contents for this contest.</p>
-		</ng-container>
 
 	</ng-container>
 

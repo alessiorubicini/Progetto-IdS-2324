@@ -11,13 +11,11 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class AreasListComponent {
 	city?: City
-	areas?: Point[]
 
 	constructor(private route: ActivatedRoute, public api: ApiService) {
 		this.route.params.subscribe(params => {
 			const id = params["id"];
 			this.getCityDetail(id);
-			this.getCityPoints(id)
 		})
 	}
 
@@ -27,9 +25,7 @@ export class AreasListComponent {
 		})
 	}
 
-	getCityPoints(id: number) : void {
-		this.api.city.getPointsOfCity(id).subscribe((points) => {
-			this.areas = points.filter(a => !a.latitude && !a.longitude);
-		})
+	get areas() : Point[] {
+		return this.city?.points!.filter(p => !p.latitude || !p.longitude)!
 	}
 }

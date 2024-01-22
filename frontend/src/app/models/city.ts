@@ -1,5 +1,6 @@
 import { Contest } from "./contest";
 import { Point } from "./point";
+import {Content} from "./content";
 
 export interface City {
 	id?: number;
@@ -10,4 +11,6 @@ export interface City {
 	longitude: number;
 	latitude: number;
 	istatCode: string;
+	contests?: Contest[]
+	points?: Point[]
 }

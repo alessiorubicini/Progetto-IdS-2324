@@ -20,7 +20,7 @@ export class RolesService {
 	}
 
 	public userRoleForCity(id: number) : Role | undefined {
-		return this.getAllUserRoles().find(r => r.city.id == id)?.role;
+		return this.getAllUserRoles().find(r => r.cityId == id)?.role;
 	}
 
 }

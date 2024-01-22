@@ -11,13 +11,11 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class PointsOfInterestComponent {
 	city?: City
-	points?: Point[]
 
 	constructor(private route: ActivatedRoute, private api: ApiService) {
 		this.route.params.subscribe(params => {
 			const cityId = params["id"];
 			this.getCityDetail(cityId);
-			this.getCityPoints(cityId);
 		})
 	}
 
@@ -27,18 +25,12 @@ export class PointsOfInterestComponent {
 		})
 	}
 
-	getCityPoints(id: number) : void {
-		this.api.city.getPointsOfCity(id).subscribe((points) => {
-			this.points = points;
-		})
-	}
-
 	get authenticated(): boolean {
 		return this.api.auth.authenticated;
 	}
 
 	get physicalPoints() : Point[] {
-		return this.points?.filter(p => p.latitude != undefined || p.longitude != undefined)!
+		return this.city?.points!.filter(p => p.latitude != undefined || p.longitude != undefined)!
 	}
 }
 

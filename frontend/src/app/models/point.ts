@@ -1,3 +1,5 @@
+import {Content} from "./content";
+
 export interface Point {
 	id?: number;
 	name: string;
@@ -7,6 +9,7 @@ export interface Point {
 	altitude?: number;
 	imageUrl: string;
 	cityId: number;
+	contents?: Content[]
 }
 
 

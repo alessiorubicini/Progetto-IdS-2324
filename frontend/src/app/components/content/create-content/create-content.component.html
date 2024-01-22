@@ -15,7 +15,7 @@
 			<a [routerLink]="['../../']">Back to the home</a>
 		</ng-container>
 
-		<ng-container *ngIf="city && point">
+		<ng-container *ngIf="city">
 
 			<!--<ng-container *ngIf="api.auth.userRoleForCity(city.id!)">
 				<div class="alert alert-warning" role="alert">
@@ -23,16 +23,9 @@
 				</div>
 			</ng-container>-->
 
-			<nav aria-label="breadcrumb">
-				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
-					<li class="breadcrumb-item"><a [routerLink]="['/city', city.id]">{{ city.name }}</a></li>
-					<li class="breadcrumb-item"><a [routerLink]="['../']">{{ point.name }}</a></li>
-					<li class="breadcrumb-item active">Create Content</li>
-				</ol>
-			</nav>
+			<button type="button" class="btn btn-outline-primary" [routerLink]="['../../']"><i class="bi bi-arrow-left"></i></button>
 
-			<h2>Create content for {{ point.name }}</h2>
+			<h2>Create content</h2>
 
 			<form [formGroup]="form">
 				<div class="form-group mb-4">
@@ -71,12 +64,12 @@
 
 				<div class="form-group mb-4">
 					<label class="form-label" for="contest">Do you want to join a contest in {{ city.name }}? </label>
-					<div class="d-flex align-items-center" *ngIf="!availableContests">
+					<div class="d-flex align-items-center" *ngIf="!city.contests">
 						<strong role="status">Loading contests...</strong>
 						<div class="spinner-border ms-auto" aria-hidden="true"></div>
 					</div>
-					<select class="form-select" id="contest" formControlName="contestId" *ngIf="availableContests">
-						<option *ngFor="let contest of availableContests" [value]="contest.id">{{ contest.title }} (closes on {{ contest.closingDate }})</option>
+					<select class="form-select" id="contest" formControlName="contestId" *ngIf="city!.contests">
+						<option *ngFor="let contest of city!.contests" [value]="contest.id">{{ contest.title }} (closes on {{ contest.closingDate }})</option>
 					</select>
 				</div>
 

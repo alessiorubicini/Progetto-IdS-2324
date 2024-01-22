@@ -37,7 +37,7 @@ export class CreateContestComponent {
 	createContest(): void {
 		if(this.form.valid) {
 			const contest: Contest = this.getContestFromForm();
-			this.api.contest.suggestContest(contest).subscribe({
+			this.api.contest.addContest(contest).subscribe({
 				next: (data) => {
 					this.toastr.success('', 'Contest created successfully');
 					this.router.navigate(['city', this.city?.id]);

@@ -15,4 +15,6 @@ export class UserService {
 	public getUserDetails(id: number): Observable<UserInfo> {
 		return this.httpClient.get<UserInfo>(`${environment.apiUrl}/users/${id}`);
 	}
+
+	//public addRole()
 }

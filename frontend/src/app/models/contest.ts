@@ -1,3 +1,5 @@
+import {Content} from "./content";
+
 export interface Contest {
 	id?: number;
 	title: string;
@@ -7,4 +9,5 @@ export interface Contest {
 	authorId: number;
 	cityId: number;
 	winnerId?: number;
+	contents?: Content[]
 }

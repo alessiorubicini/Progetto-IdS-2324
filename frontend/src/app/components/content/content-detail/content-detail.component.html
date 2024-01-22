@@ -6,18 +6,10 @@
 		<a [routerLink]="['../../']">Back to the point</a>
 	</ng-container>
 
-	<ng-container *ngIf="city && point && content">
-		<nav aria-label="breadcrumb">
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
-				<li class="breadcrumb-item"><a [routerLink]="['/city', city.id]">{{ city.name }}</a></li>
-				<li class="breadcrumb-item"><a [routerLink]="['../../']">{{ point.name }}</a></li>
-				<li class="breadcrumb-item active">{{ content.title }}</li>
-			</ol>
-		</nav>
+	<ng-container *ngIf="content">
 
 		<h2>{{ content.title }}</h2>
-		<h6>Publised by {{ content.publicationDate }} by <a [routerLink]="['/user', user?.id]">{{this.user?.username}}</a></h6>
+		<h6>Published by {{ content.publicationDate }} by <a [routerLink]="['/user', user?.id]">{{this.user?.username}}</a></h6>
 
 		<div class="row">
 			<div class="col-sm-6">
@@ -34,18 +26,10 @@
 			</div>
 			<div class="col-sm-6">
 				<!-- Assuming path is URL -->
-				<img class="content-image img-fluid" src="{{ content.mediaUrl }}">
+				<img class="content-image img-fluid" src="{{ content.mediaUrl }}" alt="Content Image">
 			</div>
 		</div>
 
-		<div class="row mt-3" *ngIf="point!.longitude != undefined && point!.latitude != undefined ">
-			<app-osm-map
-				[centerCoordinates]="[point!.longitude!, point!.latitude!]"
-				[zoomLevel]="19"
-				[items]="[this.point!]"
-				[isForCity]="false"
-			></app-osm-map>
-		</div>
 	</ng-container>
 
 

@@ -7,15 +7,9 @@
 		</div>
 	</ng-container>
 
-	<ng-container *ngIf="!contests">
-		<div class="spinner-border" role="status">
-			<span class="visually-hidden">Loading...</span>
-		</div>
-	</ng-container>
-
-	<ng-container *ngIf="city && contests">
+	<ng-container *ngIf="city">
 		<div class="row">
-			<div class="col-lg-4 mb-4" *ngFor="let contest of contests; let i = index">
+			<div class="col-lg-4 mb-4" *ngFor="let contest of city.contests; let i = index">
 
 				<div class="card">
 
@@ -26,7 +20,7 @@
 						<a [routerLink]="['/city', city.id, 'contests', contest.id]" class="card-link">View contest</a>
 					</div>
 				</div>
-				<div *ngIf="!city || contests.length == 0">
+				<div *ngIf="!city || city.contests">
 					<p>No areas available.</p>
 				</div>
 
