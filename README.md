@@ -1,7 +1,7 @@
 # Progetto IdS + Web e Mobile 23/24
 Progetto realizzato dagli studenti [Alessio Rubicini](https://github.com/alessiorubicini), [Maria Vittoria Forlani](https://github.com/Vittoria61) e [Simone Morello](https://github.com/DiamondBest) per gli esami di
-- Ingegneria del Software (prof. Polini e prof. Morichetta)
-- Applicazioni web, mobile e cloud (modulo web e mobile, prof. Bonura) 
+- Ingegneria del Software (prof. Polini e prof. Morichetta) [vedi [Progetto IDS.vpp](docs/Progetto%20IDS.vpp) e [backend](backend)]
+- Applicazioni web, mobile e cloud (modulo web e mobile, prof. Bonura) [vedi [frontend](frontend)]
 
 dei corsi di laurea in Informatica e Informatica per la Comunicazione Digitale dell'anno accademico 2023/24 presso l'Università degli Studi di Camerino.
 
@@ -14,8 +14,8 @@ Il progetto propone la creazione di una piattaforma per la valorizzazione e digi
 Il backend dell'applicativo è stato realizzato sfruttando il framework open-source **SpringBoot**, in particolar il modo il suo modulo web per lo sviluppo di API REST. Per quanto riguarda la persistenza dei dati, il servizio web fornito fa affidamento sulle **JPA (Java Persistence API)** per comunicare con il **database MySQL** sottostante.
 
 Il backend fa affidamento, tra le varie, sulle seguenti librerie:
-- [spring-boot-starter-web](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web): fornisce dipendenze per lo sviluppo di applicazioni web con Spring Boot
-- [spring-boot-starter-security](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security): fornisce dipendenze per l'integrazione di Spring Security in un'applicazione Spring Boot.
+- [spring-boot-starter-web](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web): dipendenze per lo sviluppo di applicazioni web con Spring Boot
+- [spring-boot-starter-security](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security): dipendenze per l'integrazione di Spring Security in un'applicazione Spring Boot.
 - [spring-boot-starter-data-jpa](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa): abilita l'integrazione di Spring Data JPA, che semplifica l'accesso e la gestione dei dati in un'applicazione attraverso Java Persistence API (JPA).
 - [jjwt](https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api): libreria per la gestione di JSON Web Token (JWT).
 - [mysql-connector-java](https://mvnrepository.com/artifact/mysql/mysql-connector-java): driver JDBC per l'interazione con database MySQL
