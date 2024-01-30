@@ -16,6 +16,15 @@ public class FavoriteId implements Serializable {
     @JoinColumn(name = "contentId")
     private Content content;
 
+    public FavoriteId() {
+
+    }
+
+    public FavoriteId(Integer userId, Content content){
+        this.userId = userId;
+        this.content = content;
+    }
+
     public Integer getUserId() {
         return userId;
     }

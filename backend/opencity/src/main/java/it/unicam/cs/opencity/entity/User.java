@@ -23,6 +23,9 @@ public class User {
     @OneToMany(mappedBy = "id.userId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Participation> participations;
 
+    @OneToMany(mappedBy = "id.userId", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Favorite> favorites;
+
     public User(String name, String surname, String username, String fiscalCode, String email, String password) {
         this.name = name;
         this.surname = surname;
@@ -30,6 +33,7 @@ public class User {
         this.fiscalCode = fiscalCode;
         this.email = email;
         this.password = password;
+        this.favorites = new ArrayList<>();
         this.participations = new ArrayList<>();
     }
 
@@ -99,24 +103,8 @@ public class User {
         this.participations.add(participation);
     }
 
-    public void addRole(Integer cityId, Role role)
-    {
-        ParticipationId participationId = new ParticipationId(this.id, cityId, role);
-
-        Participation participation = new Participation();
-        participation.setId(participationId);
-
-        participations.add(participation);
-    }
-
-    public void addFavorite(Content content){
-//        FavoriteId favoriteId = new FavoriteId();
-//        favoriteId.setContent(content);
-//        favoriteId.setUserId(this.id);
-//
-//        Favorite favorite = new Favorite();
-//        favorite.setId(favoriteId);
-//        favorites.add(content);
+    public void addFavorite(Favorite favorite){
+        this.favorites.add(favorite);
     }
 
 }

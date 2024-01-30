@@ -3,6 +3,7 @@ package it.unicam.cs.opencity.controller;
 
 import it.unicam.cs.opencity.entity.Content;
 import it.unicam.cs.opencity.service.ContentService;
+import it.unicam.cs.opencity.util.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +16,12 @@ import java.util.List;
 public class ContentController {
 
     private final ContentService contentService;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    public ContentController(ContentService contentService) {
+    public ContentController(ContentService contentService, JwtTokenProvider jwtTokenProvider) {
         this.contentService = contentService;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     @GetMapping("/city/{cityId}/points/{pointId}/contents")
@@ -47,22 +50,24 @@ public class ContentController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    // TODO: modificare rotta in "/city/{id}/points/{pointId}/contents/{contentId}/favorite"
-    @PostMapping("/{id}/favorite")
-    public ResponseEntity<Object> addFavorite(@RequestHeader MultiValueMap<String, String> headers, @PathVariable Integer id){
-    //        String token = headers.get("authorization").get(0).substring(7);
-    //        Integer idUser = Integer.parseInt(jwtTokenProvider.extractId(token));
-    //
-    //        FavoriteId favoriteId = new FavoriteId();
-    //        favoriteId.setUserId(idUser);
-    //        favoriteId.setContent(id);
-    //
-    //        Favorite favorite = new Favorite();
-    //        favorite.setId(favoriteId);
-    //        if(contentService.addFavorite(favorite))
-    //            return new ResponseEntity<>(favorite, HttpStatus.CREATED);
-    //        else
-    //            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        return ResponseEntity.ok("cicipiciapaciapa");
+    @PostMapping("/city/{cityId}/points/{pointId}/contents/{contentId}/favorite")
+    public ResponseEntity<Object> addFavorite(@RequestHeader MultiValueMap<String, String> headers, @PathVariable Integer cityId, @PathVariable Integer pointId, @PathVariable Integer contentId){
+        String token = headers.get("authorization").get(0).substring(7);
+        Integer idUser = Integer.parseInt(jwtTokenProvider.extractId(token));
+        if(contentService.addFavorite(idUser, cityId, pointId, contentId))
+            return ResponseEntity.ok("Favorite content added");
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/city/{cityId}/points/{pointId}/contents/{contentId}/favorite")
+    public ResponseEntity<Object> removeFavorite(@RequestHeader MultiValueMap<String, String> headers, @PathVariable Integer cityId, @PathVariable Integer pointId, @PathVariable Integer contentId){
+        String token = headers.get("authorization").get(0).substring(7);
+        Integer idUser = Integer.parseInt(jwtTokenProvider.extractId(token));
+
+        if(contentService.removeFavorite(idUser, cityId, pointId, contentId))
+            return ResponseEntity.ok("Favorite content removed");
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

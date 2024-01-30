@@ -3,14 +3,12 @@ package it.unicam.cs.opencity.service;
 import it.unicam.cs.opencity.entity.*;
 import it.unicam.cs.opencity.entity.publisher.AuthorizedContributorPublisher;
 import it.unicam.cs.opencity.entity.publisher.ContributorPublisher;
-import it.unicam.cs.opencity.repository.CityRepository;
-import it.unicam.cs.opencity.repository.ContentRepository;
-import it.unicam.cs.opencity.repository.FavoriteRepository;
-import it.unicam.cs.opencity.repository.ParticipationRepository;
+import it.unicam.cs.opencity.repository.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.Objects;
 import java.util.List;
 import java.util.Optional;
@@ -24,15 +22,17 @@ public class ContentService {
     private final ParticipationRepository participationRepository;
     private final ContributorPublisher contributorPublisher;
     private final AuthorizedContributorPublisher authorizedcontributorPublisher;
+    private final UserRepository userRepository;
 
     @Autowired
-    public ContentService(FavoriteRepository favoriteRepository, CityRepository cityRepository, ContentRepository contentRepository, ParticipationRepository participationRepository, ContributorPublisher contributorPublisher, AuthorizedContributorPublisher authorizedcontributorPublisher) {
+    public ContentService(FavoriteRepository favoriteRepository, CityRepository cityRepository, ContentRepository contentRepository, ParticipationRepository participationRepository, ContributorPublisher contributorPublisher, AuthorizedContributorPublisher authorizedcontributorPublisher, UserRepository userRepository) {
         this.favoriteRepository = favoriteRepository;
         this.cityRepository = cityRepository;
         this.contentRepository = contentRepository;
         this.participationRepository = participationRepository;
         this.contributorPublisher = contributorPublisher;
         this.authorizedcontributorPublisher = authorizedcontributorPublisher;
+        this.userRepository = userRepository;
     }
 
     public List<Content> getContentsOfPoint(Integer pointId, Integer cityId) {
@@ -75,14 +75,24 @@ public class ContentService {
         return true;
     }
 
-    public boolean addFavorite(Favorite favorite){
-        favoriteRepository.save(favorite);
+    private Favorite buildFavorite(Integer userId, Integer cityId, Integer pointId, Integer contentId){
+        Content content = this.cityRepository.findById(cityId).get().getPoint(pointId).getContent(contentId);
+        FavoriteId favoriteId = new FavoriteId(userId, content);
+        Favorite favorite = new Favorite();
+        favorite.setId(favoriteId);
+        return favorite;
+    }
+
+    public boolean addFavorite(Integer userId, Integer cityId, Integer pointId, Integer contentId){
+        Optional<User> user = this.userRepository.findById(userId);
+        user.get().addFavorite(this.buildFavorite(userId, cityId, pointId, contentId));
+        userRepository.save(user.get());
         return true;
     }
 
-    public boolean removeFavorite(Favorite favorite)
+    public boolean removeFavorite(Integer userId, Integer cityId, Integer pointId, Integer contentId)
     {
-        favoriteRepository.delete(favorite);
+        favoriteRepository.delete(buildFavorite(userId, cityId, pointId, contentId));
         return true;
     }
 
