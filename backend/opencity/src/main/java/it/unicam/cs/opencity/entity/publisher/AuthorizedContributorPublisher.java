@@ -8,6 +8,8 @@ import it.unicam.cs.opencity.repository.CityRepository;
 import it.unicam.cs.opencity.util.NotificationComponent;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class AuthorizedContributorPublisher extends ContentPublisher {
 
@@ -21,13 +23,14 @@ public class AuthorizedContributorPublisher extends ContentPublisher {
 
     @Override
     public void sendContent(Content content, Integer pointId, Integer cityId) {
-        content.setStatus(ContentStatus.Pending);
+
+        Optional<City> city = cityRepository.findById(cityId);
         if (cityRepository.findById(cityId).isPresent()) {
-            City city = cityRepository.findById(cityId).get();
-            Point point = city.getPoint(pointId);
-            point.addContent(content);
+            Point point = city.get().getPoint(pointId);
+            content.setStatus(ContentStatus.Published);
             point.setCityId(cityId);
-            cityRepository.save(city);
+            point.addContent(content);
+            cityRepository.save(city.get());
         }
     }
 
