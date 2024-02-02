@@ -27,18 +27,16 @@ public class ContestController {
         Contest contest = contestService.getContestDetails(contestId, cityId);
         if(contest != null) {
             return new ResponseEntity<>(contest, HttpStatus.OK);
-        } else {
+        } else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 
     @PostMapping("/city/{cityId}/contests")
     public ResponseEntity<Object> addContest(@RequestBody Contest contest, @PathVariable Integer cityId) {
         if (contestService.addContest(contest, cityId)) {
             return new ResponseEntity<>(contest, HttpStatus.OK);
-        } else {
+        } else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 
     @DeleteMapping("/city/{cityId}/contests/{contestId}")

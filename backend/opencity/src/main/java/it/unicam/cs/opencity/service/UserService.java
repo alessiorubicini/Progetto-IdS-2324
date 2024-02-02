@@ -22,14 +22,14 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
-    private final ParticipationRepository participationRepository;
     private final RoleRepository roleRepository;
+    private final RoleService roleService;
 
     @Autowired
-    public UserService(UserRepository userRepository, ParticipationRepository participationRepository, RoleRepository roleRepository) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, RoleService roleService) {
         this.userRepository = userRepository;
-        this.participationRepository = participationRepository;
         this.roleRepository = roleRepository;
+        this.roleService = roleService;
     }
 
     @Override
@@ -45,17 +45,23 @@ public class UserService implements UserDetailsService {
         return new UserDTO(user.getId(), user.getName(),user.getSurname(), user.getEmail(), user.getUsername(), user.getParticipations());
     }
 
-    public void addRoleToUser(Integer roleId, Integer userId, Integer cityId){
+    public boolean addRoleToUser(Integer roleId, Integer userId, Integer cityId){
 
-        ParticipationId participationId = new ParticipationId();
-        participationId.setUserId(userId);
-        participationId.setCityId(cityId);
-        participationId.setRole(roleRepository.getReferenceById(roleId));
+        Optional<Role> role = roleService.getRoleDetails(roleId);
+        if(role.isEmpty())
+            return false;
 
+        ParticipationId participationId = new ParticipationId(userId, cityId, role.get());
         Participation participation = new Participation();
         participation.setId(participationId);
 
-        this.participationRepository.save(participation);
+        Optional<User> user = this.getUserDetails(userId);
+        if(user.isEmpty())
+            return false;
+        user.get().addParticipation(participation);
+        this.userRepository.save(user.get());
+
+        return true;
     }
 
     public void addUser(User user) {

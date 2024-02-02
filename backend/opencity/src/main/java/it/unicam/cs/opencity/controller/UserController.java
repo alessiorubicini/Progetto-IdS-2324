@@ -42,15 +42,10 @@ public class UserController {
         String token = headers.get("authorization").get(0).substring(7);
         Integer idUser = Integer.parseInt(jwtTokenProvider.extractId(token));
 
-        if(roleId >= 7 || roleId < 0)
-            return ResponseEntity.status(404).body("Role not found");
-
-        if(userService.getUserDetails(idUser).isPresent()) {
-            this.userService.addRoleToUser(roleId, idUser, cityId);
+        if(userService.addRoleToUser(roleId, idUser, cityId))
             return ResponseEntity.ok("Role successfully added");
-        } else {
-            return ResponseEntity.status(404).body("User not found");
-        }
+        else
+            return ResponseEntity.status(404).body("Role not added");
     }
 
     @DeleteMapping("/{id}")

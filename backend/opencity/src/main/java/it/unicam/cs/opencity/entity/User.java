@@ -20,7 +20,7 @@ public class User {
     private String email;
     private String password;
 
-    @OneToMany(mappedBy = "id.userId")
+    @OneToMany(mappedBy = "id.userId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Participation> participations;
 
     public User(String name, String surname, String username, String fiscalCode, String email, String password) {
@@ -95,12 +95,13 @@ public class User {
         this.participations = participations;
     }
 
+    public void addParticipation(Participation participation) {
+        this.participations.add(participation);
+    }
+
     public void addRole(Integer cityId, Role role)
     {
-        ParticipationId participationId = new ParticipationId();
-        participationId.setUserId(this.id);
-        participationId.setCityId(cityId);
-        participationId.setRole(role);
+        ParticipationId participationId = new ParticipationId(this.id, cityId, role);
 
         Participation participation = new Participation();
         participation.setId(participationId);

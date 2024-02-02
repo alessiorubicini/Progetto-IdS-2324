@@ -19,6 +19,15 @@ public class ParticipationId implements Serializable {
     @JoinColumn(name = "roleId")
     private Role role;
 
+    public ParticipationId() {
+    }
+
+    public ParticipationId(Integer userId, Integer cityId, Role role) {
+        this.userId = userId;
+        this.cityId = cityId;
+        this.role = role;
+    }
+
     public Integer getUserId() {
         return userId;
     }

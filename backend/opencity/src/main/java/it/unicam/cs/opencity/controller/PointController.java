@@ -1,15 +1,12 @@
 package it.unicam.cs.opencity.controller;
 
-import it.unicam.cs.opencity.entity.Content;
 import  it.unicam.cs.opencity.entity.Point;
-import it.unicam.cs.opencity.service.ContentService;
 import it.unicam.cs.opencity.service.PointService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 public class PointController {
