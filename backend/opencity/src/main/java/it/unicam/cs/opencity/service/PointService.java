@@ -24,13 +24,14 @@ public class PointService {
     }
 
     public List<Point> getPointsOfCity(Integer cityId) {
-        return this.cityRepository.findById(cityId).get().getPoints();
+        return cityRepository.findById(cityId).map(City::getPoints).orElse(null);
     }
 
     public Point getPointDetails(Integer cityId, Integer pointId) {
-        City city = cityRepository.findById(cityId).get();
-        for(Point point : city.getPoints()) {
-            if(point.getId().equals(pointId)) return point;
+        Optional<City> city = cityRepository.findById(cityId);
+        if(city.isPresent())
+            for(Point point : city.get().getPoints()) {
+                if(point.getId().equals(pointId)) return point;
         }
         return null;
     }
@@ -53,15 +54,6 @@ public class PointService {
     public boolean deletePoint(Integer pointId, Integer cityId) {
         pointRepository.deleteById(pointId);
         return true;
-        /*Optional<City> optionalCity = cityRepository.findById(cityId);
-        if(optionalCity.isPresent()) {
-            City city = optionalCity.get();
-            city.removePoint(pointId);
-            cityRepository.save(city);
-            return true;
-        } else {
-            return false;
-        }*/
     }
 
 }

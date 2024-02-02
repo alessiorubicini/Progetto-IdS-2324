@@ -40,9 +40,9 @@ public class ContentService {
         if (city.isPresent()) {
             Point point = city.get().getPoint(pointId);
             return point.getContents();
-        } else {
-            return null;
         }
+        else
+            return null;
     }
 
     public Content getContentDetails(Integer contentId, Integer pointId, Integer cityId) {
@@ -50,9 +50,9 @@ public class ContentService {
         if (city.isPresent()) {
             Point point = city.get().getPoint(pointId);
             return point.getContent(contentId);
-        } else {
-            return null;
         }
+        else
+            return null;
     }
 
     @Transactional
@@ -73,15 +73,6 @@ public class ContentService {
     public boolean deleteContent(Integer contentId, Integer pointId, Integer cityId) {
         this.contentRepository.deleteById(contentId);
         return true;
-        /*if (cityRepository.findById(cityId).isPresent()) {
-            City city = cityRepository.findById(cityId).get();
-            Point point = city.getPoint(pointId);
-            point.removeContent(contentId);
-            cityRepository.save(city);
-            return true;
-        } else {
-            return false;
-        }*/
     }
 
     public boolean addFavorite(Favorite favorite){

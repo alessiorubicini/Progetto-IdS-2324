@@ -9,6 +9,5 @@ import java.util.List;
 
 @Repository
 public interface ParticipationRepository extends JpaRepository<Participation, ParticipationId> {
-    List<Participation> findByIdUserId(Integer id);
     List<Participation> findByIdUserIdAndIdCityId(Integer userId, Integer cityId);
 }

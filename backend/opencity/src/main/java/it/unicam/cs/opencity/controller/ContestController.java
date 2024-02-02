@@ -50,8 +50,8 @@ public class ContestController {
     }
 
     @PutMapping("/city/{cityId}/contests/{contestId}/proclaimWinner")
-    public ResponseEntity<Object> proclaimWinner(@PathVariable Integer cityId, @RequestParam Integer userId){
-        if(contestService.proclaimWinner(cityId, userId))
+    public ResponseEntity<Object> proclaimWinner(@PathVariable Integer cityId, @PathVariable Integer contestId, @RequestParam Integer userId){
+        if(contestService.proclaimWinner(cityId, contestId, userId))
             return new ResponseEntity<>(HttpStatus.OK);
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -26,7 +26,7 @@ public class ContributorPublisher extends ContentPublisher{
     @Override
     public void sendContent(Content content, Integer pointId, Integer cityId) {
         Optional<City> city = cityRepository.findById(cityId);
-        if (cityRepository.findById(cityId).isPresent()) {
+        if (city.isPresent()) {
             Point point = city.get().getPoint(pointId);
             content.setStatus(ContentStatus.Pending);
             point.setCityId(cityId);

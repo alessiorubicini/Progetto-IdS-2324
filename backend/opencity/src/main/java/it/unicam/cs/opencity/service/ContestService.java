@@ -13,15 +13,15 @@ import java.util.Optional;
 @Service
 public class ContestService {
 
-    private final ContestRepository contestRepository;
     private final CityRepository cityRepository;
     private final UserService userService;
+    private final ContestRepository contestRepository;
 
     @Autowired
-    public ContestService(ContestRepository contestRepository, CityRepository cityRepository, UserService userService) {
-        this.contestRepository = contestRepository;
+    public ContestService(CityRepository cityRepository, UserService userService, ContestRepository contestRepository) {
         this.cityRepository = cityRepository;
         this.userService = userService;
+        this.contestRepository = contestRepository;
     }
 
     public List<Contest> getContestsOfCity(Integer cityId) {
@@ -41,17 +41,17 @@ public class ContestService {
             contest.setCityId(cityId);
             cityRepository.save(city.get());
             return true;
-        } else {
-            return false;
         }
+        else
+            return false;
     }
 
-    public boolean proclaimWinner(Integer contestId, Integer userId) {
-        Contest contest = contestRepository.findById(contestId).orElse(null);
+    public boolean proclaimWinner(Integer cityId, Integer contestId, Integer userId) {
+        City city = cityRepository.findById(cityId).get();
         User user = userService.getUserDetails(userId).orElse(null);
-        if(contest != null && user != null){
-            contest.setWinnerId(user.getId());
-            contestRepository.save(contest);
+        if(user != null){
+            city.getContest(contestId).setWinnerId(user.getId());
+            cityRepository.save(city);
             return true;
         }
         return false;
@@ -60,14 +60,6 @@ public class ContestService {
     public boolean deleteContest(Integer contestId, Integer cityId) {
         contestRepository.deleteById(contestId);
         return true;
-        /*if (cityRepository.findById(cityId).isPresent()) {
-            City city = cityRepository.findById(cityId).get();
-            city.removeContest(contestId);
-            cityRepository.save(city);
-            return true;
-        } else {
-            return false;
-        }*/
     }
 
 }

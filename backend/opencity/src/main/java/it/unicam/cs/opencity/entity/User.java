@@ -23,18 +23,6 @@ public class User {
     @OneToMany(mappedBy = "id.userId")
     private List<Participation> participations;
 
-//    @OneToMany(mappedBy = "id.userId")
-//    private ArrayList<Favorite> favorites;
-
-//    @ManyToMany
-//    @JoinTable(
-//            name = "favorite",
-//            joinColumns = @JoinColumn(name = "userId"),
-//            inverseJoinColumns = @JoinColumn(name = "contentId")
-//    )
-//    private ArrayList<Content> favorites;
-
-
     public User(String name, String surname, String username, String fiscalCode, String email, String password) {
         this.name = name;
         this.surname = surname;
@@ -43,7 +31,6 @@ public class User {
         this.email = email;
         this.password = password;
         this.participations = new ArrayList<>();
-//        this.favorites = new ArrayList<>();
     }
 
     public User() { }
