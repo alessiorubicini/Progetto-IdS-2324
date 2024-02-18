@@ -37,7 +37,7 @@ public class ContributorPublisher extends ContentPublisher{
 
     @Override
     public void notifyResponsible() {
-        String notificationMessage = "New publication: maragnao";
+        String notificationMessage = "New publication";
         String destination = "/send-messages/city/" + cityId;
         notificationComponent.sendNotification(destination, notificationMessage);
     }

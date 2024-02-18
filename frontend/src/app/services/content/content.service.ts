@@ -21,7 +21,7 @@ export class ContentService {
 	}
 
 	public addContent(content: Content, cityId: number): Observable<any> {
-		return this.httpClient.post(`${environment.apiUrl}/city/${cityId}/points/${content.pointId}/contents/`, content);
+		return this.httpClient.post(`${environment.apiUrl}/city/${cityId}/points/${content.pointId}/contents`, content);
 	}
 
 	public deleteContent(cityId: number, pointId: number, contentId: number): Observable<any> {
