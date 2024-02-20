@@ -49,7 +49,7 @@ public class AuthenticationController {
     public ResponseEntity<Object> signup(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.addUser(user);
-        return ResponseEntity.ok("User added");
+        return ResponseEntity.ok().build();
     }
 
     // Utility method to build the necessary http headers for bearer authorization

@@ -4,6 +4,7 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/form
 import {AuthService} from '../../../services/auth/auth.service';
 import {User} from '../../../models/user';
 import {ToastrService} from "ngx-toastr";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
 	selector: 'app-signup',
@@ -57,11 +58,15 @@ export class SignupComponent {
 		this.authService.signup(user)
 			.subscribe({
 				next: (result) => {
-					this.router.navigate(['/login']);
+					console.log('Signup successful:', result);
 				},
-				error: (error) => {
-					this.toastrService.error(error, "Signup failed");
+				error: (error: HttpErrorResponse) => {
 					console.error('Signup failed:', error);
+					alert(`Signup failed: ${error.error}`);
+				},
+				complete: () => {
+					console.log('Signup completed');
+					this.router.navigate(['/login']);
 				}
 			});
 	}

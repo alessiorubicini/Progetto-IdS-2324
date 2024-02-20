@@ -20,8 +20,8 @@
 						<a [routerLink]="['/city', city.id, 'contests', contest.id]" class="card-link">View contest</a>
 					</div>
 				</div>
-				<div *ngIf="!city || city.contests">
-					<p>No areas available.</p>
+				<div *ngIf="city.contests?.length == 0">
+					<p>No contests available.</p>
 				</div>
 
 			</div>

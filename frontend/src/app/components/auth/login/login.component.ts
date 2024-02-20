@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
 import {AuthService} from '../../../services/auth/auth.service';
+import {ToastrService} from "ngx-toastr";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
 	selector: 'app-login',
@@ -29,14 +31,14 @@ export class LoginComponent {
 				.subscribe({
 					next: (result) => {
 						console.log('Login successful:', result);
-						// Redirect to home
 						this.router.navigate(['/home']);
 					},
-					error: (error) => {
+					error: (error: HttpErrorResponse) => {
 						console.error('Login failed:', error);
+						alert(`Login Error: ${error.error}`)
 					},
 					complete: () => {
-						console.error('Login completed');
+						console.log('Login completed');
 					}
 				});
 
