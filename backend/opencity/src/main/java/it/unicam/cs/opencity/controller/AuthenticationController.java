@@ -48,8 +48,11 @@ public class AuthenticationController {
     @PostMapping("/signup")
     public ResponseEntity<Object> signup(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userService.addUser(user);
-        return ResponseEntity.ok().build();
+        if(userService.addUser(user))
+            return ResponseEntity.ok("User added");
+        else
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials.");
+
     }
 
     // Utility method to build the necessary http headers for bearer authorization
