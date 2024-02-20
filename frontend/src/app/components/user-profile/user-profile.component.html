@@ -23,7 +23,9 @@
 			<div class="col-sm-4" *ngIf="authenticated && isUserProfile">
 				<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
 					<button class="btn btn-outline-primary btn-lg " type="button">Edit your profile</button>
-					<button class="btn btn-outline-danger btn-lg" type="button">Delete your account</button>
+
+					<button class="btn btn-outline-danger btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal3" type="button">Delete your account</button>
+
 				</div>
 			</div>
 		</div>
