@@ -1,26 +1,27 @@
 <div class="container mt-5">
 	<ng-container *ngIf="!content">
 		<div class="alert alert-danger" role="alert">
-			Error 404: that content does not exist.
+			Errore 404: questo contenuto non esiste!
 		</div>
-		<a [routerLink]="['../../']">Back to the point</a>
+		<a [routerLink]="['../../']">Torna al punto</a>
 	</ng-container>
 
 	<ng-container *ngIf="content">
 
 		<h2>{{ content.title }}</h2>
-		<h6>Published by {{ content.publicationDate }} by <a [routerLink]="['/user', user?.id]">{{this.user?.username}}</a></h6>
+		<h6>Pubblicato il {{ content.publicationDate }} da <a [routerLink]="['/user', user?.id]">{{this.user?.username}}</a></h6>
 
 		<div class="row">
 			<div class="col-sm-6">
 				<p>{{ content.description }}</p>
 
-				
-					<button type="button" class="btn btn-outline-primary" (click)="addAsFavorite()">Add as favorite <i class="bi bi-bookmark-heart"></i></button>
-					<button type="button" class="btn btn-outline-danger mx-2">Report <i class="bi bi-exclamation-octagon-fill"></i></button>
-					<ng-container *ngIf="api.auth.authenticated">
+				<div class="btn-group" role="group" aria-label="Basic example">
 
-						<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal1">Delete <i class="bi bi-trash"></i></button>
+
+
+					<ng-container *ngIf="api.auth.authenticated">
+						<button type="button" class="btn btn-outline-primary" (click)="addAsFavorite()">Aggiungi Preferito <i class="bi bi-bookmark-heart"></i></button>
+						<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal1">Elimina <i class="bi bi-trash"></i></button>
 
 						<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div class="modal-dialog">
@@ -40,9 +41,11 @@
 
 					</ng-container>
 
+					<button type="button" class="btn btn-outline-danger">Segnala <i class="bi bi-exclamation-octagon-fill"></i></button>
+				</div>
 			</div>
+
 			<div class="col-sm-6">
-				<!-- Assuming path is URL -->
 				<img class="content-image img-fluid" src="{{ content.mediaUrl }}" alt="Content Image">
 			</div>
 		</div>

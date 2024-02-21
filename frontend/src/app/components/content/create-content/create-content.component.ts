@@ -5,10 +5,9 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ApiService} from "../../../services/facades/api/api.service";
 import {Content} from "../../../models/content";
 import {ContentStatus} from "../../../models/contentstatus";
-import {Contest} from "../../../models/contest";
-import {Point} from "../../../models/point";
 import {ToastrService} from "ngx-toastr";
-import {catchError, tap} from "rxjs";
+import {Point} from "../../../models/point";
+import {point} from "leaflet";
 
 @Component({
 	selector: 'app-create-content',
@@ -17,19 +16,18 @@ import {catchError, tap} from "rxjs";
 })
 export class CreateContentComponent {
 	city?: City;
-	pointId?: number;
+	point?: Point;
 	form: FormGroup;
 
 	constructor(private route: ActivatedRoute, private router: Router, public api: ApiService, private fb: FormBuilder, public toastr: ToastrService) {
 		this.route.params.subscribe(params => {
 			const id = params["id"];
-			const pointId = params["pointId"];
-			this.pointId = pointId;
 			this.getCityDetail(id);
+			this.getPointDetail(id, params["pointId"]);
 		})
 		this.form = fb.group({
-			title: new FormControl('', [Validators.required]),
-			description: new FormControl('', [Validators.required]),
+			title: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+			description: new FormControl('', [Validators.required, Validators.maxLength(300)]),
 			mediaUrl: new FormControl('', [Validators.required]),
 			contestId: new FormControl('')
 		});
@@ -38,10 +36,10 @@ export class CreateContentComponent {
 	createContent(): void {
 		if (this.form.valid) {
 			const content: Content = this.getContentFromForm();
-			this.api.content.addContent(content, this.city?.id!).subscribe({
+			this.api.content.addContent(content, this.point!.cityId!).subscribe({
 				next: (data) => {
 					this.toastr.success('', 'Content created successfully');
-					this.router.navigate(['city', this.city?.id, 'points', this.pointId!]);
+					this.router.navigate(['city', this.point?.cityId, 'points', this.point?.id]);
 				},
 				error: (error) => {
 					console.error('Error:', error);
@@ -53,14 +51,14 @@ export class CreateContentComponent {
 	}
 
 	getContentFromForm(): Content {
-		if (this.form.valid && this.city && this.pointId) {
+		if (this.form.valid && this.point) {
 			return {
 				title: this.form.get('title')?.value,
 				description: this.form.get('description')?.value,
 				publicationDate: new Date(),
 				status: ContentStatus.DRAFT,
 				authorId: this.api.auth.getUserInfo()?.id!,
-				pointId: this.pointId!,
+				pointId: this.point.id!,
 				mediaUrl: this.form.get('mediaUrl')?.value,
 				contestId: this.form.get('contestId')?.value
 			};
@@ -69,9 +67,15 @@ export class CreateContentComponent {
 		}
 	}
 
-	private getCityDetail(id: number): void {
-		this.api.city.getCityById(id).subscribe((city) => {
+	private getCityDetail(cityId: number) : void {
+		this.api.city.getCityById(cityId).subscribe((city) => {
 			this.city = city;
+		})
+	}
+
+	private getPointDetail(cityId: number, pointId: number): void {
+		this.api.point.getPointDetails(cityId, pointId).subscribe((point) => {
+			this.point = point;
 		})
 	}
 

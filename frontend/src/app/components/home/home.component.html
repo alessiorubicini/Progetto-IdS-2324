@@ -1,17 +1,17 @@
 <div class="container">
 	<div class="text-center py-5">
 		<h2>OpenCity</h2>
-		<p class="lead">Explore, contribute, and discover the richness of your community. Together, let's make our cities vibrant and connected!</p>
+		<p class="lead">Esplora, contribuisci e scopri la ricchezza della tua comunità. Insieme, rendiamo le nostre città vivaci e connesse!</p>
 
 		<ng-container *ngIf="!cities">
 			<div class="spinner-border" role="status">
-				<span class="visually-hidden">Loading...</span>
+				<span class="visually-hidden">Caricamento in corso...</span>
 			</div>
 		</ng-container>
 
 		<ng-container *ngIf="cities">
 			<div class="input-group mb-3">
-				<input type="text" class="form-control" placeholder="Search city" [(ngModel)]="searchQuery">
+				<input type="text" class="form-control" placeholder="Cerca città..." [(ngModel)]="searchQuery">
 			</div>
 
 			<ul class="list-group" *ngIf="searchQuery">

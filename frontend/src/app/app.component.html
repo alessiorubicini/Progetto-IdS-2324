@@ -18,14 +18,14 @@
 				</li>
 
 				<li class="nav-item">
-					<a class="nav-link" href="#" [routerLink]="['/contacts']" [routerLinkActive]="['active']">Contacts</a>
+					<a class="nav-link" href="#" [routerLink]="['/contacts']" [routerLinkActive]="['active']">Contatti</a>
 				</li>
 
 			</ul>
 
 			<div class="d-flex" *ngIf="!this.authenticated">
-				<button class="btn btn-primary me-2" [routerLink]="['/login']">Login <i class="bi bi-box-arrow-in-right"></i></button>
-				<button class="btn btn-outline-primary" [routerLink]="['/signup']">Signup <i class="bi bi-person-fill-add"></i></button>
+				<button class="btn btn-outline-primary me-2" [routerLink]="['/login']">Accedi <i class="bi bi-box-arrow-in-right"></i></button>
+				<button class="btn btn-outline-primary" [routerLink]="['/signup']">Registrati <i class="bi bi-person-fill-add"></i></button>
 			</div>
 
 			<div *ngIf="authenticated">
@@ -57,7 +57,7 @@
 
 		<ul class="nav col-md-4 justify-content-end">
 			<li class="nav-item"><a [routerLink]="['/home']" class="nav-link px-2 text-muted">Home</a></li>
-			<li class="nav-item"><a [routerLink]="['/contacts']" class="nav-link px-2 text-muted">Contacts</a></li>
+			<li class="nav-item"><a [routerLink]="['/contacts']" class="nav-link px-2 text-muted">Contatti</a></li>
 		</ul>
 	</footer>
 </div>

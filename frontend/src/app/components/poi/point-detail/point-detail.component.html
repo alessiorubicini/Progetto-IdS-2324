@@ -2,14 +2,7 @@
 
 	<ng-container *ngIf="!point">
 		<div class="alert alert-danger" role="alert">
-			Error 404: that point does not exist.
-		</div>
-		<a [routerLink]="['../../']">Back to the city</a>
-	</ng-container>
-
-	<ng-container *ngIf="!point">
-		<div class="alert alert-danger" role="alert">
-			Error 404: that point does not exist.
+			Errore 404: questo punto non esiste!
 		</div>
 		<a [routerLink]="['../../']">Back to the city</a>
 	</ng-container>
@@ -21,10 +14,12 @@
 		<div class="row mt-3">
 			<div class="col-sm-6">
 				<p>{{ point.description }}</p>
-					<button type="button" class="btn btn-outline-danger">Report <i class="bi bi-exclamation-octagon-fill"></i></button>
+
+				<div class="btn-group" role="group" aria-label="Basic example">
+
 
 					<ng-container *ngIf="api.auth.authenticated">
-						<button type="button" class="btn btn-outline-danger mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete <i class="bi bi-trash"></i></button>
+						<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Elimina <i class="bi bi-trash"></i></button>
 
 						<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div class="modal-dialog">
@@ -33,16 +28,19 @@
 								<h1 class="modal-title fs-5" id="exampleModalLabel">Attention!</h1>
 								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 								</div>
-								<div class="modal-body"> Are you sure you want to delete this point? </div>
+								<div class="modal-body">Sicuro di voler eliminare questo punto? </div>
 								<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-								<button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deletePoint()">Delete point</button>
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+								<button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deletePoint()">Confemra</button>
 								</div>
 							</div>
 							</div>
 						</div>
+
 					</ng-container>
 
+				<button type="button" class="btn btn-outline-danger">Segnala <i class="bi bi-exclamation-octagon-fill"></i></button>
+				</div>
 			</div>
 			<div class="col-sm-6 ">
 				<img class="point-image img-fluid" src="{{ point.imageUrl }}">
@@ -50,7 +48,14 @@
 		</div>
 
 		<div class="row">
-			<h3>Contents</h3>
+			<h3>Contenuti</h3>
+
+			<ng-container *ngIf="api.auth.authenticated">
+				<div class="col-12">
+					<button class="btn btn-outline-primary" [routerLink]="['create-content']">Proponi Contenuto <i class="bi bi-plus"></i></button>
+				</div>
+			</ng-container>
+
 			<div class="col-12" *ngIf="point.contents">
 				<div class="row mt-3">
 					<div class="row">
@@ -61,15 +66,14 @@
 								<div class="card-body">
 									<h5 class="card-title">{{ content.title }}</h5>
 									<p class="card-truncate-text">{{ content.description }}</p>
-									<p class="card-text"><small class="text-body-secondary">Published on {{ content.publicationDate }}</small></p>
-									<a [routerLink]="['contents', content.id]" class="card-link">Learn more</a>
+									<p class="card-text"><small class="text-body-secondary">Pubblicato il {{ content.publicationDate }}</small></p>
+									<a [routerLink]="['contents', content.id]" class="card-link">Dettagli</a>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<button class="btn btn-primary" [routerLink]="['create-content']"><i class="bi bi-plus"></i> Add Content</button>
 		</div>
 
 		<div class="row">

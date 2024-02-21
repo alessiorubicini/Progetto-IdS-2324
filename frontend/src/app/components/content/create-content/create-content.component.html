@@ -2,7 +2,7 @@
 
 	<ng-container *ngIf="!api.auth.authenticated">
 		<div class="alert alert-warning" role="alert">
-			Error 401: you are not authenticated.
+			Errore 401: non sei autenticato!
 		</div>
 	</ng-container>
 
@@ -10,9 +10,9 @@
 
 		<ng-container *ngIf="!city">
 			<div class="alert alert-danger" role="alert">
-				Error 404: that city does not exist.
+				Errore 404: questa città non esiste!
 			</div>
-			<a [routerLink]="['../../']">Back to the home</a>
+			<a [routerLink]="['../../']">Torna alla home</a>
 		</ng-container>
 
 		<ng-container *ngIf="city">
@@ -23,31 +23,33 @@
 				</div>
 			</ng-container>-->
 
-			<h2>Create content for</h2>
+			<h2>Proponi contenuto per {{ point!.name }}</h2>
 
 			<form [formGroup]="form">
 				<div class="form-group mb-4">
-					<label class="form-label" for="title">Title </label>
-					<input type="text" class="form-control" id="title" formControlName="title" placeholder="A title for the content" required>
+					<label class="form-label" for="title">Titolo </label>
+					<input type="text" class="form-control" id="title" formControlName="title" placeholder="Un titolo esplicativo del contenuto." required>
+					<div class="form-text" id="titleHelp">Massimo 50 caratteri.</div>
 				</div>
 
 				<div class="form-group mb-4">
 					<label class="form-label" for="description">Description </label>
-					<textarea class="form-control" id="description" formControlName="description" rows="5" placeholder="A detailed description of the content" required></textarea>
+					<textarea class="form-control" id="description" formControlName="description" rows="5" placeholder="Una breve descrizione del contenuto." aria-describedby="descriptionHelp" required></textarea>
+					<div class="form-text" id="descriptionHelp">Massimo 300 caratteri.</div>
 				</div>
 
 				<div class="form-group mb-3">
-					<label class="form-label" for="media-url">Media URL </label>
+					<label class="form-label" for="media-url">URL dell'immagine </label>
 					<div class="input-group mb-3" id="image-url">
 						<span class="input-group-text"><i class="bi bi-link-45deg"></i></span>
-						<input type="text" class="form-control" id="media-url" formControlName="mediaUrl" placeholder= "URL of the media" required>
+						<input type="text" class="form-control" id="media-url" formControlName="mediaUrl" placeholder= "Link a un'immagine rappresentativa del contenuto." required>
 					</div>
 
 					<div class="accordion" id="previewAccordion">
 						<div class="accordion-item">
 							<h2 class="accordion-header">
 								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-									<i class="bi bi-card-image"></i>&nbsp;Media Preview
+									<i class="bi bi-card-image"></i>&nbsp;Anteprima immagine
 								</button>
 							</h2>
 							<div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
@@ -61,9 +63,9 @@
 				</div>
 
 				<div class="form-group mb-4">
-					<label class="form-label" for="contest">Do you want to join a contest in {{ city.name }}? </label>
+					<label class="form-label" for="contest">Vuoi candidare il contenuto per un contest di {{ city.name }}? </label>
 					<div class="d-flex align-items-center" *ngIf="!city.contests">
-						<strong role="status">Loading contests...</strong>
+						<strong role="status">Caricamento contest...</strong>
 						<div class="spinner-border ms-auto" aria-hidden="true"></div>
 					</div>
 					<select class="form-select" id="contest" formControlName="contestId" *ngIf="city!.contests">
@@ -72,8 +74,8 @@
 				</div>
 
 				<div class="btn-group" role="group">
-					<button type="button" class="btn btn-outline-danger" [routerLink]="['../']">Cancel</button>
-					<button type="button" class="btn btn-primary" (click)="createContent()" [disabled]="form.invalid">Create content</button>
+					<button type="button" class="btn btn-outline-danger" [routerLink]="['../']">Annulla</button>
+					<button type="button" class="btn btn-primary" (click)="createContent()" [disabled]="form.invalid">Proponi Contenuto</button>
 				</div>
 			</form>
 

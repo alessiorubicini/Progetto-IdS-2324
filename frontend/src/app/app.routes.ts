@@ -12,6 +12,7 @@ import {CreateAreaComponent} from "./components/area/create-area/create-area.com
 import { CreateContestComponent } from "./components/contest/create-contest/create-contest.component"
 import { ContestsDetailComponent } from "./components/contest/contests-detail/contests-detail.component"
 import {UserProfileComponent} from "./components/user-profile/user-profile.component";
+import {PageNotFoundComponent} from "./components/page-not-found/page-not-found.component";
 
 export const routes: Routes = [
 	{path: "", redirectTo: "home", pathMatch: "full"},
@@ -27,5 +28,6 @@ export const routes: Routes = [
 	{path: "city/:id/points/:pointId/contents/:contentId", component: ContentDetailComponent},
 	{path: "city/:id/points/:pointId", component: PointDetailComponent},
 	{path: "city/:id/create-contest", component: CreateContestComponent},
-	{path: "city/:id/contests/:contestId", component: ContestsDetailComponent}
+	{path: "city/:id/contests/:contestId", component: ContestsDetailComponent},
+	{path: "**", pathMatch: "full", component: PageNotFoundComponent}
 ]

@@ -2,7 +2,7 @@
 <div class="container mt-5">
 	<div *ngIf="!user">
 		<div class="alert alert-danger" role="alert">
-			Error 404: that user does not exist.
+			Errore 404: questo utente non esiste!
 		</div>
 	</div>
 
@@ -22,9 +22,9 @@
 			</div>
 			<div class="col-sm-4" *ngIf="authenticated && isUserProfile">
 				<div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-					<button class="btn btn-outline-primary btn-lg " type="button">Edit your profile</button>
+					<button class="btn btn-outline-primary btn-lg " type="button">Modifica Profilo</button>
 
-					<button class="btn btn-outline-danger btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal3" type="button">Delete your account</button>
+					<button class="btn btn-outline-danger btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal3" type="button">Elimina Account</button>
 
 				</div>
 			</div>
@@ -32,17 +32,17 @@
 
 		<ul class="nav nav-tabs mt-4 mt">
 			<li class="nav-item">
-				<a class="nav-link" [class.active]="activeTab === 'contents'" (click)="setActiveTab('contents')">Published Contents <i class="bi bi-card-list"></i></a>
+				<a class="nav-link" [class.active]="activeTab === 'contents'" (click)="setActiveTab('contents')">Contenuti Pubblicati <i class="bi bi-card-list"></i></a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" [class.active]="activeTab === 'contests'" (click)="setActiveTab('contests')">Participated Contests <i class="bi bi-trophy-fill"></i></a>
+				<a class="nav-link" [class.active]="activeTab === 'contests'" (click)="setActiveTab('contests')">Contest Partecipati <i class="bi bi-trophy-fill"></i></a>
 			</li>
 			<ng-container  *ngIf="authenticated && isUserProfile">
 				<li class="nav-item">
-					<a class="nav-link" [class.active]="activeTab === 'favorites'" (click)="setActiveTab('favorites')">Favorites <i class="bi bi-bookmark-heart"></i></a>
+					<a class="nav-link" [class.active]="activeTab === 'favorites'" (click)="setActiveTab('favorites')">Preferiti <i class="bi bi-bookmark-heart"></i></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" [class.active]="activeTab === 'roles'" (click)="setActiveTab('roles')">Roles <i class="bi bi-person-vcard"></i></a>
+					<a class="nav-link" [class.active]="activeTab === 'roles'" (click)="setActiveTab('roles')">Ruoli <i class="bi bi-person-vcard"></i></a>
 				</li>
 			</ng-container>
 		</ul>

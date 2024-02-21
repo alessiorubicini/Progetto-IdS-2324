@@ -2,20 +2,20 @@
 
 	<ng-container *ngIf="!city">
 		<div class="alert alert-danger" role="alert">
-			Error 404: that city does not exist.
+			Errore 404: questa città non esiste!
 		</div>
 	</ng-container>
 
 	<ng-container *ngIf="city">
 		<div class="row mt-3" *ngIf="authenticated">
 			<div class="d-grid gap-2">
-				<button class="btn btn-outline-primary btn-lg" type="button" [routerLink]="['/city', city.id, 'create-poi']"><i class="bi bi-plus"></i><i class="bi bi-geo-fill"></i> Create point of interest</button>
+				<button class="btn btn-outline-primary btn-lg" type="button" [routerLink]="['/city', city.id, 'create-poi']"><i class="bi bi-plus"></i><i class="bi bi-geo-fill"></i> Crea punto di interesse</button>
 			</div>
 		</div>
 
 		<ng-container *ngIf="!city.points">
 			<div class="spinner-border" role="status">
-				<span class="visually-hidden">Loading...</span>
+				<span class="visually-hidden">Caricamento in corso...</span>
 			</div>
 		</ng-container>
 

@@ -37,17 +37,17 @@ CREATE TABLE Point(
 	longitude FLOAT NULL,
 	latitude FLOAT NULL,
 	altitude FLOAT NULL,
-	imageUrl VARCHAR(300),
+	imageUrl TEXT,
 	cityId INTEGER NOT NULL REFERENCES City.id
 );
 
 CREATE TABLE Content(
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
 	title VARCHAR(50) NOT NULL,
-	description VARCHAR(250) NOT NULL,
+	description VARCHAR(300) NOT NULL,
 	publicationDate DATETIME NOT NULL,
     status ENUM('Pending', 'Published', 'Rejected', 'Draft') NOT NULL,
-    mediaUrl VARCHAR(150) NOT NULL,
+    mediaUrl TEXT NOT NULL,
     authorId INTEGER NOT NULL REFERENCES User.id,
 	pointId INTEGER NOT NULL REFERENCES Point.id,
 	contestId INTEGER REFERENCES Contest.id
@@ -56,7 +56,7 @@ CREATE TABLE Content(
 CREATE TABLE Contest(
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
 	title VARCHAR(30) NOT NULL,
-	description VARCHAR(200),
+	description VARCHAR(300),
 	publicationDate DATETIME NOT NULL,
 	closingDate DATETIME NOT NULL,
 	authorId INTEGER NOT NULL REFERENCES User.id,

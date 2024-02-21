@@ -2,7 +2,7 @@
 
 	<ng-container *ngIf="!api.auth.authenticated">
 		<div class="alert alert-warning" role="alert">
-			Error 401: you are not authenticated.
+			Errore 401: non sei autenticato.
 		</div>
 	</ng-container>
 
@@ -10,7 +10,7 @@
 
 		<ng-container *ngIf="!city">
 			<div class="alert alert-danger" role="alert">
-				Error 404: that city does not exist.
+				Errore 404: questa città non esiste!
 			</div>
 			<a [routerLink]="['../../']">Back to the home</a>
 		</ng-container>
@@ -23,58 +23,43 @@
 				</div>
 			</ng-container>-->
 
-			<nav aria-label="breadcrumb">
-				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
-					<li class="breadcrumb-item"><a [routerLink]="['/city', city.id]">{{ city.name }}</a></li>
-					<li class="breadcrumb-item active">Create point</li>
-				</ol>
-			</nav>
-
-			<h2>Create a point of interest for {{ city.name }}</h2>
+			<h2>Crea punto di interesse per {{ city.name }}</h2>
 
 			<form [formGroup]="form">
 				<div class="form-group mb-4">
-					<label class="form-label" for="name">Name </label>
-					<input type="text" class="form-control" id="name" placeholder="Point name" formControlName="name" required>
+					<label class="form-label" for="name">Nome </label>
+					<input type="text" class="form-control" id="name" placeholder="Nome del punto" formControlName="name" required>
+					<div class="form-text" id="nameHelp">Massimo 30 caratteri.</div>
 				</div>
 
 				<div class="form-group mb-4">
-					<label class="form-label" for="description">Description </label>
-					<textarea class="form-control" id="description" rows="3" placeholder="A description of the point" formControlName="description" required></textarea>
-					<div class="form-text" id="basic-addon4">Max 300 characters.</div>
+					<label class="form-label" for="description">Descrizione </label>
+					<textarea class="form-control" id="description" rows="3" placeholder="Una breve descrizione del punto." formControlName="description" required></textarea>
+					<div class="form-text" id="basic-addon4">Massimo 300 caratteri.</div>
 				</div>
 
-				<!--<div class="form-group mb-4">
-					<label class="form-label" for="type">Type of point </label>
-					<select class="form-select" id="type" [(ngModel)]="typeOfPoint">
-						<option value="logical">Logical</option>
-						<option value="physical">Physical</option>
-					</select>
-				</div>-->
-
 				<div class="form-group mb-4">
-					<label class="form-label" for="coordinates">Coordinates </label>
+					<label class="form-label" for="coordinates">Coordinate </label>
 					<div class="input-group mb-3" id="coordinates">
 						<span class="input-group-text"><i class="bi bi-crosshair"></i></span>
-						<input type="number" class="form-control" placeholder="Longitude" formControlName="longitude">
-						<input type="number" class="form-control" placeholder="Latitude" formControlName="latitude">
-						<input type="number" class="form-control" placeholder="Altitude (m)" formControlName="altitude">
+						<input type="number" class="form-control" placeholder="Longitudine" formControlName="longitude">
+						<input type="number" class="form-control" placeholder="Latitudine" formControlName="latitude">
+						<input type="number" class="form-control" placeholder="Altitudine (m)" formControlName="altitude">
 					</div>
 				</div>
 
 				<div class="form-group mb-3">
-					<label class="form-label" for="image-url">Image URL </label>
+					<label class="form-label" for="image-url">URL dell'immagine </label>
 					<div class="input-group mb-3" id="image-url">
 						<span class="input-group-text"><i class="bi bi-link-45deg"></i></span>
-						<input type="text" class="form-control" placeholder="Enter the url of the image" formControlName="imageUrl" required>
+						<input type="text" class="form-control" placeholder="Link a un'immagine rappresentativa del punto." formControlName="imageUrl" required>
 					</div>
 
 					<div class="accordion" id="previewAccordion">
 						<div class="accordion-item">
 							<h2 class="accordion-header">
 								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-									<i class="bi bi-card-image"></i>&nbsp;Image Preview
+									<i class="bi bi-card-image"></i>&nbsp;Anteprima immagine
 								</button>
 							</h2>
 							<div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
@@ -88,8 +73,8 @@
 				</div>
 
 				<div class="btn-group mt-3" role="group">
-					<button type="button" class="btn btn-outline-danger" [routerLink]="['../']">Cancel</button>
-					<button type="button" class="btn btn-primary" (click)="createPoint()" [disabled]="form.invalid">Create point<i class="bi bi-plus"></i></button>
+					<button type="button" class="btn btn-outline-danger" [routerLink]="['../']">Annulla</button>
+					<button type="button" class="btn btn-primary" (click)="createPoint()" [disabled]="form.invalid">Crea il punto<i class="bi bi-plus"></i></button>
 				</div>
 
 			</form>

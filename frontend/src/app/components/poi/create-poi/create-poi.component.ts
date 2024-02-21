@@ -22,7 +22,7 @@ export class CreatePoiComponent {
 			this.getCityDetail(cityId);
 		});
 		this.form = fb.group({
-			name: new FormControl('', [Validators.required]),
+			name: new FormControl('', [Validators.required, Validators.maxLength(30)]),
 			description: new FormControl('', [Validators.required, Validators.maxLength(300)]),
 			longitude: new FormControl('', [Validators.required]),
 			latitude: new FormControl('', [Validators.required]),

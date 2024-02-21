@@ -3,11 +3,13 @@
 
 	<ng-container *ngIf="!city">
 		<div class="alert alert-danger" role="alert">
-			Error 404: that city does not exist.
+			Errore 404: questa città non esiste!
 		</div>
-		<a [routerLink]="['../../']">Back to the home</a>
+
+		<a [routerLink]="['../../']">Torna alla home</a>
+
 		<div class="spinner-border" role="status">
-			<span class="visually-hidden">Loading...</span>
+			<span class="visually-hidden">Caricamento in corso...</span>
 		</div>
 	</ng-container>
 
@@ -24,13 +26,13 @@
 
 		<ul class="nav nav-tabs mt-4 mt">
 			<li class="nav-item">
-				<a class="nav-link" [class.active]="activeTab === 'pointsOfInterest'" (click)="setActiveTab('pointsOfInterest')">Points of Interest</a>
+				<a class="nav-link" [class.active]="activeTab === 'pointsOfInterest'" (click)="setActiveTab('pointsOfInterest')">Punti di Interesse</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" [class.active]="activeTab === 'areas'" (click)="setActiveTab('areas')">Areas</a>
+				<a class="nav-link" [class.active]="activeTab === 'areas'" (click)="setActiveTab('areas')">Aree</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" [class.active]="activeTab === 'contests'" (click)="setActiveTab('contests')">Contests</a>
+				<a class="nav-link" [class.active]="activeTab === 'contests'" (click)="setActiveTab('contests')">Contest</a>
 			</li>
 		</ul>
 

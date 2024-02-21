@@ -35,7 +35,7 @@ export class AuthService {
 					this.authenticated = true;
 				}),
 				catchError(error => {
-					console.error('Login failed. Error:', error);
+					console.error('Autenticazione fallita. Errore:', error);
 					return throwError(() => error);
 				})
 			);
@@ -49,7 +49,7 @@ export class AuthService {
 					}
 				}),
 				catchError(error => {
-					console.error('Signup failed. Error:', error);
+					console.error('Registrazione fallita. Errore:', error);
 					return throwError(() => error);
 				})
 			);

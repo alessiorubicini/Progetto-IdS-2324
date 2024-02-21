@@ -4,7 +4,7 @@
 
 	<div class="text-center mb-4">
 		<img src="../../../../assets/img/opencity-logo-nobg.png" width="100" alt="App Logo" >
-		<h2 class="mt-2">Welcome to OpenCity!</h2>
+		<h2 class="mt-2">Benvenuti su OpenCity!</h2>
 	  </div>
 
 	<form [formGroup]="form">
@@ -12,20 +12,20 @@
 
 			<div class="col-md-6">
 				<div class="form-group mb-3">
-					<label class="form-label" for="name">Name</label>
-					<input type="text" class="form-control" id="name" formControlName="name" placeholder="Enter your name">
+					<label class="form-label" for="name">Nome</label>
+					<input type="text" class="form-control" id="name" formControlName="name" placeholder="Il tuo nome">
 				</div>
 
 				<div class="form-group mb-3">
-					<label class="form-label" for="surname">Surname</label>
-					<input type="text" class="form-control" id="surname" formControlName="surname" placeholder="Enter your surname">
+					<label class="form-label" for="surname">Cognome</label>
+					<input type="text" class="form-control" id="surname" formControlName="surname" placeholder="Il tuo cognome">
 				</div>
 
 				<div class="form-group mb-3">
-					<label class="form-label" for="username">Username</label>
+					<label class="form-label" for="username">Nome Utente</label>
 					<div class="input-group">
 						<span class="input-group-text" id="basic-addon1">@</span>
-						<input type="text" class="form-control" id="username" formControlName="username" placeholder="Enter your username">
+						<input type="text" class="form-control" id="username" formControlName="username" placeholder="Scegli un nome utente">
 					</div>
 				</div>
 
@@ -33,15 +33,15 @@
 					<label class="form-label" for="email">Email</label>
 					<div class="input-group">
 						<span class="input-group-text" id="basic-addon1"><i class="bi bi-envelope"></i> </span>
-						<input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter your email address">
+						<input type="email" class="form-control" id="email" formControlName="email" placeholder="Il tuo indirizzo email">
 					</div>
 
 				</div>
 
 				<div class="form-group mb-3">
-					<label class="form-label" for="fiscalCode">Fiscal code</label>
-					<input type="text" class="form-control" id="fiscalCode" formControlName="fiscalCode" placeholder="Enter your fiscal code">
-					<p *ngIf="form.hasError('invalidFiscalCode')" class="text-danger">Fiscal code not valid.</p>
+					<label class="form-label" for="fiscalCode">Codice Fiscale</label>
+					<input type="text" class="form-control" id="fiscalCode" formControlName="fiscalCode" placeholder="Il tuo codice fiscale">
+					<p *ngIf="form.hasError('invalidFiscalCode')" class="text-danger">Codice fiscale non valido.</p>
 				</div>
 			</div>
 
@@ -63,7 +63,7 @@
 					</div>
 
 					<div class="mb-3">
-						<label for="password2" class="form-label">Confirm password</label>
+						<label for="password2" class="form-label">Conferma Password</label>
 						<div class="input-group">
 							<span class="input-group-text" id="basic-addon1"><i class="bi bi-key-fill"></i> </span>
 							<input type="{{ passwordVisible ? 'text' : 'password' }}" class="form-control" formControlName="password2" id="password2" placeholder="Confirm your password">
@@ -72,32 +72,32 @@
 							</button>
 						</div>
 						<div *ngIf="password2?.invalid && (password2?.dirty || password2?.touched)">
-							<p *ngIf="password2?.hasError('required')" class="text-danger">Password is required.</p>
-							<p *ngIf="form.hasError('notSame')" class="text-danger">Passwords must match.</p>
+							<p *ngIf="password2?.hasError('required')" class="text-danger">La password è obbligatoria.</p>
+							<p *ngIf="form.hasError('notSame')" class="text-danger">Le password devono corrispondere.</p>
 						</div>
 					</div>
 
 					<div class="form-check form-group mb-3">
 						<input class="form-check-input" type="checkbox" value="" formControlName="termsAndConditions">
 						<label class="form-check-label">
-							I have read and agree to the <a href="#">Terms of Use</a>.
+							Ho letto, compreso e accetto i <a href="#">Termini di utilizzo</a>.
 						</label>
 					</div>
 
 					<div class="form-check form-group mb-4">
 						<input class="form-check-input" type="checkbox" value="" formControlName="privacyPolicy">
 						<label class="form-check-label">
-							I have read and agree to the <a href="#">Privacy Policy</a>.
+							Ho letto, compreso e accetto la <a href="#">Politica sulla privacy</a>.
 						</label>
 					</div>
 
 
 					<div class="form-group mb-3">
-						<button type="button" class="btn btn-primary btn-block w-100" (click)="signup()" [disabled]="form.invalid">Signup</button>
+						<button type="button" class="btn btn-primary btn-block w-100" (click)="signup()" [disabled]="form.invalid">Registrati</button>
 					</div>
 
 					<div class="form-group text-center">
-						<p>Already have an account? <a [routerLink]="['/login']">Login here</a></p>
+						<p>Sei già registrato? <a [routerLink]="['/login']">Accedi qui!</a></p>
 					</div>
 
 			</div>

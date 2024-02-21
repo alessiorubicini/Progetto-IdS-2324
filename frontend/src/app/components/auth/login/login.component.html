@@ -6,17 +6,16 @@
 
 			<div class="text-center mb-4">
 				<img src="../../../../assets/img/opencity-logo-nobg.png" width="150" alt="App Logo">
-				<h2 class="mt-2">Welcome back to OpenCity</h2>
+				<h2 class="mt-2">Bentornati su OpenCity!</h2>
 			</div>
 
 			<form [formGroup]="form">
 				<div class="form-group mb-3">
-					<label for="username">Username</label>
-					<input type="text" class="form-control" id="username" formControlName="username"
-						   placeholder="Enter your username">
+					<label for="username" class="form-label">Nome Utente</label>
+					<input type="text" class="form-control" id="username" formControlName="username"  placeholder="Il tuo nome utente">
 				</div>
 
-				<div class="mb-3">
+				<div class="form-group mb-3">
 					<label for="password" class="form-label">Password</label>
 					<div class="input-group">
 						<input type="{{ passwordVisible ? 'text' : 'password' }}" class="form-control"
@@ -29,7 +28,7 @@
 				</div>
 
 				<div class="form-group mb-3">
-					<button type="button" class="btn btn-primary btn-block w-100" (click)="login()">Login</button>
+					<button type="button" class="btn btn-primary btn-block w-100" (click)="login()">Accedi</button>
 				</div>
 
 				<!--<div class="form-group mb-3">
@@ -37,7 +36,7 @@
 				</div>-->
 
 				<div class="form-group text-center">
-					<p>Don't have an account? <a [routerLink]="['/signup']">Sign up here</a></p>
+					<p>Non hai un account? <a [routerLink]="['/signup']">Iscriviti qui!</a></p>
 				</div>
 			</form>
 		</div>

@@ -6,11 +6,13 @@ import {
 	HttpInterceptor
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {environment} from "../../../environments/environment";
+import {environment} from "../../environments/environment";
 
 @Injectable()
 export class HeaderInterceptor implements HttpInterceptor {
 
+	// This http interceptor is responsible of adding the correct authentication token
+	// to every http request sent to the server
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 		const excludedUrls = [`${environment.apiUrl}/auth/signup`, `${environment.apiUrl}/auth/login`];
 		console.log(request.url)
@@ -20,7 +22,7 @@ export class HeaderInterceptor implements HttpInterceptor {
 
 		const modifiedRequest = request.clone({
 			setHeaders: {
-				'Content-Type': 'application/json',
+				'Content-Type': 'application/json; charset=utf-8',
 				'Authorization': 'Bearer ' + localStorage.getItem("access_token")!
 			}
 		});

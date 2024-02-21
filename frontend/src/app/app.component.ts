@@ -44,7 +44,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
 	public logout() {
 		this.api.auth.logout();
-		this.toastr.success("Successfully logged out!", "Warning", {
+		this.toastr.success("Logout effettuato!", "Attenzione", {
 			timeOut: 3000,
 			positionClass: 'toast-bottom-right'
 		})

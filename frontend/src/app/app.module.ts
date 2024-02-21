@@ -28,9 +28,10 @@ import {ContentDetailComponent} from './components/content/content-detail/conten
 import {AreasListComponent} from './components/area/areas-list/areas-list.component';
 import {ToastrModule} from 'ngx-toastr';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
-import {HeaderInterceptor} from "./services/interceptors/header-interceptor";
+import {HeaderInterceptor} from "./interceptors/header-interceptor";
 import {WebSocketService} from "./services/websocket/web-socket.service";
 import {WebSocketServiceFactory} from "./services/websocket/websocket.service.factory";
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
 	declarations: [
@@ -52,6 +53,7 @@ import {WebSocketServiceFactory} from "./services/websocket/websocket.service.fa
 		ContentDetailComponent,
 		AreasListComponent,
   UserProfileComponent,
+  PageNotFoundComponent,
 	],
 	imports: [
 		BrowserModule,
