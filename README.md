@@ -8,10 +8,21 @@ dei corsi di laurea in Informatica e Informatica per la Comunicazione Digitale d
 ## Descrizione del progetto
 Il progetto propone la creazione di una piattaforma per la valorizzazione e digitalizzazione di territori comunali, permettendo il caricamento di informazioni culturali, turistiche, sportive e altri contenuti di interesse locale. I contenuti sono associati a punti fisici geolocalizzati o concetti amministrativi/geografici. Ogni comune gestisce i punti nel proprio territorio. L'obiettivo è creare una piattaforma collaborativa, consentendo ai cittadini di contribuire con contenuti dopo la verifica di conformità. La piattaforma supporta la creazione di itinerari o esperienze attraverso punti di interesse, caricati da responsabili o in modo collaborativo e validati successivamente.
 
-## Tecnologie utilizzate
 
-### Backend 🏗️
+## Frontend 📱
+
+![OpenCity Homepage](.github/opencity-home.png)
+
+Lato frontend l'applicazione è stata realizzata utilizzando il framework **Angular**, implementa un pattern Single Page Application ed è stata sviluppata per essere responsive, e quindi fruibile sia in modalità web che mobile. Fa affidamento, tra le varie, sulle seguenti librerie npm:
+- [auth0/angular-jwt](https://www.npmjs.com/package/@auth0/angular-jwt): modulo Angular che semplifica l'integrazione di JSON Web Token (JWT) 
+- [ng-bootstrap](https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap): libreria di componenti Angular basata su Bootstrap
+- [leaflet](https://www.npmjs.com/package/leaflet): libreria JavaScript leggera e flessibile per la creazione di mappe interattive, utilizzata in questo contesto per l'aggiunta di mappe tramite le API OSM (Open Street Map).
+
+## Backend 🏗️
+
 Il backend dell'applicativo è stato realizzato sfruttando il framework open-source **SpringBoot**, in particolar il modo il suo modulo web per lo sviluppo di API REST. Per quanto riguarda la persistenza dei dati, il servizio web fornito fa affidamento sulle **JPA (Java Persistence API)** per comunicare con il **database MySQL** sottostante.
+
+![OpenCity Homepage](.github/backend.png)
 
 Il backend fa affidamento, tra le varie, sulle seguenti librerie:
 - [spring-boot-starter-web](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web): dipendenze per lo sviluppo di applicazioni web con Spring Boot
@@ -20,11 +31,7 @@ Il backend fa affidamento, tra le varie, sulle seguenti librerie:
 - [jjwt](https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api): libreria per la gestione di JSON Web Token (JWT).
 - [mysql-connector-java](https://mvnrepository.com/artifact/mysql/mysql-connector-java): driver JDBC per l'interazione con database MySQL
 
-### Frontend 📱
-Lato frontend l'applicazione è stata realizzata utilizzando il framework **Angular**, implementa un pattern Single Page Application ed è stata sviluppata per essere responsive, e quindi fruibile sia in modalità web che mobile. Fa affidamento, tra le varie, sulle seguenti librerie npm:
-- [auth0/angular-jwt](https://www.npmjs.com/package/@auth0/angular-jwt): modulo Angular che semplifica l'integrazione di JSON Web Token (JWT) 
-- [ng-bootstrap](https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap): libreria di componenti Angular basata su Bootstrap
-- [leaflet](https://www.npmjs.com/package/leaflet): libreria JavaScript leggera e flessibile per la creazione di mappe interattive, utilizzata in questo contesto per l'aggiunta di mappe tramite le API OSM (Open Street Map).
+
 
 ### Sicurezza 🔐
 Nello sviluppo del sistema nella sua interezza è stata posta particolare attenzione sui seguenti aspetti di sicurezza:

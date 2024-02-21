@@ -3,7 +3,7 @@
 
 	<ng-container *ngIf="!api.auth.authenticated">
 		<div class="alert alert-warning" role="alert">
-			Error 401: you are not authenticated.
+			Errore 401: non sei autenticato!
 		</div>
 	</ng-container>
 
@@ -11,9 +11,9 @@
 
 		<ng-container *ngIf="!city">
 			<div class="alert alert-danger" role="alert">
-				Error 404: that city does not exist.
+				Errore 404: questa città non esiste!
 			</div>
-			<a [routerLink]="['../../']">Back to the home</a>
+			<a [routerLink]="['../../']">Torna alla home</a>
 		</ng-container>
 
 		<ng-container *ngIf="city">
@@ -24,35 +24,27 @@
 				</div>
 			</ng-container>-->
 
-			<nav aria-label="breadcrumb">
-				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a [routerLink]="['/home']">Home</a></li>
-					<li class="breadcrumb-item"><a [routerLink]="['/city', city.id]">{{ city.name }}</a></li>
-					<li class="breadcrumb-item active">Create Area</li>
-				</ol>
-			</nav>
-
-			<h2>Create an area for {{city.name}}</h2>
+			<h2>Crea un'area per {{city.name}}</h2>
 
 			<form [formGroup]="form">
 				<div class="form-group mb-3">
-					<label class="form-label" for="name">Name</label>
-					<input type="text" class="form-control" id="name" formControlName="name" placeholder= "Enter the name of the area" required>
+					<label class="form-label" for="name">Nome</label>
+					<input type="text" class="form-control" id="name" formControlName="name" placeholder= "Un nome esplicativo per l'area" required>
 				</div>
 
 				<div class="mb-3">
-					<label class="form-label" for="description">Description</label>
-					<textarea class="form-control" id="description" formControlName="description" rows="5" placeholder="A description of the area" required></textarea>
+					<label class="form-label" for="description">Descrizione</label>
+					<textarea class="form-control" id="description" formControlName="description" rows="5" placeholder="Una breve descrizione dell'area" required></textarea>
 				</div>
 
 				<div class="form-group mb-3">
-					<label class="form-label" for="image-url">Image URL </label>
-					<input type="text" class="form-control" id="image-url" formControlName="imageUrl" placeholder= "Enter the url of the image" required>
+					<label class="form-label" for="image-url">URL dell'immagine </label>
+					<input type="text" class="form-control" id="image-url" formControlName="imageUrl" placeholder= "Link a un'immagine rappresentativa dell'area" required>
 				</div>
 
 				<div class="btn-group" role="group">
-					<button type="button" class="btn btn-outline-danger" [routerLink]="['../']">Cancel</button>
-					<button type="button" class="btn btn-primary" (click)="createPoint()" [disabled]="form.invalid">Create point</button>
+					<button type="button" class="btn btn-outline-danger" [routerLink]="['../']">Annulla</button>
+					<button type="button" class="btn btn-primary" (click)="createPoint()" [disabled]="form.invalid">Crea Area</button>
 				</div>
 
 			</form>
