@@ -16,7 +16,6 @@ export class ContestsDetailComponent {
 	cityId?: number;
 	contest?: Contest
 	author?: UserInfo
-	proposedContents?: Content[]
 	searching : Boolean = false;
 	searchQuery: string = '';
 
@@ -46,9 +45,9 @@ export class ContestsDetailComponent {
 
 	get contents() : Content[] | undefined {
 		if(this.searching) {
-			return this.proposedContents!.filter(c => c.title.toLowerCase().startsWith(this.searchQuery.toLowerCase()));
+			return this.contest?.contents!.filter(c => c.title.toLowerCase().startsWith(this.searchQuery.toLowerCase()));
 		} else {
-			return this.proposedContents;
+			return this.contest?.contents;
 		}
 	}
 

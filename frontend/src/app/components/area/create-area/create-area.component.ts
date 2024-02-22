@@ -6,6 +6,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Point} from "../../../models/point";
 import {catchError, tap, throwError} from "rxjs";
 import {HttpResponse} from "@angular/common/http";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
 	selector: 'app-create-area',
@@ -16,7 +17,7 @@ export class CreateAreaComponent {
 	city?: City;
 	form: FormGroup;
 
-	constructor(private route: ActivatedRoute, private router: Router, public api: ApiService, private fb: FormBuilder) {
+	constructor(private route: ActivatedRoute, private router: Router, public api: ApiService, private fb: FormBuilder, public toastr: ToastrService) {
 		this.route.params.subscribe(params => {
 			const id = params["id"];
 			this.getCityDetail(id);
@@ -37,16 +38,15 @@ export class CreateAreaComponent {
 	createPoint(): void {
 		if(this.form.valid) {
 			const point: Point = this.getPointFromForm();
-			this.api.point.addPoint(point).pipe(tap((response: HttpResponse<any>) => {
-					if(response.status === 200) {
-						this.router.navigate(['../']);
+			this.api.point.addPoint(point).subscribe({
+					next: (data) => {
+						this.router.navigate(['city', this.city?.id]);
+					},
+					error: (error) => {
+						console.error('Error:', error);
+						this.toastr.error(error, 'Error while creating area');
 					}
-				}),
-				catchError(error => {
-					console.error('Signup failed. Error:', error);
-					return throwError(() => error);
-				})
-			);
+				});
 		}
 	}
 

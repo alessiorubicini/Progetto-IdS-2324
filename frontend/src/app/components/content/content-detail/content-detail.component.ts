@@ -56,14 +56,4 @@ export class ContentDetailComponent {
 		});
 	}
 
-	addAsFavorite() {
-		/*this.api.content.addFavorite(this.content!.id!).pipe(tap(data => {
-				this.toastr.success('', 'Content added to your favorites');
-			}),
-			catchError(error => {
-				this.toastr.error(error, 'Error while adding content to favorites');
-				throw error;
-			})
-		);*/
-	}
 }
