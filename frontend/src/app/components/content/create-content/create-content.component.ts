@@ -8,6 +8,7 @@ import {ContentStatus} from "../../../models/contentstatus";
 import {ToastrService} from "ngx-toastr";
 import {Point} from "../../../models/point";
 import {point} from "leaflet";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
 	selector: 'app-create-content',
@@ -18,6 +19,7 @@ export class CreateContentComponent {
 	city?: City;
 	point?: Point;
 	form: FormGroup;
+	loading: Boolean = true;
 
 	constructor(private route: ActivatedRoute, private router: Router, public api: ApiService, private fb: FormBuilder, public toastr: ToastrService) {
 		this.route.params.subscribe(params => {
@@ -41,10 +43,9 @@ export class CreateContentComponent {
 					this.toastr.success('', 'Content created successfully');
 					this.router.navigate(['city', this.point?.cityId, 'points', this.point?.id]);
 				},
-				error: (error) => {
-					console.error('Error:', error);
-					console.log('Status:', error.status);
-					this.toastr.error(error, 'Error while creating content');
+				error: (error: HttpErrorResponse) => {
+					console.error('Error:', error.error);
+					this.toastr.error(error.error, 'Error while creating content');
 				}
 			});
 		}
@@ -76,6 +77,7 @@ export class CreateContentComponent {
 	private getPointDetail(cityId: number, pointId: number): void {
 		this.api.point.getPointDetails(cityId, pointId).subscribe((point) => {
 			this.point = point;
+			this.loading = false;
 		})
 	}
 

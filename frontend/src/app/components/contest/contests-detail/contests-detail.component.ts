@@ -18,6 +18,7 @@ export class ContestsDetailComponent {
 	author?: UserInfo
 	searching : Boolean = false;
 	searchQuery: string = '';
+	loading: Boolean = true;
 
 	constructor(private route: ActivatedRoute, public api: ApiService, private router: Router, public toastr: ToastrService) {
 		this.route.params.subscribe(params => {
@@ -34,6 +35,7 @@ export class ContestsDetailComponent {
 			if(this.contest) {
 				this.getUserDetail(this.contest!.authorId);
 			}
+			this.loading = false;
 		})
 	}
 

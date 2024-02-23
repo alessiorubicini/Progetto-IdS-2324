@@ -10,18 +10,20 @@ import {ApiService} from "../../services/facades/api/api.service";
 })
 export class CityDetailComponent {
 	city?: City;
+	loading: Boolean = true;
 	activeTab: string = 'pointsOfInterest';
 
 	constructor(private route: ActivatedRoute, private api: ApiService) {
 		this.route.params.subscribe(params => {
 			const cityId = params["id"];
 			this.getCityDetail(cityId);
-		})
+		});
 	}
 
 	getCityDetail(id: number) : void {
 		this.api.city.getCityById(id).subscribe((city) => {
 			this.city = city;
+			this.loading = false;
 		})
 	}
 

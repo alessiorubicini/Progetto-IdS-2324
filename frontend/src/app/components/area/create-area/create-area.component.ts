@@ -5,7 +5,7 @@ import {ApiService} from "../../../services/facades/api/api.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Point} from "../../../models/point";
 import {catchError, tap, throwError} from "rxjs";
-import {HttpResponse} from "@angular/common/http";
+import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 import {ToastrService} from "ngx-toastr";
 
 @Component({
@@ -42,9 +42,9 @@ export class CreateAreaComponent {
 					next: (data) => {
 						this.router.navigate(['city', this.city?.id]);
 					},
-					error: (error) => {
-						console.error('Error:', error);
-						this.toastr.error(error, 'Error while creating area');
+					error: (error: HttpErrorResponse) => {
+						console.error('Error:', error.error);
+						this.toastr.error(error.error, 'Error while creating area');
 					}
 				});
 		}

@@ -6,6 +6,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Point} from "../../../models/point";
 import {catchError, tap} from "rxjs";
 import {ToastrService} from "ngx-toastr";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
 	selector: 'app-create-poi',
@@ -15,6 +16,7 @@ import {ToastrService} from "ngx-toastr";
 export class CreatePoiComponent {
 	city?: City;
 	form: FormGroup;
+	loading: Boolean = true;
 
 	constructor(private route: ActivatedRoute, private router: Router, public api: ApiService, private fb: FormBuilder, public toastr: ToastrService) {
 		this.route.params.subscribe(params => {
@@ -41,8 +43,8 @@ export class CreatePoiComponent {
 						this.toastr.success('', 'Point created successfully');
 						this.router.navigate(['city', this.city?.id]);
 					},
-					error: (error) => {
-						this.toastr.error(error, 'Error while creating point');
+					error: (error: HttpErrorResponse) => {
+						this.toastr.error(error.error, 'Error while creating point');
 					}
 				});
 		} else {
@@ -69,6 +71,7 @@ export class CreatePoiComponent {
 	getCityDetail(id: number): void {
 		this.api.city.getCityById(id).subscribe((city) => {
 			this.city = city;
+			this.loading = false;
 		})
 	}
 

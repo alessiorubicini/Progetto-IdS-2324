@@ -1,9 +1,17 @@
 <div class="container mt-5">
-	<ng-container *ngIf="!content">
+	<ng-container *ngIf="!content && !loading">
 		<div class="alert alert-danger" role="alert">
 			Errore 404: questo contenuto non esiste!
 		</div>
 		<a [routerLink]="['../../']">Torna al punto</a>
+	</ng-container>
+
+	<ng-container *ngIf="!content && loading" class="col text-center">
+		<div class="text-center py-5">
+			<div class="spinner-border text-primary" role="status">
+				<span class="visually-hidden">Loading...</span>
+			</div>
+		</div>
 	</ng-container>
 
 	<ng-container *ngIf="content">

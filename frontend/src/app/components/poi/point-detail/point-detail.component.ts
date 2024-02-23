@@ -13,7 +13,8 @@ import {ToastrService} from "ngx-toastr";
   styleUrls: ['./point-detail.component.scss']
 })
 export class PointDetailComponent {
-	point?: Point
+	point?: Point;
+	loading: Boolean = true;
 
 	constructor(private route: ActivatedRoute, private router: Router, public api: ApiService, private fb: FormBuilder, public toastr: ToastrService) {
 		this.route.params.subscribe(params => {
@@ -26,6 +27,7 @@ export class PointDetailComponent {
 	getPointDetail(cityId: number, pointId: number) {
 		this.api.point.getPointDetails(cityId, pointId).subscribe((point) => {
 			this.point = point;
+			this.loading = false;
 		})
 	}
 

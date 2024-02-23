@@ -10,7 +10,8 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./points-of-interest.component.scss']
 })
 export class PointsOfInterestComponent {
-	city?: City
+	city?: City;
+	loading: Boolean = true;
 
 	constructor(private route: ActivatedRoute, private api: ApiService) {
 		this.route.params.subscribe(params => {
@@ -22,6 +23,7 @@ export class PointsOfInterestComponent {
 	private getCityDetail(id: number) : void {
 		this.api.city.getCityById(id).subscribe((city) => {
 			this.city = city;
+			this.loading = false;
 		})
 	}
 

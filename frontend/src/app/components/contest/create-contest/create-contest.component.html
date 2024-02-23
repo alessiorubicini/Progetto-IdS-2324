@@ -8,11 +8,17 @@
 
 	<ng-container *ngIf="api.auth.authenticated">
 
-		<ng-container *ngIf="!city">
+		<ng-container *ngIf="!city && !loading">
 			<div class="alert alert-danger" role="alert">
 				Error 404: that city does not exist.
 			</div>
 			<a [routerLink]="['../../']">Back to the home</a>
+		</ng-container>
+
+		<ng-container *ngIf="!city && loading">
+			<div class="spinner-border text-light" role="status">
+				<span class="visually-hidden">Loading...</span>
+			</div>
 		</ng-container>
 
 		<ng-container *ngIf="city">

@@ -14,9 +14,10 @@ import {catchError, tap} from "rxjs";
 	styleUrls: ['./content-detail.component.scss']
 })
 export class ContentDetailComponent {
-	content?: Content
-	cityId?: number
-	user?: UserInfo
+	content?: Content;
+	cityId?: number;
+	user?: UserInfo;
+	loading: Boolean = true;
 
 	constructor(private route: ActivatedRoute, private router: Router, public api: ApiService, public toastr: ToastrService) {
 		this.route.params.subscribe(params => {
@@ -34,6 +35,7 @@ export class ContentDetailComponent {
 			if (this.content) {
 				this.getUserDetail(this.content!.authorId);
 			}
+			this.loading = false;
 		})
 	}
 

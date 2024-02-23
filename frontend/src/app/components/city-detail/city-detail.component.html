@@ -1,15 +1,17 @@
 <!-- city-detail.component.html -->
 <div class="container mt-5">
 
-	<ng-container *ngIf="!city">
+	<ng-container *ngIf="!city && !loading">
 		<div class="alert alert-danger" role="alert">
 			Errore 404: questa città non esiste!
 		</div>
 
 		<a [routerLink]="['../../']">Torna alla home</a>
+	</ng-container>
 
-		<div class="spinner-border" role="status">
-			<span class="visually-hidden">Caricamento in corso...</span>
+	<ng-container *ngIf="!city && loading">
+		<div class="spinner-border text-light" role="status">
+			<span class="visually-hidden">Loading...</span>
 		</div>
 	</ng-container>
 

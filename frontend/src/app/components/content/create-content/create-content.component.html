@@ -8,11 +8,17 @@
 
 	<ng-container *ngIf="api.auth.authenticated">
 
-		<ng-container *ngIf="!city">
+		<ng-container *ngIf="!city && !loading">
 			<div class="alert alert-danger" role="alert">
 				Errore 404: questa città non esiste!
 			</div>
 			<a [routerLink]="['../../']">Torna alla home</a>
+		</ng-container>
+
+		<ng-container *ngIf="!city && loading">
+			<div class="spinner-border text-light" role="status">
+				<span class="visually-hidden">Loading...</span>
+			</div>
 		</ng-container>
 
 		<ng-container *ngIf="city">
@@ -33,7 +39,7 @@
 				</div>
 
 				<div class="form-group mb-4">
-					<label class="form-label" for="description">Description </label>
+					<label class="form-label" for="description">Descrizione </label>
 					<textarea class="form-control" id="description" formControlName="description" rows="5" placeholder="Una breve descrizione del contenuto." aria-describedby="descriptionHelp" required></textarea>
 					<div class="form-text" id="descriptionHelp">Massimo 300 caratteri.</div>
 				</div>

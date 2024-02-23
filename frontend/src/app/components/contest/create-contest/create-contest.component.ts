@@ -5,6 +5,7 @@ import {ApiService} from "../../../services/facades/api/api.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Contest} from "../../../models/contest";
 import {ToastrService} from "ngx-toastr";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
 	selector: 'app-create-contest',
@@ -12,9 +13,9 @@ import {ToastrService} from "ngx-toastr";
 	styleUrls: ['./create-contest.component.scss']
 })
 export class CreateContestComponent {
-
 	city?: City;
 	form: FormGroup;
+	loading: Boolean = true;
 
 	constructor(private route: ActivatedRoute, private router: Router, public api: ApiService, private fb: FormBuilder, public toastr: ToastrService) {
 		this.route.params.subscribe(params => {
@@ -31,6 +32,7 @@ export class CreateContestComponent {
 	getCityDetail(id: number): void {
 		this.api.city.getCityById(id).subscribe((city) => {
 			this.city = city;
+			this.loading = false;
 		})
 	}
 
@@ -42,8 +44,8 @@ export class CreateContestComponent {
 					this.toastr.success('', 'Contest created successfully');
 					this.router.navigate(['city', this.city?.id]);
 				},
-				error: (error) => {
-					this.toastr.error(error.message(), 'Error while creating contest');
+				error: (error: HttpErrorResponse) => {
+					this.toastr.error(error.error, 'Error while creating contest');
 				}
 			});
 		}

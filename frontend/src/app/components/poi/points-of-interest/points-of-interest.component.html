@@ -1,8 +1,16 @@
 <div class="points-of-interest">
 
-	<ng-container *ngIf="!city">
+	<ng-container *ngIf="!city && !loading">
 		<div class="alert alert-danger" role="alert">
 			Errore 404: questa città non esiste!
+		</div>
+	</ng-container>
+
+	<ng-container *ngIf="!city && loading" class="col text-center">
+		<div class="text-center py-5">
+			<div class="spinner-border text-primary" role="status">
+				<span class="visually-hidden">Loading...</span>
+			</div>
 		</div>
 	</ng-container>
 
