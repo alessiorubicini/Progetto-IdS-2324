@@ -1,3 +1,9 @@
 .point-image {
 	border-radius: 6px;
 }
+
+@media screen and (max-width: 575px) {
+	#contents, .point-image {
+		margin-top: 20px;
+	}
+}

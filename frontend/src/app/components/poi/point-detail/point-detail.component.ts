@@ -6,6 +6,7 @@ import {ApiService} from "../../../services/facades/api/api.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-point-detail',
@@ -37,8 +38,8 @@ export class PointDetailComponent {
 				this.toastr.success('', 'Point deleted successfully');
 				this.router.navigate(['city', this.point?.cityId!]);
 			},
-			error: (error) => {
-				this.toastr.error(error, 'Error while deleting point');
+			error: (error: HttpErrorResponse) => {
+				this.toastr.error(error.error, 'Error while deleting point');
 			}
 		});
 	}

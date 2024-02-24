@@ -7,6 +7,7 @@ import {UserInfo} from "../../../models/user-info";
 import {ApiService} from "../../../services/facades/api/api.service";
 import {ToastrService} from "ngx-toastr";
 import {catchError, tap} from "rxjs";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
 	selector: 'app-content-detail',
@@ -51,9 +52,8 @@ export class ContentDetailComponent {
 				this.toastr.success('', 'Content deleted successfully');
 				this.router.navigate(['city', this.cityId!, 'points', this.content?.pointId!]);
 			},
-			error: (error) => {
-				this.toastr.error(error, 'Error while creating content');
-				throw error;
+			error: (error: HttpErrorResponse) => {
+				this.toastr.error(error.error, 'Error while creating content');
 			}
 		});
 	}

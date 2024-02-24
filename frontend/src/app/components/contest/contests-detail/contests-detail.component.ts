@@ -6,6 +6,7 @@ import {ApiService} from "../../../services/facades/api/api.service";
 import {Content} from "../../../models/content";
 import {UserInfo} from "../../../models/user-info";
 import {ToastrService} from "ngx-toastr";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-contests-detail',
@@ -59,10 +60,9 @@ export class ContestsDetailComponent {
 				this.toastr.success('', 'Contest deleted successfully');
 				this.router.navigate(['city', this.contest?.id!]);
 			},
-			error: (error) => {
-				console.error('Error:', error);
-				console.log('Status:', error.status);
-				this.toastr.error(error, 'Error while deleting contest');
+			error: (error: HttpErrorResponse) => {
+				console.error('Error:', error.error);
+				this.toastr.error(error.error, 'Error while deleting contest');
 			}
 		});
 	}
