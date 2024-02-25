@@ -23,17 +23,18 @@ export class AppComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit() {
-		if(this.api.auth.authenticated) {
+		/*if(this.api.auth.authenticated) {
 			for (let participation of this.api.roles.getAllUserRoles()) {
-				if(participation.role.title === 'Curator' || participation.role.title == 'City Manager') {
+				if(participation.id.role.title === 'Curator' || participation.id.role.title == 'City Manager') {
 					this.connections.push(this.webSocketService
-						.watch(`/messages/city/${participation.cityId}`)
+						.watch(`/messages/city/${participation.id.cityId}`)
 						.subscribe((message: Message) => {
-							this.toastr.show(message.body, 'Message from server');
+							this.toastr.show(message.body, 'Message incoming');
 						}));
+					console.log("Opening Web Socket because important user...")
 				}
 			}
-		}
+		}*/
 	}
 
 	ngOnDestroy() {
@@ -44,7 +45,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
 	public logout() {
 		this.api.auth.logout();
-		this.toastr.success("Logout effettuato!", "Attenzione", {
+		this.toastr.success("", "Logout effettuato!", {
 			timeOut: 3000,
 			positionClass: 'toast-bottom-right'
 		})

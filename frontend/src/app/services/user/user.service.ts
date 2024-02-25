@@ -16,5 +16,7 @@ export class UserService {
 		return this.httpClient.get<UserInfo>(`${environment.apiUrl}/users/${id}`);
 	}
 
-	//public addRole()
+	public addRole(userId: number, roleId: number, cityId: number): Observable<any>{
+		return this.httpClient.post(`${environment.apiUrl}/users/addRole?cityId=${cityId}&roleId=${roleId}`, {});
+	}
 }

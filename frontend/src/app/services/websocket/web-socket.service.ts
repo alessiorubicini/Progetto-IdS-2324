@@ -11,5 +11,4 @@ export class WebSocketService extends RxStomp {
 	constructor() {
 		super();
 	}
-	
 }

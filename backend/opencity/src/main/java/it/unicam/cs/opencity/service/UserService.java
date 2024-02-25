@@ -64,9 +64,8 @@ public class UserService implements UserDetailsService {
         return true;
     }
 
-    public boolean addUser(User user) {
+    public void addUser(User user) {
         User savedUser = this.userRepository.save(user);
-        return savedUser != null;
     }
 
     public Iterable<User> getAllUsers() {
