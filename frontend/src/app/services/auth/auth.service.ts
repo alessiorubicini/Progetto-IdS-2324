@@ -44,9 +44,7 @@ export class AuthService {
 	public signup(user: User): Observable<any> {
 		return this.httpClient.post(`${environment.apiUrl}/auth/signup`, user, {observe: 'response'})
 			.pipe(tap((response: HttpResponse<any>) => {
-					if(response.status === 200) {
-						this.router.navigate(['/login']);
-					}
+					this.router.navigate(['/login']);
 				}),
 				catchError(error => {
 					console.error('Registrazione fallita. Errore:', error);

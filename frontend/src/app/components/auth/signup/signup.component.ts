@@ -59,14 +59,13 @@ export class SignupComponent {
 			.subscribe({
 				next: (result) => {
 					console.log('Signup successful:', result);
+					this.router.navigate(['/login']);
 				},
 				error: (error: HttpErrorResponse) => {
-					console.error('Signup failed:', error);
 					alert(`Signup failed: ${error.error}`);
 				},
 				complete: () => {
 					console.log('Signup completed');
-					this.router.navigate(['/login']);
 				}
 			});
 	}

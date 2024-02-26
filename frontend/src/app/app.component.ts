@@ -16,7 +16,7 @@ export class AppComponent implements OnInit, OnDestroy {
 	title = 'OpenCity';
 	connections: Subscription[] = [];
 
-	constructor(private api: ApiService, public toastr: ToastrService, public titleService: Title, private meta: Meta, private webSocketService: WebSocketService) {
+	constructor(private api: ApiService, public toastr: ToastrService, public titleService: Title, private meta: Meta/*, private webSocketService: WebSocketService*/) {
 		this.titleService.setTitle("OpenCity");
 		this.meta.addTag({ name: 'theme-color', content: '#D9EAFB', media: '(prefers-color-scheme: light)' });
 		this.meta.addTag({ name: 'theme-color', content: '#D9EAFB', media: '(prefers-color-scheme: dark)' });

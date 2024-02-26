@@ -50,9 +50,9 @@ public class AuthenticationController {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         try {
             userService.addUser(user);
-            return ResponseEntity.ok("User added");
+            return ResponseEntity.status(200).build();
         } catch(Exception e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error while signing up.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Error: " + e.getMessage());
         }
     }
 
